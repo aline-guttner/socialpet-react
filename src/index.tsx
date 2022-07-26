@@ -1,7 +1,10 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Cadastro from 'pages/Cadastro/Cadastro';
+import Login from 'pages/Login/Login';
+import Perfil from 'pages/Perfil';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -9,7 +12,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Perfil />
   </React.StrictMode>
 );
 

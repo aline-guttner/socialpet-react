@@ -1,0 +1,57 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.menu{
+    background-color: $cor2;
+    height: 100vh;
+    position: fixed;
+    padding: 2rem;
+    padding-top: 5rem;
+    color: $cor1;
+    font-size: 1.2rem;
+    font-weight: 300;
+    box-shadow: 1px 0 2px gray;
+
+    min-width: 300px;
+
+    @media (max-width: $mobile){
+        display: none;
+    }
+
+    &__inativo{
+        display:none;
+    }
+    li{
+        list-style-type: none;
+        padding: 0.3rem;
+        padding-left: 1.5rem;
+        cursor: pointer;
+        &:hover{text-decoration: underline;
+        }
+    }
+
+    h2{
+        font-weight: 500;
+        font-size: 1.5rem;
+        padding-bottom:0.4rem;
+        padding: 1rem;
+        border-radius: 8px;
+
+        &:hover{
+            color: $cor2;
+            background-color: $cor1;
+        }
+    }
+    button{
+        color: $cor1;
+        border: none;
+        outline: none;
+        background-color: $cor2;
+        cursor: pointer;
+        padding-left: 1.5rem;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+

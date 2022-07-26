@@ -1,0 +1,72 @@
+@media (min-width: 768px) { 
+    .cadastroForm{
+        width: 700px!important;
+        height: auto!important;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-height: 90%!important;
+        
+    }
+}
+
+.cadastroForm{
+    
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    background-color: var(--color2); 
+    height: 100%;
+
+    img{
+        margin-bottom: 2rem;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    label{
+        color: var(--color);
+    margin-bottom: 1rem;
+    }
+
+    div{
+        width: 100%;
+    }
+
+    input{
+        outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: #f7b600 1px solid;
+    margin-bottom: 1rem;
+    width: 100%;    
+    border-radius: 6px;
+    padding-left: 0.5rem;
+    }
+}
+
+
+
+.senhas {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+   
+}
+
+
+.divPassword1{
+   margin-right: 1rem;
+}
+
+.divPassword2{
+    margin-left: 1rem;
+ }
+
+
