@@ -1,0 +1,6 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+main > div{
+    box-shadow: $bxshadow;
+}

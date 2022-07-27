@@ -1,0 +1,103 @@
+@import 'styles/variaveis';
+
+*{
+    margin: none;
+    padding:none ;
+}
+
+@media (min-width: 768px) { 
+    body{
+        background-color: var(--color);
+    }
+
+
+.loginForm{
+    width: 350px!important;
+    height: auto!important;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color2); 
+    
+}
+}
+
+
+
+.loginForm{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    background-color: var(--color2);
+
+    img{
+        margin-bottom: 30px;
+    }
+
+    label{
+        color: var(--color);
+        margin-bottom: 20px;
+    }
+
+    div{
+        width: 100%;
+    }
+
+    input{
+        outline: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: #f7b600 1px solid;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    hr{
+        border-top: none;
+        border-bottom: solid 1px var(--color)!important;
+        width: 100%;
+    }
+}
+
+.loginButton{
+    &:hover,&:focus{
+        background-color: var(--color2);
+        color: var(--color)!important;
+        border: solid 1px var(--color);
+        cursor: pointer;
+    }
+
+    border: none;
+    outline: none;
+    background-color: var(--color);
+    color: var(--color2);
+    border-radius: 4px;
+    font-size: large;
+    padding: 10px 15px 10px 15px;
+    margin:30px;
+}
+
+.pinscricao{
+    font-size: medium;
+    color: var(--color);
+}
+
+.inscricao{
+
+    &:hover{
+        text-decoration: underline;
+    cursor: pointer;
+    }
+    border: none;
+    outline: none;
+    background-color: var(--color2);
+    color:var(--EditAndLink);
+    font-size: medium;
+    text-decoration: none;
+}

@@ -1,0 +1,79 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.menu{
+    background-color: $cor2;
+    height: 87%;
+    max-height: 100%;
+    position: fixed;
+    padding: 2rem;
+    color: $cor1;
+    font-size: 1.2rem;
+    font-weight: 300;
+    box-shadow: $bxshadow;
+    margin-left: 10px;
+    margin-top: 70px;
+    width: 25%;
+
+    @media (max-width: $mobile){
+        width: 100%;
+        margin: 60px 0 0 0;
+        height: 100%;
+
+        
+    }
+
+    &__inativo{
+        display:none;
+    }
+    li{
+        list-style-type: none;
+        padding: 0.3rem;
+        padding-left: 1.5rem;
+        cursor: pointer;
+        &:hover{text-decoration: underline;
+        }
+    }
+
+    h2{
+        font-weight: 500;
+        font-size: 1.5rem;
+        padding-bottom:0.4rem;
+        padding: 0.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover{
+            color: $cor2;
+            background-color: $cor1;
+            .link{
+            color: $cor2;
+            }
+        }
+
+        .link:hover{
+            color: $cor2;
+            text-decoration: none;
+        }
+    }
+    button{
+        color: $cor1;
+        border: none;
+        outline: none;
+        background-color: $cor2;
+        cursor: pointer;
+        padding-left: 1.5rem;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+
+.link{
+    text-decoration: none;
+    color: $cor1;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+        color: $cor1;
+    }
+}

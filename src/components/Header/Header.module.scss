@@ -1,0 +1,23 @@
+@import "styles/variaveis";
+
+.mynavbar{
+    background-color: $cor1 ;
+    display: flex;
+    flex-direction: row;
+    justify-content:  center;
+    position:fixed;
+    height: 60px;
+	width: 100%;
+	z-index: 1000;
+    box-sizing: border-box;
+}
+
+.botaoMenu{
+    border: none;
+	padding: none;
+	background-color: $cor1;
+    outline: none;
+    position: fixed;
+    left: 10px;
+    top: 12px;
+}
