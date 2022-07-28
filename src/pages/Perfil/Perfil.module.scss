@@ -4,3 +4,14 @@
 main > div{
     box-shadow: $bxshadow;
 }
+
+
+    .container{
+        padding: 0!important;
+
+        @media (max-width: $mobile){
+            .container{
+                padding: none;
+            }
+        }
+    }

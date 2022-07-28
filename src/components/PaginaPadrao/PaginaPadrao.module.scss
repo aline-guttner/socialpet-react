@@ -1,9 +1,9 @@
 @import 'styles/breakpoints';
 @import 'styles/variaveis';
 
-.displayRow{
-    justify-content: space-between;
-    row-gap: 0;
+.rowFlex{
+    justify-content: center;
+    
 }
 
 .colunaOculta{

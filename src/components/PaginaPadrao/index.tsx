@@ -18,14 +18,13 @@ export default function PaginaPadrao() {
                     <Header menu={menu} setMenu={setMenu} />
                 </Col>
             </Row>
-            <Row className="gx-0" >
-                <Col sm={12} className={menu === true ? "col-md-2" : style.colunaOculta}><Menu menu={menu} /></Col>
-                <Col className={classNames({
-                    [style.mainReduzido]: menu === true,
-                    "col-md-7": menu === true,
-                    "col-md-10": menu === false
-                })}><Outlet /></Col>
-                <Col><Sidebar /></Col>
+            <Row className={classNames({
+                "gx-0": true,
+                [style.rowFlex]: true
+            })} >
+                <Col sm={12} className={menu === true ? "col-md-3" : style.colunaOculta}><Menu menu={menu} /></Col>
+                <Col className="col-md-7"><Outlet /></Col>
+                <Col md={2}><Sidebar /></Col>
             </Row>
         </div >
     )

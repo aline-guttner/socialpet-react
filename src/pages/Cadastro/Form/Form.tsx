@@ -20,7 +20,7 @@ function Form({ dados }: Props) {
     return (
         <form className={classNames({
             [style.cadastroForm]: true,
-            "container-fluid": true
+            "container": true
         })}>
             <img src={SPimg}
                 alt="Logo de gato branco caminhado em um fundo laranja e título 'Social Pet' ao lado"></img>
