@@ -51,13 +51,30 @@
 
         &__fotosPets{
             height: 80px!important;
+            pointer-events:none;    
             width: 80px!important;
-            cursor: pointer;
             object-fit: cover;
             border: solid $cor1;
             border-radius: 50%;
             margin: 10px;
+            opacity: 1;
         }
+
+        input[type=file]{
+            opacity:0;
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+        }
+
+        &__inputImgWrapper{
+            display:inline-block;
+            position:relative
+        }
+
+
         
     }
 
