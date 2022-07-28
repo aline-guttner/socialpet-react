@@ -19,7 +19,11 @@ export default function Principal() {
                 </span>
                 {pets.map(pet => (
                     <span className={style.fotosNomes__pets}>
-                        <img src={pet.src} className={style.fotosNomes__pets__fotosPets} alt="Foto de animal" />
+                        <span>
+                            <input type="file" onClick={() => { console.log('Heelo') }} />
+                            <img src={pet.src} className={style.fotosNomes__pets__fotosPets} alt="Foto de animal" />
+                        </span>
+
                         <p className={style.fotosNomes__pets__nomesPets}>{pet.nome}</p>
                     </span>
                 ))}
