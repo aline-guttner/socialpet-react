@@ -1,12 +1,4 @@
 import style from './Principal.module.scss';
-<<<<<<< HEAD
-
-export default function Principal() {
-    return (
-        <section className={style.principal}>
-            <h2>Dados</h2>
-        </section>
-=======
 import tamara from 'assets/imagens/tamara-andreeva-priroda-peizazh-gory-altai-zhivotnoe-kot.jpg'
 import classNames from 'classnames';
 import pets from 'dados/pets'
@@ -34,6 +26,5 @@ export default function Principal() {
             </div>
         </section>
 
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     )
 }

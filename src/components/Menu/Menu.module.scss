@@ -3,21 +3,6 @@
 
 .menu{
     background-color: $cor2;
-<<<<<<< HEAD
-    height: 100vh;
-    position: fixed;
-    padding: 2rem;
-    padding-top: 5rem;
-    color: $cor1;
-    font-size: 1.2rem;
-    font-weight: 300;
-    box-shadow: 1px 0 2px gray;
-
-    min-width: 300px;
-
-    @media (max-width: $mobile){
-        display: none;
-=======
     height: 87%;
     max-height: 100%;
     position: fixed;
@@ -28,7 +13,7 @@
     box-shadow: $bxshadow;
     margin-left: 10px;
     margin-top: 70px;
-    width: 25%;
+    width: 24.2%;
 
     @media (max-width: $mobile){
         width: 100%;
@@ -36,7 +21,6 @@
         height: 100%;
 
         
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     }
 
     &__inativo{
@@ -55,14 +39,6 @@
         font-weight: 500;
         font-size: 1.5rem;
         padding-bottom:0.4rem;
-<<<<<<< HEAD
-        padding: 1rem;
-        border-radius: 8px;
-
-        &:hover{
-            color: $cor2;
-            background-color: $cor1;
-=======
         padding: 0.5rem;
         border-radius: 8px;
         cursor: pointer;
@@ -77,7 +53,6 @@
         .link:hover{
             color: $cor2;
             text-decoration: none;
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
         }
     }
     button{
@@ -93,8 +68,6 @@
     }
 }
 
-<<<<<<< HEAD
-=======
 .link{
     text-decoration: none;
     color: $cor1;
@@ -104,4 +77,3 @@
         color: $cor1;
     }
 }
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86

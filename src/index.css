@@ -42,27 +42,10 @@ table {
     border-spacing: 0;
 }
 
-<<<<<<< HEAD
-:root{
-  --color: #f7b600;;
---color2: white;
-  --EditAndLink: #0362fc;;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
-
-html{
-  height: 100vh;
-}
-
-body {
-  height: 100vh;
-=======
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
 
 body {
 
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
   margin: 0;
   box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
@@ -76,9 +59,4 @@ code {
     monospace;
 }
 
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86

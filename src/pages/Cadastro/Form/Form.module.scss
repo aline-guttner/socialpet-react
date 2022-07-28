@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
 @import 'styles/variaveis';
 @import 'styles/breakpoints';
 
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
 @media (min-width: 768px) { 
     .cadastroForm{
         width: 700px!important;
@@ -11,40 +8,22 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-<<<<<<< HEAD
-        max-height: 90%!important;
-        
-=======
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     }
 }
 
 .cadastroForm{
-<<<<<<< HEAD
-    
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-=======
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100% ;
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     position: absolute;
     box-sizing: border-box;
     background-color: var(--color2); 
     height: 100%;
 
     img{
-<<<<<<< HEAD
-        margin-bottom: 2rem;
-=======
         margin-bottom: 1.5rem;
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
         margin-left: 50%;
         transform: translateX(-50%);
     }
@@ -69,15 +48,12 @@
     border-radius: 6px;
     padding-left: 0.5rem;
     }
-<<<<<<< HEAD
-=======
 
     hr{
         border-top: none;
         border-bottom: solid 1px $cor1;
         width: 100%;
     }
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
 }
 
 
@@ -99,8 +75,6 @@
     margin-left: 1rem;
  }
 
-<<<<<<< HEAD
-=======
  .plogin{
     font-size: medium;
     color: var(--color);
@@ -123,5 +97,4 @@
    
     
 }
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
 

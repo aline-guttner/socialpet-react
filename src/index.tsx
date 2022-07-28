@@ -2,26 +2,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-<<<<<<< HEAD
-import Cadastro from 'pages/Cadastro/Cadastro';
-import Login from 'pages/Login/Login';
-import Perfil from 'pages/Perfil';
-import reportWebVitals from './reportWebVitals';
-=======
 import reportWebVitals from './reportWebVitals';
 import AppRouter from 'router';
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-<<<<<<< HEAD
-    <Perfil />
-=======
     <AppRouter />
->>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
   </React.StrictMode>
 );
 
