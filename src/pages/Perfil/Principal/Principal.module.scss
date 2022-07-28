@@ -2,5 +2,80 @@
 @import "styles/variaveis";
 
 .principal{
+<<<<<<< HEAD
     background-color: $cor2;
+=======
+    width: 100%;
+    object-fit: contain;
+    background-color: $cor2;
+    padding: 0;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    @media (max-width: $mobile) {
+        height: 180px;
+    }
+
+
+    img{
+        height: 50%;
+        object-fit: cover;
+        width: 100%;
+    }
+}
+
+.fotosNomes{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 70%;    
+
+    &__user{
+        img{
+            height: 100px!important;
+            width: 100px!important;
+            cursor: pointer;
+            object-fit: cover;
+            border: solid $cor1;
+            border-radius: 50%;
+            margin: 10px;
+        }
+    }
+
+    &__pets{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &__fotosPets{
+            height: 80px!important;
+            width: 80px!important;
+            cursor: pointer;
+            object-fit: cover;
+            border: solid $cor1;
+            border-radius: 50%;
+            margin: 10px;
+        }
+        
+    }
+
+    img:hover{
+        -webkit-filter: grayscale(1);
+	/* Webkit */
+	filter: gray;
+	/* IE6-9 */
+	filter: grayscale(1);
+	/* W3C */
+    }
+
+    p{
+        text-align: center;
+    }
+    
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
 }

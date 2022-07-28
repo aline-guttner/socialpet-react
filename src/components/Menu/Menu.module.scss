@@ -3,6 +3,7 @@
 
 .menu{
     background-color: $cor2;
+<<<<<<< HEAD
     height: 100vh;
     position: fixed;
     padding: 2rem;
@@ -16,6 +17,26 @@
 
     @media (max-width: $mobile){
         display: none;
+=======
+    height: 87%;
+    max-height: 100%;
+    position: fixed;
+    padding: 2rem;
+    color: $cor1;
+    font-size: 1.2rem;
+    font-weight: 300;
+    box-shadow: $bxshadow;
+    margin-left: 10px;
+    margin-top: 70px;
+    width: 25%;
+
+    @media (max-width: $mobile){
+        width: 100%;
+        margin: 60px 0 0 0;
+        height: 100%;
+
+        
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     }
 
     &__inativo{
@@ -34,12 +55,29 @@
         font-weight: 500;
         font-size: 1.5rem;
         padding-bottom:0.4rem;
+<<<<<<< HEAD
         padding: 1rem;
         border-radius: 8px;
 
         &:hover{
             color: $cor2;
             background-color: $cor1;
+=======
+        padding: 0.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover{
+            color: $cor2;
+            background-color: $cor1;
+            .link{
+            color: $cor2;
+            }
+        }
+
+        .link:hover{
+            color: $cor2;
+            text-decoration: none;
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
         }
     }
     button{
@@ -55,3 +93,15 @@
     }
 }
 
+<<<<<<< HEAD
+=======
+.link{
+    text-decoration: none;
+    color: $cor1;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+        color: $cor1;
+    }
+}
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86

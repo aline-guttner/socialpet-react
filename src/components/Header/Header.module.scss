@@ -1,7 +1,10 @@
 @import "styles/variaveis";
 
 .mynavbar{
+<<<<<<< HEAD
     width: 100%;
+=======
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     background-color: $cor1 ;
     display: flex;
     flex-direction: row;
@@ -10,7 +13,11 @@
     height: 60px;
 	width: 100%;
 	z-index: 1000;
+<<<<<<< HEAD
     box-sizing: content-box;
+=======
+    box-sizing: border-box;
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
 }
 
 .botaoMenu{

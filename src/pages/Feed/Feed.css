@@ -1,0 +1,320 @@
+:root{
+    --color: #f7b600;
+	--bkcolor: #e6e6e6;
+	--color2: white;
+    --color3: black;
+}
+
+
+*{
+	margin: 0;
+	padding: 0;
+	
+	
+}
+
+/* .iti__flag {background-image: url("./path/to/flags.png");}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .iti__flag {background-image: url("./path/to/flags@2x.png");}
+} */
+
+
+@media (min-width: 576px) { 
+
+}
+
+@media (min-width: 768px) { 
+	.mysidebar{
+		display:block!important;
+		
+		
+	}
+
+	
+	.botaoMenu{
+		visibility: hidden;
+	}
+	body{
+		background-color: var(--bkcolor)!important;
+		
+	}
+
+    .clima{
+        display:block!important;
+        margin-top: 70px;
+
+    }
+
+	.postagemImg{
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	
+
+}
+
+@media (min-width: 992px) { 
+	#subscription{
+		display: block!important;
+	}
+}
+
+@media (max-width: 991px) and (min-width: 768px){
+a {
+	font-size: 15px!important;
+}
+
+}
+
+body{
+	background-color: var(--bkcolor) ;
+	color: var(--color)!important;
+	font-family: 'Quicksand', sans-serif!important;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+
+
+
+
+/* !!! */
+
+
+main{
+	margin-top: 70px!important;
+	width: 100%!important;
+}
+
+main > div{
+	box-shadow: 3px 0 2px lightgray;
+}
+
+
+/** Formulário para nova postagem **/
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+	top: -20px;
+	bottom: 10px;
+  	left: -50%;
+  	font-size: 11px;
+  	opacity: 1;
+  	color: var(--color3);
+  	height:10px;
+  	background-color: #ffffff;
+}
+.floating-label {
+	position: relative;
+	pointer-events: none;
+	left: -50%;
+	top: 2px;
+	transition: 0.2s ease all;
+	color: #A4A4A4;
+    
+}
+.botaoformulario {
+width: 100%;	
+height: 3em;
+border: none;
+margin-bottom: 0;
+background-color: var(--color2);
+color: var(--color);
+font-weight: bolder;
+}
+.botaoformulario:hover {
+	background-color: var(--color) ;
+    color: var(--color2);
+}
+.form-postagem {
+	padding: 15px;
+box-shadow: 1px 0 2px gray;
+	background-color: white;
+	
+}
+.form-postagem input {
+	font-size: 14px;
+	height: 35px;
+	margin-bottom: 10px;
+	width: 50%;
+	color: #A4A4A4;
+    border: solid 1px var(--color);
+	padding-left: 10px;
+}
+.form-postagem input:focus {
+	color: black;
+}
+.form-postagem h2 {
+	margin-bottom: 10px;
+}
+.form-postagem button {
+	width: 100px;
+	border-radius: 2px;
+    border: solid 1px var(--color);
+    color: var(--color);
+    background-color: var(--color2);
+
+}
+
+.form-postagem button:hover{
+    background-color: var(--color);
+    color: var(--color2);
+}
+input[type="file"] {
+    display: none;
+}
+
+.imagemPostLabel{
+	font-size: 14px;
+    height: 35px;
+    margin-bottom: 10px;
+    width: 150px;
+    color: var(--color);
+    border: solid 1px var(--color);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items:center;
+}
+
+.imagemPostLabel:hover{
+	background-color: var(--color);
+	color: var(--color2);
+	cursor: pointer;
+}
+
+.imagemPostLabel p{
+	margin-bottom: 0!important;
+	font-size: medium;
+
+}
+
+.dadoPostagem{
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.imgFormDiv{
+	overflow: hidden;
+	height: 35px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	
+}
+.imgFormPostagem{
+	object-fit: cover;
+	display: inline;
+	-webkit-filter: grayscale(1);
+	/* Webkit */
+	filter: gray;
+	/* IE6-9 */
+	filter: grayscale(1);
+	/* W3C */
+	width: 100px;
+	height: 35px;
+	border: solid 1px var(--bkcolor);
+	
+}
+
+.imgXis{
+	
+	padding: 5px;
+	display: inline;
+	width: 22px;
+	object-fit: contain;
+	cursor: pointer;
+}
+/** Área de conteúdo principal **/
+
+
+.area-postagens {
+	
+
+	height: 100%;
+}
+.postagem {
+	padding-top:20px;
+	padding-bottom: 20px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	background: white;
+	display: flex;
+	flex-direction: column;
+justify-content: center;
+}
+	
+.postagem h2, .postagem span, .postagem p, .conteudo{
+	padding-left: 20px;
+	padding-right: 20px;
+	
+}
+	
+
+.postagem img  {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	object-fit: contain;
+	max-width: 100%;
+	
+
+}
+
+.paddingLR{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+
+
+.imagemPostadaCarousel{
+	
+	margin-left: 50%;
+	transform: translate(-50%);
+}
+
+.prevImgPostada{
+background-color: var(--color3);
+padding: 2px;
+}
+
+.nextImgPostada{
+	background-color: var(--color3);
+}
+.conteudo {
+	margin-top: 10px;
+	margin: 0;
+	text-align: justify;
+	line-height: 1.5;
+	
+}
+
+
+.curtir {
+	margin-top: 10px;
+	color: #f7b600;
+}
+
+.curtir a:link, a:visited, a:active {
+	text-decoration: underline;
+}
+
+.curtir a:hover {
+	text-decoration: none;
+	color:#f7b600;
+	border: 1px solid gray;
+}
+
+.subscription{
+	padding-top: 70px;
+	position: fixed;
+	right: 0.65%;
+}

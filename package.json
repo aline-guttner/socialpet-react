@@ -11,13 +11,20 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "bootstrap": "^5.2.0",
+<<<<<<< HEAD
     "normalize": "^0.3.1",
+=======
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.7.4",
+<<<<<<< HEAD
+=======
+    "uuid": "^8.3.2",
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -45,6 +52,10 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
+=======
+    "@types/uuid": "^8.3.4",
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     "sass": "^1.54.0",
     "typescript-plugin-css-modules": "^3.4.0"
   }

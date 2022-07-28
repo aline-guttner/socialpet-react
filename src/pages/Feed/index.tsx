@@ -1,12 +1,20 @@
 import react from 'react';
 import "./Feed.css"
+<<<<<<< HEAD
 import arranhador from "../imagens/arranhador.png"
+=======
+import arranhador from "assets/imagens/arranhador.png"
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
 
 
 
 const Feed = () => {
     return (
+<<<<<<< HEAD
         <main className="col-sm-12 col-md-9 col-lg-7 flex-column-reverse area-postagens">
+=======
+        <main className="container col-sm-12 col-md-9 col-lg-7 flex-column-reverse area-postagens">
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
 
             {/* <!--Início postagens --> */}
             <div className="chama-form" style={{ display: 'block' }}>
@@ -14,7 +22,11 @@ const Feed = () => {
                 <button className="botaoformulario" /*Onclick="mostraformulario()"*/>Poste sobre seu pet...</button>
                 {/* <!--exibe a div do formulário--> */}
             </div>
+<<<<<<< HEAD
             <div className="form-postagem" style={{ display: 'none' }}>
+=======
+            <div className="formPostagem" style={{ display: 'none' }}>
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
                 <h2>Nova postagem:</h2>
                 <div>
                     <input className="titulo" type="text" required aria-label="Escrever título da postagem" />

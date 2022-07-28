@@ -12,6 +12,7 @@ import { useState } from 'react'
 
 
 export default function Perfil() {
+<<<<<<< HEAD
     const [menu, setMenu] = useState(true)
     return (
         <>
@@ -23,5 +24,11 @@ export default function Perfil() {
             </Row>
         </>
 
+=======
+    return (
+        <main className='container'>
+            <Principal />
+        </main>
+>>>>>>> 674c0da9313364ee5ecad75559a824518932ab86
     )
 }
