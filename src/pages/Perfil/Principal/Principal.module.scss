@@ -51,23 +51,32 @@
         justify-content: center;
 
         &__fotosPets{
-            height: 80px!important;
+            height: 80px!important;   
             width: 80px!important;
             object-fit: cover;
             border: solid $cor1;
             border-radius: 50%;
             margin: 10px;
-            pointer-events: none;
+            opacity: 1;
+            line-height:90px;
+            text-align:center;
         }
-        
+
         input[type=file]{
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            opacity:0;
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
         }
+
+        &__inputImgWrapper{
+            display:inline-block;
+            position:relative
+        }
+
+
         
     }
 
@@ -79,6 +88,13 @@
 	filter: grayscale(1);
 	/* W3C */
     }
+
+    button{ 
+        border: none;
+        outline: none;
+        background-color: transparent;
+
+     }
 
     p{
         text-align: center;
