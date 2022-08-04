@@ -41,14 +41,14 @@ export default function Principal({chunked_arr}: Props) {
         }
     };
 
-    function chunk(array: typeof pets, size: number): typeof chunked_arr  {
-        if(array){ const newArr: typeof chunked_arr = [];
-            let index = 0;
-            while (index < array.length) {
-              newArr.push(array.slice(index, size + index));
-              index += size;
-            }
-            return newArr;}
+    function chunk(array: typeof pets, size: number): any {
+        const chunked_arr = [];
+        let index = 0;
+        while (index < array.length) {
+          chunked_arr.push(array.slice(index, size + index));
+          index += size;
+        }
+        return chunked_arr;
       }
 
     return (
@@ -74,7 +74,7 @@ export default function Principal({chunked_arr}: Props) {
                 </span>
                 
                 <Carousel>
-                    {chunk(pets, 3).map<typeof pets>((carItem: typeof pets) => {
+                    {chunk(pets, 3).map((carItem: typeof pets) => {
                         <CarouselItem>
                             {carItem.map((pet: typeof pets[0]) => {
                                 <FotosUserPets pet={pet} key={pet.id}/>
