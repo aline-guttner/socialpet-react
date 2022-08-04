@@ -7,8 +7,13 @@ import { ChangeEvent, useRef, useState } from 'react';
 import FotosUserPets from './FotosUserPets';
 import { Carousel, CarouselItem } from 'react-bootstrap';
 
+declare global {
+    interface Array<T> {
+      chunk(size: number): any[][];
+    }
+  }
 
-export default function Principal() {
+export default function Principal({prototype}: IPrototype) {
     const [image, setImage] = useState(userPic);
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
@@ -34,19 +39,16 @@ export default function Principal() {
         }
     };
 
-    function chunk(array: typeof pets, size: number): {
-        nome: string;
-        src: string;
-        id: string;
-    }[][] {
-        const chunked_arr = [];
-        let index = 0;
-        while (index < array.length) {
-            chunked_arr.push(array.slice(index, size + index));
-            index += size;
+    Array.prototype.chunk = function(size: number) {
+        const result = [];
+      
+        while (this.length) {
+          result.push(this.splice(0, size));
         }
-        return chunked_arr;
-    }
+      
+        return result;
+      };
+
 
     return (
 
@@ -69,17 +71,10 @@ export default function Principal() {
                     />
                     <p>Fulano de Tal</p>
                 </span>
-
                 <Carousel>
-                    {chunk(pets, 3).map<{
-                        nome: string;
-                        src: string;
-                        id: string;
-                    }[][]>(carItem => {
-                        <CarouselItem>
-                            {this.carItem.map(pet => {
-                                <FotosUserPets pet={pet} key={pet.id} />
-                            })}
+                    {pets.chunk(3).map<any[]>((value: any[], index: number, array: any[][]): any[] => {
+                        <CarouselItem key={index}>
+                            OI
                         </CarouselItem>
                     })}
                 </Carousel>
