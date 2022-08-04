@@ -15,7 +15,8 @@ let Pets = [
         "nome": "Porcão",
         "src": "assets/imagens/Porcão.jpeg",
         "id": uuidv4.toString()
-    }
+    },
+    
 ]
 
 export default Pets;

@@ -5,13 +5,13 @@ import pets from 'data/pets'
 import userPic from 'assets/imagens/User.png'
 import { ChangeEvent, useRef, useState } from 'react';
 import FotosUserPets from './FotosUserPets';
-import { Carousel, CarouselItem } from 'react-bootstrap';
+import  Carousel  from 'react-bootstrap/Carousel';
 
 declare global {
     interface Array<T> {
-      chunk(size: number): any[][];
+        chunk(size: number): any[][];
     }
-  }
+}
 
 export default function Principal() {
     const [image, setImage] = useState(userPic);
@@ -39,15 +39,19 @@ export default function Principal() {
         }
     };
 
-    Array.prototype.chunk = function(size: number) {
-        const result = [];
-      
+    Array.prototype.chunk = function (size: number) {
+        const result: {
+            nome: string;
+            src: string;
+            id: string;
+        }[][] = [];
+
         while (this.length) {
-          result.push(this.splice(0, size));
+            result.push(this.splice(0, size));
         }
-      
+
         return result;
-      };
+    };
 
 
     return (
@@ -71,18 +75,25 @@ export default function Principal() {
                     />
                     <p>Fulano de Tal</p>
                 </span>
-                <Carousel>
-                    {pets.chunk(3).map((chunk, index) => 
-                       
+                {pets.length > 3? <Carousel>
+                    {pets.chunk(3).map((chunk, index) =>
+
                         <Carousel.Item key={index} className={index === 0 ? "active" : ""}>
                             {chunk.map((pet) =>
-                                <FotosUserPets pet={pet} key={pet.id}/>
-                                )}
+                                <FotosUserPets pet={pet} key={pet.id} />
+                            )}
                         </Carousel.Item>
-                        )
+                    )
                         // Não tá dando mais erro, mas não está aparecendo o carousel!
                     }
-                </Carousel>
+                </Carousel> : 
+                    <span className='flex-row' >
+                        {pets.map(pet =>
+                            <FotosUserPets pet={pet} key={pet.id}  /> //por alguma razão o map tá fazendo as fotos aparecerem em coluna
+                            )}
+                    </span>}
+                    
+                
             </div>
         </section>
 
