@@ -7,15 +7,8 @@ import { ChangeEvent, useRef, useState } from 'react';
 import FotosUserPets from './FotosUserPets';
 import { Carousel, CarouselItem } from 'react-bootstrap';
 
-interface Props{
-    chunked_arr?: {
-        nome: string;
-        src: string;
-        id: string;
-    }[][]
-}
 
-export default function Principal({chunked_arr}: Props) {
+export default function Principal() {
     const [image, setImage] = useState(userPic);
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
@@ -41,15 +34,19 @@ export default function Principal({chunked_arr}: Props) {
         }
     };
 
-    function chunk(array: typeof pets, size: number): any {
+    function chunk(array: typeof pets, size: number): {
+        nome: string;
+        src: string;
+        id: string;
+    }[][] {
         const chunked_arr = [];
         let index = 0;
         while (index < array.length) {
-          chunked_arr.push(array.slice(index, size + index));
-          index += size;
+            chunked_arr.push(array.slice(index, size + index));
+            index += size;
         }
         return chunked_arr;
-      }
+    }
 
     return (
 
@@ -72,17 +69,21 @@ export default function Principal({chunked_arr}: Props) {
                     />
                     <p>Fulano de Tal</p>
                 </span>
-                
+
                 <Carousel>
-                    {chunk(pets, 3).map((carItem: typeof pets) => {
+                    {chunk(pets, 3).map<{
+                        nome: string;
+                        src: string;
+                        id: string;
+                    }[][]>(carItem => {
                         <CarouselItem>
-                            {carItem.map((pet: typeof pets[0]) => {
-                                <FotosUserPets pet={pet} key={pet.id}/>
+                            {this.carItem.map(pet => {
+                                <FotosUserPets pet={pet} key={pet.id} />
                             })}
                         </CarouselItem>
                     })}
                 </Carousel>
-                </div>
+            </div>
         </section>
 
     )
