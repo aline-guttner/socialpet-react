@@ -72,10 +72,10 @@ export default function Principal({prototype}: IPrototype) {
                     <p>Fulano de Tal</p>
                 </span>
                 <Carousel>
-                    {pets.chunk(3).map<any[]>((value: any[], index: number, array: any[][]): any[] => 
+                    {pets.chunk(3).map((chunk, index) => 
                        
                         <CarouselItem key={index}>
-                            {array.map((pet) =>
+                            {chunk.map((pet) =>
                                 <FotosUserPets pet={pet} key={pet.id}/>
                                 )}
                         </CarouselItem>
