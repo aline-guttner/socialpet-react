@@ -4,17 +4,17 @@ let Pets = [
     {
         "nome": "Gatildo",
         "src": "assets/imagens/Gatildo.jpg",
-        "id": uuidv4
+        "id": uuidv4.toString()
     },
     {
         "nome": "Bichano",
         "src": "assets/imagens/Bichano.jpeg",
-        "id": uuidv4
+        "id": uuidv4.toString()
     },
     {
         "nome": "Porcão",
         "src": "assets/imagens/Porcão.jpeg",
-        "id": uuidv4
+        "id": uuidv4.toString()
     }
 ]
 

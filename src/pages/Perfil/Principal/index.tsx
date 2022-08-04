@@ -1,11 +1,21 @@
 import style from './Principal.module.scss';
 import tamara from 'assets/imagens/tamara-andreeva-priroda-peizazh-gory-altai-zhivotnoe-kot.jpg'
 import classNames from 'classnames';
-import pets from 'dados/pets'
+import pets from 'data/pets'
 import userPic from 'assets/imagens/User.png'
 import { ChangeEvent, useRef, useState } from 'react';
+import FotosUserPets from './FotosUserPets';
+import { Carousel, CarouselItem } from 'react-bootstrap';
 
-export default function Principal() {
+interface Props{
+    chunked_arr?: {
+        nome: string;
+        src: string;
+        id: string;
+    }[][]
+}
+
+export default function Principal({chunked_arr}: Props) {
     const [image, setImage] = useState(userPic);
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
@@ -31,6 +41,16 @@ export default function Principal() {
         }
     };
 
+    function chunk(array: typeof pets, size: number): typeof chunked_arr  {
+        if(array){ const newArr: typeof chunked_arr = [];
+            let index = 0;
+            while (index < array.length) {
+              newArr.push(array.slice(index, size + index));
+              index += size;
+            }
+            return newArr;}
+      }
+
     return (
 
         <section className={classNames({
@@ -52,25 +72,17 @@ export default function Principal() {
                     />
                     <p>Fulano de Tal</p>
                 </span>
-                {pets.map(pet => (
-                    <span key={pet.id} className={style.fotosNomes__pets}>
-                        <span className={style.fotosNomes__pets__inputImgWrapper}>
-                            <button>
-                                <img className={style.fotosNomes__pets__fotosPets} alt="Foto de animal"
-                                    src={pet.src}
-                                />
-                            </button>
-                            <input
-                                id="inputFile2"
-                                type="file"
-                                accept="image/*"
-
-                            />
-                        </span>
-                        <p>{pet.nome}</p>
-                    </span>
-                ))}
-            </div>
+                
+                <Carousel>
+                    {chunk(pets, 3).map<typeof pets>((carItem: typeof pets) => {
+                        <CarouselItem>
+                            {carItem.map((pet: typeof pets[0]) => {
+                                <FotosUserPets pet={pet} key={pet.id}/>
+                            })}
+                        </CarouselItem>
+                    })}
+                </Carousel>
+                </div>
         </section>
 
     )

@@ -1,0 +1,17 @@
+@import "styles/breakpoints";
+@import "styles/variaveis";
+
+section{
+    box-shadow: $bxshadow;
+    width: 100%;
+    object-fit: contain;
+    background-color: $cor2;
+    padding: 1.5rem;
+    margin: 10px 0;
+    color: $cor1;
+
+    h2{
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+}
