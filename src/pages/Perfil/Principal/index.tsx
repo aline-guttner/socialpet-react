@@ -74,11 +74,11 @@ export default function Principal() {
                 <Carousel>
                     {pets.chunk(3).map((chunk, index) => 
                        
-                        <CarouselItem key={index}>
+                        <Carousel.Item key={index} className={index === 0 ? "active" : ""}>
                             {chunk.map((pet) =>
                                 <FotosUserPets pet={pet} key={pet.id}/>
                                 )}
-                        </CarouselItem>
+                        </Carousel.Item>
                         )
                         // Não tá dando mais erro, mas não está aparecendo o carousel!
                     }
