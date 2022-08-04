@@ -13,7 +13,7 @@ declare global {
     }
   }
 
-export default function Principal({prototype}: IPrototype) {
+export default function Principal() {
     const [image, setImage] = useState(userPic);
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
@@ -80,7 +80,7 @@ export default function Principal({prototype}: IPrototype) {
                                 )}
                         </CarouselItem>
                         )
-                        
+                        // Não tá dando mais erro, mas não está aparecendo o carousel!
                     }
                 </Carousel>
             </div>
