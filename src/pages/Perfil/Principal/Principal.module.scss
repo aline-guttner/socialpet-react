@@ -1,104 +1,103 @@
 @import "styles/breakpoints";
 @import "styles/variaveis";
 
-.principal{
-    box-shadow: $bxshadow;
+.principal {
+  box-shadow: $bxshadow;
+  width: 100%;
+  object-fit: contain;
+  background-color: $cor2;
+  padding: 0;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  @media (max-width: $mobile) {
+    height: 180px;
+  }
+
+  img {
+    height: 50%;
+    object-fit: cover;
     width: 100%;
-    object-fit: contain;
-    background-color: $cor2;
-    padding: 0;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    @media (max-width: $mobile) {
-        height: 180px;
-    }
-
-
-    img{
-        height: 50%;
-        object-fit: cover;
-        width: 100%;
-    }
+  }
 }
 
-.fotosNomes{
+.fotosNomes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 70%;
+
+  &__user {
+    img {
+      height: 100px !important;
+      width: 100px !important;
+      cursor: pointer;
+      object-fit: cover;
+      border: solid $cor1;
+      border-radius: 50%;
+      margin: 10px;
+    }
+  }
+
+  &__pets {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-    height: 70%;    
+    flex-direction: column;
+    justify-content: center;
 
-    &__user{
-        img{
-            height: 100px!important;
-            width: 100px!important;
-            cursor: pointer;
-            object-fit: cover;
-            border: solid $cor1;
-            border-radius: 50%;
-            margin: 10px;
-        }
+    &__fotosPets {
+      height: 80px !important;
+      width: 80px !important;
+      object-fit: cover;
+      border: solid $cor1;
+      border-radius: 50%;
+      margin: 10px;
+      opacity: 1;
+      line-height: 90px;
+      text-align: center;
     }
 
-    &__pets{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        &__fotosPets{
-            height: 80px!important;   
-            width: 80px!important;
-            object-fit: cover;
-            border: solid $cor1;
-            border-radius: 50%;
-            margin: 10px;
-            opacity: 1;
-            line-height:90px;
-            text-align:center;
-        }
-
-        input[type=file]{
-            opacity:0;
-            position:absolute;
-            top:0;
-            left:0;
-            right:0;
-            bottom:0;
-        }
-
-        &__inputImgWrapper{
-            display:inline-block;
-            position:relative
-        }
-
-
-        
+    input[type="file"] {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
 
-    img:hover{
-        -webkit-filter: grayscale(1);
-	/* Webkit */
-	filter: gray;
-	/* IE6-9 */
-	filter: grayscale(1);
-	/* W3C */
+    &__inputImgWrapper {
+      display: inline-block;
+      position: relative;
     }
+  }
 
-    button{ 
-        border: none;
-        outline: none;
-        background-color: transparent;
+  img:hover {
+    -webkit-filter: grayscale(1);
+    /* Webkit */
+    filter: gray;
+    /* IE6-9 */
+    filter: grayscale(1);
+    /* W3C */
+  }
 
-     }
+  button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
 
-    p{
-        text-align: center;
-        color: $cor1;
-    }
-    
+  p {
+    text-align: center;
+    color: $cor1;
+  }
+}
+
+.fotosPets {
+  display: flex;
+  flex-direction: row;
 }
