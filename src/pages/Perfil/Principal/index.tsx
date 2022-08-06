@@ -87,9 +87,12 @@ export default function Principal() {
                         // Não tá dando mais erro, mas não está aparecendo o carousel!
                     }
                 </Carousel> : 
-                    <span className='flex-row' >
+                    <span className={classNames({
+                        'd-flex': true,
+                        'flex-row': true
+                    })} >
                         {pets.map(pet =>
-                            <FotosUserPets pet={pet} key={pet.id}  /> //por alguma razão o map tá fazendo as fotos aparecerem em coluna
+                            <FotosUserPets pet={pet} key={pet.id}  />
                             )}
                     </span>}
                     
