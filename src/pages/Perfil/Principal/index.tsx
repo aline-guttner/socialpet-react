@@ -15,6 +15,7 @@ declare global {
 
 export default function Principal() {
   const [image, setImage] = useState(userPic);
+  const [index, setIndex] = useState(0);
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
     const input = file.currentTarget;
 
@@ -39,19 +40,16 @@ export default function Principal() {
     }
   };
 
-  Array.prototype.chunk = function (size: number) {
-    const result: {
-      nome: string;
-      src: string;
-      id: string;
-    }[][] = [];
+ const newPets = () =>{
+    return Array.from(
+      new Array(Math.ceil(pets.length / 3)),
+      (_, i) => pets.slice(i * 3, i * 3 + 3)
+    )
+ }
 
-    while (this.length) {
-      result.push(this.splice(0, size));
-    }
-
-    return result;
-  };
+ const handleSelect = (selectedIndex: any, e: any) => {
+   setIndex(selectedIndex);
+ };
 
   return (
     <section
@@ -80,12 +78,13 @@ export default function Principal() {
           <p>Fulano de Tal</p>
         </span>
         {pets.length > 3 ? (
-          <Carousel controls={false} interval={1000}>
-            {pets.map((pet, index) => (
-              <Carousel.Item key={index}>
-                <FotosUserPets pet={pet} key={pet.id} />
-                <FotosUserPets pet={pet} key={pet.id} />
-                <FotosUserPets pet={pet} key={pet.id} />
+          <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className='w-100'>
+            { 
+                newPets().map((newPet, i) => (
+              <Carousel.Item key={i} >
+                {newPet.map(pet => (
+                  <FotosUserPets pet={pet} key={pet.id}/>
+                ))}
               </Carousel.Item>
             ))}
           </Carousel>
@@ -99,6 +98,7 @@ export default function Principal() {
             <div className={style.fotosPets}>
               {pets.map((pet) => (
                 <FotosUserPets pet={pet} key={pet.id} />
+            
               ))}
             </div>
           </span>
@@ -107,3 +107,18 @@ export default function Principal() {
     </section>
   );
 }
+
+  /* Array.prototype.chunk = function (size: number) {
+        const result: {
+            nome: string;
+            src: string;
+            id: string;
+        }[][] = [];
+
+        while (this.length) {
+            result.push(this.splice(0, size));
+        }
+
+        return result;
+    };
+*/

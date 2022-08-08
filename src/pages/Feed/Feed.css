@@ -81,15 +81,17 @@ body{
     background: transparent; /* make scrollbar transparent */
 }
 
-
-
-
-
 /* !!! */
+
+@media (max-width: 768px) {
+	main{
+	 margin-top: 60px!important;
+	} 
+   }
 
 
 main{
-	margin-top: 70px!important;
+	margin-top: 70px;
 	width: 100%!important;
 	
 }

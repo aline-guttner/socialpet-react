@@ -60,4 +60,18 @@ background-color:#e6e6e6 ;
 
 }
 
+.activeSlide{
+    z-index:2;
+}
+
+.carousel-item.active,
+.carousel-item-next,
+.carousel-item-prev {
+  display: flex!important;
+  justify-content: space-around;
+}
+
+.carousel-control-prev-icon{
+    display: none;
+}
 
