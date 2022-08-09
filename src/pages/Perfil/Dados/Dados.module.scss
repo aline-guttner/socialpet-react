@@ -21,8 +21,11 @@
     input{
         outline: none;
         border: none;
-        border-bottom: 1px dotted $cor1;
-        width: 100%;
-        margin: 1rem 0;
+        width: 30%;
+        margin: 1.2rem 0 0 0;
+    }
+
+    hr{
+        margin: 0;
     }
 }

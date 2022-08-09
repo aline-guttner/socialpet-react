@@ -8,7 +8,7 @@ import http from 'http';
 
 
 export default function Dados(){
-    const [oculto, setOculto] = useState(false)
+    const [oculto, setOculto] = useState(true)
     const [nome, setNome] = useState(user.name)
 
     const inputFile = useRef<HTMLInputElement | null>(null);
@@ -34,31 +34,35 @@ useEffect(() => {
                 })} onClick={ocultarBotao}>Editar</button>
                 <button type='button' className={classNames({
                     [style.oculto]: oculto ? true : false
-                    
-                })} >Salvar</button>
+                })} onClick={ocultarBotao}>Salvar</button>
                 <br/>
                 <br/>
                 <label htmlFor="nome" >Nome</label>
                 <br/>
                 <input type="text" name="nome" id="nome" value={nome} ref={inputFile}  readOnly={ oculto ? true: false}/>
+                <hr />
                 <br/>
                 <label htmlFor="usuario">Usuário</label>
                 <br/>
                 <input type="text" name="usuario" id="usuario" value={user.username} readOnly={ oculto ? true: false} />
+                <hr />
                 <br/>
                 <label htmlFor="email">Email</label>
                 <br/>
                 <input type="email" name="email" id="email" value={user.email} readOnly={ oculto ? true: false}/>
+                <hr />
                 <br/>
                 <label htmlFor="dataNascimento">Data de Nascimento</label>
                 <br/>
                 <input type="date" id="dataNacimento"
                 name="dataNascimento" readOnly={ oculto ? true: false} />
+                <hr />
                   <br/>
                 <label htmlFor="phone">Telefone</label>
                 <br/>
                 <input type="phone" id="phone"
                 name="phone" value={user.phone} readOnly={ oculto ? true: false}/>
+                <hr />
             </form>
         </section>
     )
