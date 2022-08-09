@@ -1,42 +1,45 @@
 @import 'styles/variaveis';
 @import 'styles/breakpoints';
 
-*{
+* {
     margin: none;
-    padding:none ;
+    padding: none;
 }
 
-.loginForm{
+.loginForm {
     @media (max-width: $mobile) {
-        width: 100%!important;
+        width: 100% !important;
     }
+
     width: 350px;
-    height: auto!important;
     padding: 20px;
+    margin: 0;
+    position: absolute;
     top: 50%;
     left: 50%;
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    background-color: $cor2; 
+    background-color: $cor2;
     padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
 
-    img{
+    img {
         margin-bottom: 30px;
     }
 
-    label{
+    label {
         color: $cor1;
         margin-bottom: 20px;
     }
 
-    div{
+    div {
         width: 100%;
     }
 
-    input{
+    input {
         outline: none;
         border-top: none;
         border-left: none;
@@ -46,17 +49,19 @@
         width: 100%;
     }
 
-    hr{
+    hr {
         border-top: none;
-        border-bottom: solid 1px $cor1!important;
+        border-bottom: solid 1px $cor1 !important;
         width: 100%;
     }
 }
 
-.loginButton{
-    &:hover,&:focus{
+.loginButton {
+
+    &:hover,
+    &:focus {
         background-color: $cor2;
-        color: $cor1!important;
+        color: $cor1 !important;
         border: solid 1px $cor1;
         cursor: pointer;
     }
@@ -71,25 +76,22 @@
     margin:30px;
 }
 
-.pinscricao{
+.pinscricao {
     font-size: medium;
     color: var(--color);
 }
 
-.inscricao{
+.inscricao {
 
-    &:hover{
+    &:hover {
         text-decoration: underline;
-    cursor: pointer;
+        cursor: pointer;
     }
+
     border: none;
     outline: none;
     background-color: var(--color2);
     color:var(--EditAndLink);
     font-size: medium;
     text-decoration: none;
-}
-
-.container{
-    max-width: 100%!important;
 }

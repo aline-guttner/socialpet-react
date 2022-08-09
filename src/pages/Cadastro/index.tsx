@@ -12,19 +12,34 @@ function Cadastro() {
     const [usuario, setUsuario] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [confSenha, setConfSenha] = useState('')
 
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
-        http.post('auth/register', {
+        if (senha === confSenha){http.post('auth/register', {
             name: nome,
             username: usuario,
             email: email,
             password: senha 
         })
-        .then(() => {
+        .then(res => {
+            setNome('')
+            setUsuario('')
+            setEmail('')
+            setSenha('')
+            setConfSenha('')
+            console.log(res)
             alert('Conta criada com sucesso!')
-        })
-        .catch(error => console.log(error))
+        }
+            
+        )
+        .catch(() => alert('Já existe uma conta com esse email'))
+        return
+} 
+
+alert('Senhas não conferem!')
+        
+       
     }
 
     return (
@@ -36,19 +51,19 @@ function Cadastro() {
                 alt="Logo de gato branco caminhado em um fundo laranja e título 'Social Pet' ao lado"></img>
             <div>
                 <label htmlFor='nome'>Nome</label>
-                <input type='text' id='nome' required name='nome' placeholder='Fulano de Tal'
+                <input type='text' id='nome' required name='nome' placeholder='Fulano de Tal' value={nome}
                 onChange={evento => setNome(evento.target.value)}
                 />
             </div>
             <div>
                 <label htmlFor='email'>Email</label>
-                <input type='text' id='email' required name='email' placeholder='fulanodetal@gmail.com' 
+                <input type='text' id='email' required name='email' placeholder='fulanodetal@gmail.com' value={email}
                 onChange={evento => setEmail(evento.target.value)}
                 />
             </div>
             <div>
                 <label htmlFor='usuario'>Usuário</label>
-                <input type='text' id='usuario' required name='usuario' placeholder='fulano_detal'
+                <input type='text' id='usuario' required name='usuario' placeholder='fulano_detal' value={usuario}
                 onChange={evento => setUsuario(evento.target.value)}
                 />
             </div>
@@ -56,13 +71,15 @@ function Cadastro() {
             <div className={style.senhas}>
                 <div className={style.divPassword1}>
                     <label htmlFor="password1" >Senha</label>
-                    <input type="password" id="password1" name="up" required placeholder="Exe1mp7l0o"
+                    <input type="password" id="password1" name="up" required placeholder="Exe1mp7l0o" value={senha}
                     onChange={evento => setSenha(evento.target.value)}
                     />
                 </div>
                 <div className={style.divPassword2}>
                     <label htmlFor="password2">Confirmar senha</label>
-                    <input type="password" id="password2" name="up" required placeholder="Exe1mp7l0o" />
+                    <input type="password" id="password2" name="up" required placeholder="Exe1mp7l0o" value={confSenha} 
+                    onChange={evento => setConfSenha(evento.target.value)}
+                    />
                 </div>
 
             </div>
