@@ -1,11 +1,11 @@
 import style from "./Principal.module.scss";
-import tamara from "assets/imagens/tamara-andreeva-priroda-peizazh-gory-altai-zhivotnoe-kot.jpg";
+import gatoso from "assets/imagens/gatoso.jpg";
 import classNames from "classnames";
 import pets from "data/pets";
 import { ChangeEvent, useRef, useState } from "react";
-import FotosUserPets from "./FotosUserPets";
+import FotosPets from "./FotosPets";
 import Carousel from "react-bootstrap/Carousel";
-import user from 'data/user';
+import FotoUser from "./FotoUser";
 
 declare global {
   interface Array<T> {
@@ -14,7 +14,8 @@ declare global {
 }
 
 export default function Principal() {
-  const [image, setImage] = useState(user.profileImg);
+  const [image, setImage] = useState(gatoso);
+  
   const [index, setIndex] = useState(0);
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
     const input = file.currentTarget;
@@ -58,32 +59,31 @@ export default function Principal() {
         container: true,
       })}
     >
+      <span> 
+      <button onClick={mudarImagem}>
       <img
-        src={tamara}
+        src={image}
         className="img-fluid"
         alt="foto de gato olhando para paisagem montanhosa"
       />
+        </button>
+        <input
+          id="inputFile2"
+          type="file"
+          accept="image/*"
+          onChange={handleChange}
+          ref={inputFile}
+        /></span>
+     
       <div className={style.fotosNomes}>
-        <span className={style.fotosNomes__user}>
-          <button onClick={mudarImagem}>
-            <img src={image} alt="Foto do usuário" />
-          </button>
-          <input
-            id="inputFile1"
-            type="file"
-            accept="image/*"
-            onChange={handleChange}
-            ref={inputFile}
-          />
-          <p>{user.name}</p>
-        </span>
+        <FotoUser/>
         {pets.length > 3 ? (
           <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className='w-100'>
             { 
                 newPets().map((newPet, i) => (
               <Carousel.Item key={i} >
                 {newPet.map(pet => (
-                  <FotosUserPets pet={pet} key={pet.id}/>
+                  <FotosPets pet={pet} key={pet.id}/>
                 ))}
               </Carousel.Item>
             ))}
@@ -97,7 +97,7 @@ export default function Principal() {
           >
             <div className={style.fotosPets}>
               {pets.map((pet) => (
-                <FotosUserPets pet={pet} key={pet.id} />
+                <FotosPets pet={pet} key={pet.id} />
             
               ))}
             </div>

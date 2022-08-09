@@ -6,10 +6,11 @@ interface Props{
         nome: string;
         src: string;
         id: string;
-    }
+    },
+    
 }
 
-export default function FotosUserPets({pet} : Props){
+export default function FotosPets({pet} : Props){
     const [image, setImage] = useState(pet.src);
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
@@ -43,7 +44,7 @@ export default function FotosUserPets({pet} : Props){
                 />
             </button>
             <input
-                id="inputFile2"
+                id="inputFile3"
                 type="file"
                 accept="image/*"
                 ref={inputFile}
