@@ -1,2 +1,28 @@
 @import "styles/breakpoints";
 @import "styles/variaveis";
+
+.oculto {
+    display: none !important;
+}
+
+.userForm {
+    button {
+        border: none;
+        outline: none;
+        background-color: $cor2;
+        color: $cor1;
+        padding: 1rem;
+        float: right;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    input{
+        outline: none;
+        border: none;
+        border-bottom: 1px dotted $cor1;
+        width: 100%;
+        margin: 1rem 0;
+    }
+}

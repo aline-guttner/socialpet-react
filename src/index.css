@@ -68,10 +68,14 @@ background-color:#e6e6e6 ;
 .carousel-item-next,
 .carousel-item-prev {
   display: flex!important;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .carousel-control-prev-icon{
     display: none;
+}
+
+.container{
+    max-width: 100%!important;
 }
 

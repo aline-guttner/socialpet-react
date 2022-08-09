@@ -2,10 +2,10 @@ import style from "./Principal.module.scss";
 import tamara from "assets/imagens/tamara-andreeva-priroda-peizazh-gory-altai-zhivotnoe-kot.jpg";
 import classNames from "classnames";
 import pets from "data/pets";
-import userPic from "assets/imagens/User.png";
 import { ChangeEvent, useRef, useState } from "react";
 import FotosUserPets from "./FotosUserPets";
 import Carousel from "react-bootstrap/Carousel";
+import user from 'data/user';
 
 declare global {
   interface Array<T> {
@@ -14,7 +14,7 @@ declare global {
 }
 
 export default function Principal() {
-  const [image, setImage] = useState(userPic);
+  const [image, setImage] = useState(user.profileImg);
   const [index, setIndex] = useState(0);
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
     const input = file.currentTarget;
@@ -33,7 +33,7 @@ export default function Principal() {
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
-  const onButtonClick = () => {
+  const mudarImagem = () => {
     // `current` points to the mounted file input element
     if (inputFile.current) {
       inputFile.current.click();
@@ -65,7 +65,7 @@ export default function Principal() {
       />
       <div className={style.fotosNomes}>
         <span className={style.fotosNomes__user}>
-          <button onClick={onButtonClick}>
+          <button onClick={mudarImagem}>
             <img src={image} alt="Foto do usuário" />
           </button>
           <input
@@ -75,7 +75,7 @@ export default function Principal() {
             onChange={handleChange}
             ref={inputFile}
           />
-          <p>Fulano de Tal</p>
+          <p>{user.name}</p>
         </span>
         {pets.length > 3 ? (
           <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className='w-100'>

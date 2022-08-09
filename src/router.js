@@ -1,11 +1,9 @@
 import Feed from './pages/Feed';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Header from 'components/Header';
-import Menu from 'components/Menu';
 import Perfil from './pages/Perfil';
 import PaginaPadrao from 'components/PaginaPadrao';
-import Login from 'pages/Login/Login';
-import Cadastro from 'pages/Cadastro/Cadastro';
+import Login from 'pages/Login';
+import Cadastro from 'pages/Cadastro';
 
 export default function AppRouter() {
     return (
