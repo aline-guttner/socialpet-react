@@ -1,17 +1,18 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import style from '../Principal.module.scss';
+import { useParams } from 'react-router-dom'
 
 interface Props{
     pet: {
-        nome: string;
-        src: string;
-        id: string;
+        petName: string,
+        petImg: string,
+        petId: string
     },
     
 }
 
 export default function FotosPets({pet} : Props){
-    const [image, setImage] = useState(pet.src);
+    const [image, setImage] = useState(pet.petImg);
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
 
@@ -36,7 +37,7 @@ export default function FotosPets({pet} : Props){
         }
     };
     return(
-        <span key={pet.id} className={style.fotosNomes__pets}>
+        <span key={pet.petId} className={style.fotosNomes__pets}>
         <span className={style.fotosNomes__pets__inputImgWrapper}>
             <button onClick={onButtonClick}>
                 <img className={style.fotosNomes__pets__fotosPets} alt="Foto de animal"
@@ -51,7 +52,7 @@ export default function FotosPets({pet} : Props){
                 onChange={handleChange}
             />
         </span>
-        <p>{pet.nome}</p>
+        <p>{pet.petName}</p>
     </span>
     )
 }

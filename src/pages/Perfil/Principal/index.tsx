@@ -1,11 +1,13 @@
 import style from "./Principal.module.scss";
-import gatoso from "assets/imagens/gatoso.jpg";
 import classNames from "classnames";
-import pets from "data/pets";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import FotosPets from "./FotosPets";
 import Carousel from "react-bootstrap/Carousel";
 import FotoUser from "./FotoUser";
+import { useNavigate, useParams } from "react-router-dom";
+import http from "api";
+import IPet from "interfaces/IPet";
+
 
 declare global {
   interface Array<T> {
@@ -14,9 +16,47 @@ declare global {
 }
 
 export default function Principal() {
-  const [image, setImage] = useState(gatoso);
-  
+  let params = useParams();
+  const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [date, setDate] = useState(Date.now())
+  const [profileImg, setProfileImg] = useState('')
+  const [backImg, setBackImg] = useState('');
+  const [pets, setPets] = useState<IPet[]>([{
+    petName: '',
+    petType: '',
+    petImg: '',
+    petId: ''
+  }])
+  const [phone, setPhone] = useState('')
+  const [authenticated, setAuthenticated] = useState('false');
   const [index, setIndex] = useState(0);
+  let navigate = useNavigate()
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("authenticated");
+    if (loggedInUser === 'true') {
+      setAuthenticated(loggedInUser);
+      http.get(`auth/${params.id}`)
+        .then(res => {
+          console.log(res)
+          setUsername(res.data.username)
+          setName(res.data.name)
+          setEmail(res.data.email)
+          setDate(res.data.birthDate)
+          setProfileImg(res.data.profileImg)
+          setBackImg(res.data.backImg)
+          setPets(res.data.pets)
+          setPhone(res.data.phone)
+        })
+        .catch(err => console.log(err)
+        )
+    } else {
+      navigate(`../login`, { replace: true })
+    }
+  }, []);
+
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
     const input = file.currentTarget;
 
@@ -24,7 +64,7 @@ export default function Principal() {
     reader.onload = function () {
       const dataURL = reader.result;
       const stringURL = String(dataURL);
-      setImage(stringURL);
+      setBackImg(stringURL);
     };
 
     if (input.files) {
@@ -41,16 +81,16 @@ export default function Principal() {
     }
   };
 
- const newPets = () =>{
+  const newPets = () => {
     return Array.from(
       new Array(Math.ceil(pets.length / 3)),
       (_, i) => pets.slice(i * 3, i * 3 + 3)
     )
- }
+  }
 
- const handleSelect = (selectedIndex: any, e: any) => {
-   setIndex(selectedIndex);
- };
+  const handleSelect = (selectedIndex: any, e: any) => {
+    setIndex(selectedIndex);
+  };
 
   return (
     <section
@@ -59,13 +99,12 @@ export default function Principal() {
         container: true,
       })}
     >
-      <span> 
-      <button onClick={mudarImagem}>
-      <img
-        src={image}
-        className="img-fluid"
-        alt="foto de gato olhando para paisagem montanhosa"
-      />
+      <span>
+        <button onClick={mudarImagem}>
+          <img
+            src={backImg}
+            className="img-fluid"
+          />
         </button>
         <input
           id="inputFile2"
@@ -74,31 +113,32 @@ export default function Principal() {
           onChange={handleChange}
           ref={inputFile}
         /></span>
-     
+
       <div className={style.fotosNomes}>
         <FotoUser/>
         {pets.length > 3 ? (
           <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className='w-100'>
-            { 
-                newPets().map((newPet, i) => (
-              <Carousel.Item key={i} >
-                {newPet.map(pet => (
-                  <FotosPets pet={pet} key={pet.id}/>
-                ))}
-              </Carousel.Item>
-            ))}
+            {
+              newPets().map((newPet, i) => (
+                <Carousel.Item key={i} >
+                  {newPet.map(pet => (
+                    <FotosPets pet={pet} key={pet.petId} />
+                  ))}
+                </Carousel.Item>
+              ))}
           </Carousel>
         ) : (
           <span
             className={classNames({
               "d-flex": true,
               "flex-row": true,
+              [style.fotosNomes__pets]: true
             })}
           >
             <div className={style.fotosPets}>
               {pets.map((pet) => (
-                <FotosPets pet={pet} key={pet.id} />
-            
+                <FotosPets pet={pet} key={pet.petId} />
+
               ))}
             </div>
           </span>
@@ -106,19 +146,6 @@ export default function Principal() {
       </div>
     </section>
   );
-}
 
-  /* Array.prototype.chunk = function (size: number) {
-        const result: {
-            nome: string;
-            src: string;
-            id: string;
-        }[][] = [];
+};
 
-        while (this.length) {
-            result.push(this.splice(0, size));
-        }
-
-        return result;
-    };
-*/

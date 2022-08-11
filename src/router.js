@@ -10,11 +10,11 @@ export default function AppRouter() {
 
         <Router>
             <Routes>
-                <Route path="/" element={<PaginaPadrao />} >
-                    <Route index element={<Feed />} />
-                    <Route path="perfil" element={<Perfil />} />
-                </Route>
                 <Route path="/login" element={<Login />} />
+                <Route path="/" element={<PaginaPadrao />} >
+                    <Route path="feed/" index element={<Feed />} />
+                    <Route path="perfil/:id" element={<Perfil />} />
+                </Route>
                 <Route path="/cadastro" element={<Cadastro />} />
             </Routes>
         </Router>

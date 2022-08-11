@@ -21,11 +21,19 @@
     height: 100px;
     object-fit: cover;
     width: 100%;
+    object-position: 20%;
     @media (max-width: $mobile){
       height: 90px;
       
     }
-
+    &:hover{
+      -webkit-filter: grayscale(1);
+    /* Webkit */
+    filter: gray;
+    /* IE6-9 */
+    filter: grayscale(1);
+    /* W3C */
+    }
   }
 
   button {
@@ -66,14 +74,19 @@
       border-radius: 50%;
       margin: 10px;
     }
-    margin-left: 30px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   &__pets {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    width: 25%; 
+    width: 70%; 
     
 
     &__fotosPets {
@@ -93,15 +106,6 @@
       display: flex;
       position: relative;
     }
-  }
-
-  img:hover {
-    -webkit-filter: grayscale(1);
-    /* Webkit */
-    filter: gray;
-    /* IE6-9 */
-    filter: grayscale(1);
-    /* W3C */
   }
 
   button {
