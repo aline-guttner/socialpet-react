@@ -17,11 +17,6 @@ declare global {
 
 export default function Principal() {
   let params = useParams();
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [date, setDate] = useState(Date.now())
-  const [profileImg, setProfileImg] = useState('')
   const [backImg, setBackImg] = useState('');
   const [pets, setPets] = useState<IPet[]>([{
     petName: '',
@@ -29,7 +24,6 @@ export default function Principal() {
     petImg: '',
     petId: ''
   }])
-  const [phone, setPhone] = useState('')
   const [authenticated, setAuthenticated] = useState('false');
   const [index, setIndex] = useState(0);
   let navigate = useNavigate()
@@ -41,14 +35,8 @@ export default function Principal() {
       http.get(`auth/${params.id}`)
         .then(res => {
           console.log(res)
-          setUsername(res.data.username)
-          setName(res.data.name)
-          setEmail(res.data.email)
-          setDate(res.data.birthDate)
-          setProfileImg(res.data.profileImg)
           setBackImg(res.data.backImg)
           setPets(res.data.pets)
-          setPhone(res.data.phone)
         })
         .catch(err => console.log(err)
         )
@@ -58,18 +46,27 @@ export default function Principal() {
   }, []);
 
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
-    const input = file.currentTarget;
+    let input = file.currentTarget;
 
     var reader = new FileReader();
     reader.onload = function () {
       const dataURL = reader.result;
       const stringURL = String(dataURL);
       setBackImg(stringURL);
+
+      http.patch(`auth/${params.id}`, {
+        backImg: stringURL
+      })
+      .then(res =>
+        console.log(res.data.backImg)
+      )
+      .catch(err => console.log(err))
     };
 
     if (input.files) {
       reader.readAsDataURL(input.files[0]);
     }
+    
   };
 
   const inputFile = useRef<HTMLInputElement | null>(null);
