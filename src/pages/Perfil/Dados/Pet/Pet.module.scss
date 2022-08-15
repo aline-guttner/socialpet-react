@@ -1,0 +1,25 @@
+@import "styles/breakpoints";
+@import "styles/variaveis";
+
+.inputName {
+    outline: none;
+    border: none;
+}
+
+.edicao {
+    outline: none;
+    border: none;
+    border-bottom: 1px dotted $cor1 ;
+}
+
+.oculto {
+    display: none;
+}
+
+td {
+    padding: 1rem;
+
+    p {
+        color: black;
+    }
+}

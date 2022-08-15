@@ -7,6 +7,7 @@ import FotoUser from "./FotoUser";
 import { useNavigate, useParams } from "react-router-dom";
 import http from "api";
 import IPet from "interfaces/IPet";
+import Pets from "./Pets";
 
 
 declare global {
@@ -18,12 +19,7 @@ declare global {
 export default function Principal() {
   let params = useParams();
   const [backImg, setBackImg] = useState('');
-  const [pets, setPets] = useState<IPet[]>([{
-    petName: '',
-    petType: '',
-    petImg: '',
-    petId: ''
-  }])
+  const [pets, setPets] = useState([])
   const [authenticated, setAuthenticated] = useState('false');
   const [index, setIndex] = useState(0);
   let navigate = useNavigate()
@@ -32,16 +28,15 @@ export default function Principal() {
     const loggedInUser = localStorage.getItem("authenticated");
     if (loggedInUser === 'true') {
       setAuthenticated(loggedInUser);
-      http.get(`auth/${params.id}`)
+      http.get(`user/${params.id}`)
         .then(res => {
-          console.log(res)
           setBackImg(res.data.backImg)
           setPets(res.data.pets)
         })
         .catch(err => console.log(err)
         )
     } else {
-      navigate(`../login`, { replace: true })
+      navigate(`../`, { replace: true })
     }
   }, []);
 
@@ -54,11 +49,11 @@ export default function Principal() {
       const stringURL = String(dataURL);
       setBackImg(stringURL);
 
-      http.patch(`auth/${params.id}`, {
+      http.patch(`user/${params.id}`, {
         backImg: stringURL
       })
-      .then(res =>
-        console.log(res.data.backImg)
+      .then(() =>
+        alert('Foto alterada com sucesso!')
       )
       .catch(err => console.log(err))
     };
@@ -118,8 +113,8 @@ export default function Principal() {
             {
               newPets().map((newPet, i) => (
                 <Carousel.Item key={i} >
-                  {newPet.map(pet => (
-                    <FotosPets pet={pet} key={pet.petId} />
+                  {newPet.map((pet, index) => (
+                    <FotosPets pet={pet} key={index}/>
                   ))}
                 </Carousel.Item>
               ))}
@@ -133,9 +128,8 @@ export default function Principal() {
             })}
           >
             <div className={style.fotosPets}>
-              {pets.map((pet) => (
-                <FotosPets pet={pet} key={pet.petId} />
-
+              {pets.map((pet, index) => (
+                <FotosPets pet={pet} key={index} />
               ))}
             </div>
           </span>
@@ -143,6 +137,5 @@ export default function Principal() {
       </div>
     </section>
   );
-
 };
 

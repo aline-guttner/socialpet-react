@@ -55,13 +55,6 @@
 	}
 }
 
-@media (max-width: 991px) and (min-width: 768px){
-a {
-	font-size: 15px!important;
-}
-
-}
-
 @media (max-width: 768px){
 	main{
 		padding: 0!important;

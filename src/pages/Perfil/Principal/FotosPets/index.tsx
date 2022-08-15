@@ -1,18 +1,24 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import style from '../Principal.module.scss';
-import { useParams } from 'react-router-dom'
+import http from 'api';
 
-interface Props{
-    pet: {
-        petName: string,
-        petImg: string,
-        petId: string
-    },
-    
+interface Props {
+    pet: string
 }
+export default function FotosPets({ pet }: Props) {
+    const [image, setImg] = useState('');
+    const [name, setName] = useState('');
+    useEffect(() => {
+        http.get(`pets/${pet}`)
+            .then(res => {
+                setImg(res.data.petImg)
+                setName(res.data.petName)
+            }
+            )
+    }, []);
 
-export default function FotosPets({pet} : Props){
-    const [image, setImage] = useState(pet.petImg);
+
+
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
 
@@ -20,7 +26,16 @@ export default function FotosPets({pet} : Props){
         reader.onload = function () {
             const dataURL = reader.result;
             const stringURL = String(dataURL)
-            setImage(stringURL);
+            setImg(stringURL);
+
+            http.patch(`pets/${pet}`, {
+                petImg: stringURL
+            })
+                .then(res =>
+                    console.log(res.data.petImg)
+                )
+                .catch(err => console.log(err))
+
         };
 
         if (input.files) {
@@ -36,23 +51,24 @@ export default function FotosPets({pet} : Props){
             inputFile.current.click();
         }
     };
-    return(
-        <span key={pet.petId} className={style.fotosNomes__pets}>
-        <span className={style.fotosNomes__pets__inputImgWrapper}>
-            <button onClick={onButtonClick}>
-                <img className={style.fotosNomes__pets__fotosPets} alt="Foto de animal"
-                    src={image}
+    return (
+        <span 
+         className={style.fotosNomes__pets}>
+            <span className={style.fotosNomes__pets__inputImgWrapper}>
+                <button onClick={onButtonClick}>
+                    <img className={style.fotosNomes__pets__fotosPets} alt="Foto de animal"
+                        src={image}
+                    />
+                </button>
+                <input
+                    id="inputFile3"
+                    type="file"
+                    accept="image/*"
+                    ref={inputFile}
+                    onChange={handleChange}
                 />
-            </button>
-            <input
-                id="inputFile3"
-                type="file"
-                accept="image/*"
-                ref={inputFile}
-                onChange={handleChange}
-            />
+            </span>
+            <p>{name}</p>
         </span>
-        <p>{pet.petName}</p>
-    </span>
     )
 }

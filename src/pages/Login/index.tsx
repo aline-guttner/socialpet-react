@@ -14,14 +14,13 @@ function Login() {
 
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) =>{
         evento.preventDefault()
-        http.post('auth/login', {
+        http.post('auth/', {
             email: email,
             password: senha
         })
         .then(user =>{ 
             localStorage.setItem("authenticated", 'true');
-            console.log(user)
-            navigate(`../perfil/${user.data.user._id}`, {replace: true})
+            navigate(`../user/perfil/${user.data.user._id}`, {replace: true})
     })
         .catch(error => console.log(error))
     }

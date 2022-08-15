@@ -22,13 +22,12 @@ function Cadastro() {
             email: email,
             password: senha 
         })
-        .then(res => {
+        .then(() => {
             setNome('')
             setUsuario('')
             setEmail('')
             setSenha('')
             setConfSenha('')
-            console.log(res)
             alert('Conta criada com sucesso!')
         }
             
@@ -87,7 +86,7 @@ alert('Senhas não conferem!')
                 Criar conta
             </Button>
             <hr />
-            <p className={style.plogin}>Já tem uma conta?<Link className={style.login} to={'/login'}> Faça login</Link></p>
+            <p className={style.plogin}>Já tem uma conta?<Link className={style.login} to={'/'}> Faça login</Link></p>
         </form >
     )
 }

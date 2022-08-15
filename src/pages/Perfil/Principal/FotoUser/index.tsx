@@ -10,7 +10,7 @@ export default function FotoUser() {
   const params = useParams();
 
   useEffect(() => {
-      http.get(`auth/${params.id}`)
+      http.get(`user/${params.id}`)
         .then(res => {
           setImage(res.data.profileImg)
           setName(res.data.name)
@@ -26,8 +26,25 @@ export default function FotoUser() {
     reader.onload = function () {
       const dataURL = reader.result;
       const stringURL = String(dataURL);
-      setImage(stringURL);
+
+      http.patch(`user/${params.id}`, {
+        profileImg: stringURL
+      })
+      .then(() =>{
+        setImage(stringURL);
+        alert('Foto alterada com sucesso!')
+      }
+      )
+      .catch(err => {
+        console.log(err)
+        alert('Tamanho de imagem excede o limite')
+        return
+      })
     };
+
+      
+
+     
 
     if (input.files) {
       reader.readAsDataURL(input.files[0]);
