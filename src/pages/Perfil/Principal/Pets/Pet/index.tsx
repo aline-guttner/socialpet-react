@@ -65,6 +65,7 @@ export default function Pet({ pet, petChange, setPetChange }: Props) {
            
     }
 
+    const animais = ['--','Gato', 'Cachorro', 'Ave', 'Cavalo', 'Capivara', 'Cobra', 'Hamster', 'Aranha', 'Outro']
     return (
         <tr>
             <td><input className={classNames({
@@ -77,12 +78,9 @@ export default function Pet({ pet, petChange, setPetChange }: Props) {
                     [style.edicao]: true,
                     [style.oculto]: oculto ? true : false
                 })} name='tipo' id='tipo' onChange={evento => setTipo(evento.target.value)}>
-                    <option value='--'>--</option>
-                    <option value='Gato'>Gato</option>
-                    <option value='Cachorro'>Cachorro</option>
-                    <option value='Ave'>Ave</option>
-                    <option value='Cavalo'>Cavalo</option>
-                    <option value='Outro'>Outro</option>
+                    {animais.map((animal, index) => (
+                        <option value={animal}>{animal}</option>
+                    ))}
                 </select>
             </td>
             <td><button className={classNames({
