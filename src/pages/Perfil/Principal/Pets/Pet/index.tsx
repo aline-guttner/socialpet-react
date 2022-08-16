@@ -61,8 +61,7 @@ export default function Pet({ pet, petChange, setPetChange }: Props) {
                     console.log('Pet alterado com sucesso')
             })
                 .catch(err => console.log(err))
-            })
-           
+            })      
     }
 
     const animais = ['--','Gato', 'Cachorro', 'Ave', 'Cavalo', 'Capivara', 'Cobra', 'Hamster', 'Aranha', 'Outro']
@@ -79,7 +78,7 @@ export default function Pet({ pet, petChange, setPetChange }: Props) {
                     [style.oculto]: oculto ? true : false
                 })} name='tipo' id='tipo' onChange={evento => setTipo(evento.target.value)}>
                     {animais.map((animal, index) => (
-                        <option value={animal}>{animal}</option>
+                        <option key={index} value={animal}>{animal}</option>
                     ))}
                 </select>
             </td>

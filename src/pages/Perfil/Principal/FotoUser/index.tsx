@@ -5,10 +5,11 @@ import style from '../Principal.module.scss';
 
 interface Props{
   image: string,
-  setImage: React.Dispatch<React.SetStateAction<string>>
+  setImage: React.Dispatch<React.SetStateAction<string>>,
+  nome: string
 }
 
-export default function FotoUser({image, setImage}: Props) {
+export default function FotoUser({image, setImage, nome}: Props) {
   
   const [name, setName] = useState('');
   const params = useParams();
@@ -36,10 +37,6 @@ export default function FotoUser({image, setImage}: Props) {
       })
     };
 
-      
-
-     
-
     if (input.files) {
       reader.readAsDataURL(input.files[0]);
     }
@@ -65,7 +62,7 @@ export default function FotoUser({image, setImage}: Props) {
         onChange={handleChange}
         ref={inputFile}
       />
-      <p>{name}</p>
+      <p>{nome}</p>
     </span>
   )
 }

@@ -9,7 +9,6 @@ import { Navigate } from "react-router-dom";
 function Login() {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
-    const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem('authenticated')|| 'false'));
     let navigate = useNavigate()
 
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) =>{
@@ -19,8 +18,10 @@ function Login() {
             password: senha
         })
         .then(user =>{ 
-            localStorage.setItem("authenticated", 'true');
-            navigate(`../user/perfil/${user.data.user._id}`, {replace: true})
+            if (user.data.token) {
+                navigate(`../user/perfil/${user.data.user._id}`)
+              }
+            
     })
         .catch(error => console.log(error))
     }

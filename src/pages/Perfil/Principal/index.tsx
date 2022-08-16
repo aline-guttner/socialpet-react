@@ -20,15 +20,16 @@ declare global {
 interface Props{
   backImg: string,
   setBackImg: React.Dispatch<React.SetStateAction<string>>,
-  pets: never[],
-  setPets: React.Dispatch<React.SetStateAction<never[]>>,
+  pets: string[],
+  setPets: React.Dispatch<React.SetStateAction<string[]>>,
   petChange: boolean,
   setPetChange: React.Dispatch<React.SetStateAction<boolean>>,
   image: string,
-  setImage: React.Dispatch<React.SetStateAction<string>>
+  setImage: React.Dispatch<React.SetStateAction<string>>,
+  nome: string,
 }
 
-export default function Principal({backImg, setBackImg, pets, setPets, petChange, setPetChange, image, setImage}: Props) {
+export default function Principal({backImg, setBackImg, pets, setPets, petChange, setPetChange, image, setImage, nome}: Props) {
   const params = useParams();
   const [index, setIndex] = useState(0);
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +99,7 @@ export default function Principal({backImg, setBackImg, pets, setPets, petChange
         /></span>
 
       <div className={style.fotosNomes}>
-        <FotoUser image={image} setImage={setImage}/>
+        <FotoUser nome={nome} image={image} setImage={setImage}/>
         {pets.length > 3 ? (
           <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className={style.carousel}>
             {pets.length &&
