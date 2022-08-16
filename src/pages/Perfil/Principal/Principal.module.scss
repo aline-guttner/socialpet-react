@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+
   @media (max-width: $mobile) {
     height: 180px;
   }
@@ -22,17 +23,18 @@
     object-fit: cover;
     width: 100%;
     object-position: 20%;
-    @media (max-width: $mobile){
+
+    @media (max-width: $mobile) {
       height: 90px;
-      
     }
-    &:hover{
+
+    &:hover {
       -webkit-filter: grayscale(1);
-    /* Webkit */
-    filter: gray;
-    /* IE6-9 */
-    filter: grayscale(1);
-    /* W3C */
+      /* Webkit */
+      filter: gray;
+      /* IE6-9 */
+      filter: grayscale(1);
+      /* W3C */
     }
   }
 
@@ -65,15 +67,26 @@
   height: 70%;
 
   &__user {
+
+    @media (max-width: $mobile) {
+      img{
+        height: 90px;
+        width: 90px;
+        margin: 0;
+      }
+      margin-left: 0;
+    }
+
     img {
-      height: 100px !important;
-      width: 100px !important;
+      height: 100px;
+      width: 100px;
       cursor: pointer;
       object-fit: cover;
       border: solid $cor1;
       border-radius: 50%;
       margin: 10px;
     }
+
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -87,12 +100,18 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 70%; 
-    
+    width: 100%;
 
-    &__fotosPets {
-      height: 80px !important;
-      width: 80px !important;
+
+    img {
+
+      @media (max-width: $mobile) {
+        height: 70px;
+        width: 70px;
+      }
+
+      height: 80px;
+      width: 80px;
       object-fit: cover;
       border: solid $cor1;
       border-radius: 50%;
@@ -100,6 +119,7 @@
       opacity: 1;
       line-height: 90px;
       text-align: center;
+
     }
 
 
@@ -126,3 +146,8 @@
   flex-direction: row;
 }
 
+.carousel{
+  width: 70%;
+  display: flex;
+  align-items: center;
+}

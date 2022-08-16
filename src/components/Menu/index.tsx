@@ -11,10 +11,7 @@ interface Props {
 export default function Menu({ menu }: Props) {
     let params = useParams();
     return (
-        <aside className={classNames({
-            [style.menu]: menu === true,
-            [style.menu__clicado]: menu === false
-        })}>
+        <aside className={style.menu}>
 
             <h2>Perfil</h2>
             <ul>

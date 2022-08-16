@@ -98,7 +98,7 @@ export default function Principal({backImg, setBackImg, pets, setPets, petChange
       <div className={style.fotosNomes}>
         <FotoUser/>
         {pets.length > 3 ? (
-          <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className='w-100'>
+          <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className={style.carousel}>
             {pets.length &&
               newPets().map((newPet, i) => (
                 <Carousel.Item key={i} >

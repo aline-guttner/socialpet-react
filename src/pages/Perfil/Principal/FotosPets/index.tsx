@@ -67,7 +67,7 @@ export default function FotosPets({ pet, petChange, setPetChange }: Props) {
             className={style.fotosNomes__pets}>
             <span className={style.fotosNomes__pets__inputImgWrapper}>
                 <button onClick={onButtonClick}>
-                    <img className={style.fotosNomes__pets__fotosPets} alt="Foto de animal"
+                    <img alt="Foto de animal"
                         src={image}
                     />
                 </button>
