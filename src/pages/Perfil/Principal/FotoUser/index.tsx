@@ -3,20 +3,15 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import style from '../Principal.module.scss';
 
-export default function FotoUser() {
-  const [image, setImage] = useState('');
+interface Props{
+  image: string,
+  setImage: React.Dispatch<React.SetStateAction<string>>
+}
+
+export default function FotoUser({image, setImage}: Props) {
+  
   const [name, setName] = useState('');
   const params = useParams();
-
-  useEffect(() => {
-      http.get(`user/${params.id}`)
-        .then(res => {
-          setImage(res.data.profileImg)
-          setName(res.data.name)
-        })
-        .catch(err => console.log(err)
-        )
-  }, []);
 
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
     const input = file.currentTarget;

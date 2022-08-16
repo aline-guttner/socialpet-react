@@ -16,6 +16,7 @@ import Pets from './Principal/Pets'
 
 export default function Perfil() {
     let params = useParams();
+    const [image, setImage] = useState('');
     const [backImg, setBackImg] = useState('');
     const [pets, setPets] = useState([])
     const [nome, setNome] = useState('');
@@ -41,6 +42,9 @@ export default function Perfil() {
                     setData(res.data.birthDate)
                     setTelefone(res.data.phone)
                     setPets(res.data.pets)
+                    if(res.data.profileImg !== ""){
+                        setImage(res.data.profileImg)
+                      }
                 })
                 .catch(err => console.log(err)
                 )
@@ -50,7 +54,7 @@ export default function Perfil() {
     }, [petChange]);
     return (
         <main className='container'>
-            <Principal backImg={backImg} setBackImg={setBackImg} pets={pets} setPets={setPets} petChange={petChange} setPetChange={setPetChange}/>
+            <Principal image={image} setImage={setImage} backImg={backImg} setBackImg={setBackImg} pets={pets} setPets={setPets} petChange={petChange} setPetChange={setPetChange}/>
             <Dados nome={nome} setNome={setNome} usuario={usuario} setUsuario={setUsuario} email={email} setEmail={setEmail} data={data} setData={setData} telefone={telefone} setTelefone={setTelefone}
             />
             <Pets pets={pets} petChange={petChange} setPetChange={setPetChange}/>
