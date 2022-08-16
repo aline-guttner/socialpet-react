@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import style from '../Principal.module.scss';
 import http from 'api';
+import camera from 'assets/imagens/cameraCinza.jpg';
 
 interface Props {
     pet: string,
@@ -9,14 +10,16 @@ interface Props {
 }
 
 export default function FotosPets({ pet, petChange, setPetChange }: Props) {
-    const [image, setImg] = useState('');
+    const [image, setImg] = useState(camera);
     const [name, setName] = useState('');
 
     useEffect(() => {
 
         http.get(`pets/${pet}`)
             .then(res => {
-                setImg(res.data.petImg)
+                if(res.data.petImg !== ""){
+                    setImg(res.data.petImg)
+                } 
                 setName(res.data.petName)
             }
             )
