@@ -2,16 +2,24 @@ import http from "api";
 import { useEffect, useState } from "react";
 import style from './Pet.module.scss';
 import classNames from 'classnames';
+import SalvarEditar from "components/SalvarEditar";
 
 interface Props {
     pet: string,
-    oculto: boolean,
-    setOculto: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function Pet({ pet, oculto, setOculto }: Props) {
+export default function Pet({ pet }: Props) {
     const [nome, setNome] = useState('')
     const [tipo, setTipo] = useState('--')
+    const [oculto, setOculto] = useState(true)
+
+    const ocultarBotao = () => {
+        setOculto(!oculto)
+    }
+
+    const salvarDados = (evento: React.FormEvent<HTMLFormElement>) => {
+        evento.preventDefault()
+    }
 
     useEffect(()=>{
         http.get(`pets/${pet}`)
@@ -44,7 +52,7 @@ export default function Pet({ pet, oculto, setOculto }: Props) {
             </td>
             <td></td>
             <td></td>
-            <td></td>
+            <td> <SalvarEditar salvarDados={salvarDados} ocultarBotao={ocultarBotao} oculto={oculto} setOculto={setOculto}/></td>
         </tr>
     )
 }

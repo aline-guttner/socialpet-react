@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Pet from '../../Dados/Pet'
 import style from './Pets.module.scss'
-
+import classNames from 'classnames';
 
 
 
@@ -27,14 +27,12 @@ export default function Pets() {
 
     const salvarDados = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
-        // DEFINIR FUNÇÃO
-
     }
 
     return (
         <section>
-            <form onSubmit={salvarDados}>
-            <SalvarEditar salvarDados={salvarDados} ocultarBotao={ocultarBotao} oculto={oculto} setOculto={setOculto}/>
+            
+           
             <table>
                 <thead>
                     <tr>
@@ -51,7 +49,7 @@ export default function Pets() {
                     ))}
                 </tbody>
             </table>
-            </form>
+           
         </section>
     )
 }
