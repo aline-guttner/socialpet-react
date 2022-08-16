@@ -17,9 +17,20 @@
 }
 
 td {
-    padding: 1rem;
-
+    padding: 0.5rem;
+    align-items: center;
     p {
         color: black;
+    }
+    
+    button{
+        float:none!important;
+        border: none;
+        background-color: transparent;
+        outline: none;
+
+        img{
+            height: 10px;
+        }
     }
 }

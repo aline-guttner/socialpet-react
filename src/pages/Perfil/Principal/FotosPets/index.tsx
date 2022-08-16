@@ -3,18 +3,25 @@ import style from '../Principal.module.scss';
 import http from 'api';
 
 interface Props {
-    pet: string
+    pet: string,
+    petChange: boolean,
+    setPetChange: React.Dispatch<React.SetStateAction<boolean>>
 }
-export default function FotosPets({ pet }: Props) {
+
+export default function FotosPets({ pet, petChange, setPetChange }: Props) {
     const [image, setImg] = useState('');
     const [name, setName] = useState('');
+
     useEffect(() => {
+
         http.get(`pets/${pet}`)
             .then(res => {
                 setImg(res.data.petImg)
                 setName(res.data.petName)
             }
             )
+
+
     }, []);
 
 
@@ -31,11 +38,12 @@ export default function FotosPets({ pet }: Props) {
             http.patch(`pets/${pet}`, {
                 petImg: stringURL
             })
-                .then(res =>
+                .then(res => {
                     console.log(res.data.petImg)
+                    setPetChange(!petChange)
+                }
                 )
                 .catch(err => console.log(err))
-
         };
 
         if (input.files) {
@@ -52,8 +60,8 @@ export default function FotosPets({ pet }: Props) {
         }
     };
     return (
-        <span 
-         className={style.fotosNomes__pets}>
+        <span
+            className={style.fotosNomes__pets}>
             <span className={style.fotosNomes__pets__inputImgWrapper}>
                 <button onClick={onButtonClick}>
                     <img className={style.fotosNomes__pets__fotosPets} alt="Foto de animal"

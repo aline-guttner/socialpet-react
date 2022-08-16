@@ -1,39 +1,20 @@
-import http from 'api'
-import SalvarEditar from 'components/SalvarEditar'
-import IPet from 'interfaces/IPet'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import Pet from '../../Dados/Pet'
-import style from './Pets.module.scss'
-import classNames from 'classnames';
+import { useParams } from 'react-router-dom';
+import Pet from './Pet';
 
 
 
-export default function Pets() {
+interface Props{
+    pets: string[],
+    petChange: boolean,
+    setPetChange: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function Pets({pets, petChange, setPetChange}: Props) {
     const params = useParams()
-    const [pets, setPets] = useState([])
-    const [oculto, setOculto] = useState(true)
-
-    useEffect(()=>{
-        http.get(`user/${params.id}`)
-        .then(res =>{
-            setPets(res.data.pets)
-        })
-    },[])
-
-    const ocultarBotao = () => {
-        setOculto(!oculto)
-    }
-
-    const salvarDados = (evento: React.FormEvent<HTMLFormElement>) => {
-        evento.preventDefault()
-    }
-
     return (
         <section>
-            
-           
-            <table>
+            <h2>Pets</h2>
+            {pets.length ? <table>
                 <thead>
                     <tr>
                         <td>Nome</td>
@@ -44,12 +25,12 @@ export default function Pets() {
                     </tr>
                 </thead>
                 <tbody>
-                    {pets.map((pet, index) => (
-                        <Pet oculto={oculto} setOculto={setOculto} pet={pet} key={index}/>
+                    {pets.map((pet, index) => ( 
+                        <Pet petChange={petChange} setPetChange={setPetChange} pet={pet} key={index}/>
                     ))}
                 </tbody>
             </table>
-           
+            : <p>Você ainda não adicionou nenhum pet</p>}
         </section>
     )
 }

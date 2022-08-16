@@ -10,36 +10,25 @@ import IPet from "interfaces/IPet";
 import Pets from "./Pets";
 
 
+
 declare global {
   interface Array<T> {
     chunk(size: number): any[][];
   }
 }
 
-export default function Principal() {
-  let params = useParams();
-  const [backImg, setBackImg] = useState('');
-  const [pets, setPets] = useState([])
-  const [authenticated, setAuthenticated] = useState('false');
+interface Props{
+  backImg: string,
+  setBackImg: React.Dispatch<React.SetStateAction<string>>,
+  pets: never[],
+  setPets: React.Dispatch<React.SetStateAction<never[]>>,
+  petChange: boolean,
+  setPetChange: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function Principal({backImg, setBackImg, pets, setPets, petChange, setPetChange}: Props) {
+  const params = useParams();
   const [index, setIndex] = useState(0);
-  let navigate = useNavigate()
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("authenticated");
-    if (loggedInUser === 'true') {
-      setAuthenticated(loggedInUser);
-      http.get(`user/${params.id}`)
-        .then(res => {
-          setBackImg(res.data.backImg)
-          setPets(res.data.pets)
-        })
-        .catch(err => console.log(err)
-        )
-    } else {
-      navigate(`../`, { replace: true })
-    }
-  }, []);
-
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
     let input = file.currentTarget;
 
@@ -110,11 +99,11 @@ export default function Principal() {
         <FotoUser/>
         {pets.length > 3 ? (
           <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className='w-100'>
-            {
+            {pets.length &&
               newPets().map((newPet, i) => (
                 <Carousel.Item key={i} >
                   {newPet.map((pet, index) => (
-                    <FotosPets pet={pet} key={index}/>
+                    <FotosPets petChange={petChange} setPetChange={setPetChange} pet={pet} key={index}/>
                   ))}
                 </Carousel.Item>
               ))}
@@ -129,7 +118,7 @@ export default function Principal() {
           >
             <div className={style.fotosPets}>
               {pets.map((pet, index) => (
-                <FotosPets pet={pet} key={index} />
+                <FotosPets petChange={petChange} setPetChange={setPetChange} pet={pet} key={index} />
               ))}
             </div>
           </span>

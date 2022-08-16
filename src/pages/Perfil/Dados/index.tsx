@@ -7,30 +7,22 @@ import { useParams } from 'react-router-dom';
 import Pets from '../Principal/Pets'
 import SalvarEditar from 'components/SalvarEditar';
 
+interface Props{
+    nome: string, 
+    setNome: React.Dispatch<React.SetStateAction<string>>,
+    usuario: string,
+    setUsuario: React.Dispatch<React.SetStateAction<string>>,
+    email: string,
+    setEmail: React.Dispatch<React.SetStateAction<string>>,
+    data: string,
+    setData: React.Dispatch<React.SetStateAction<string>>,
+    telefone: string,
+    setTelefone: React.Dispatch<React.SetStateAction<string>>
+}
 
-
-export default function Dados() {
+export default function Dados({nome, setNome, usuario, setUsuario, email, setEmail, data, setData, telefone, setTelefone}: Props) {
     const params = useParams();
-    const [nome, setNome] = useState('');
-    const [usuario, setUsuario] = useState('');
-    const [email, setEmail] = useState('');
-    const [data, setData] = useState('')
-    const [telefone, setTelefone] = useState('')
-    const [pets, setPets] = useState('')
     const [oculto, setOculto] = useState(true)
-
-    useEffect(() => {
-        http.get(`user/${params.id}`)
-        .then(res => {
-           setNome(res.data.name)
-            setUsuario(res.data.username)
-            setEmail(res.data.email)
-            setData(res.data.birthDate)
-            setTelefone(res.data.phone)
-            setPets(res.data.pets)
-        }
-        )
-    },[])
 
     const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -87,7 +79,6 @@ export default function Dados() {
                 <hr />
             </form>
         </section>
-        <Pets/>
         </>
         
     )

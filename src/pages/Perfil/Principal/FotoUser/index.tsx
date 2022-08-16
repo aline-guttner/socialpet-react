@@ -1,5 +1,4 @@
 import http from 'api';
-import IUser from 'interfaces/IUser';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import style from '../Principal.module.scss';
