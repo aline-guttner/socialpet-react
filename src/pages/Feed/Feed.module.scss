@@ -50,3 +50,12 @@
         color: $cor1;
     }
 }
+
+.postagens{
+    background-color: transparent;
+    div{
+        margin: 10px 0 10px 0;
+        background-color: $cor2;
+        padding: 1.5rem;
+    }
+}

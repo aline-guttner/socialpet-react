@@ -2,7 +2,8 @@ import react, { useState } from 'react';
 import arranhador from "assets/imagens/arranhador.png";
 import style from './Feed.module.scss';
 import classNames from 'classnames';
-
+import posts from 'data/posts';
+import moment from 'moment'; 
 
 const Feed = () => {
     const [inativo, setInativo] = useState(false);
@@ -11,6 +12,7 @@ const Feed = () => {
         evento.preventDefault();
 
     }
+
     return (
         <main className='container'>
              <button onClick={() => setInativo(!inativo)} className={classNames({
@@ -36,7 +38,16 @@ const Feed = () => {
                     <button type='submit' className={style.largeButton} onClick={() => setInativo(!inativo)}>Publicar</button>
                 </form>
             </section>
-            <section></section>
+            <section className={style.postagens}>
+                {posts.map((post, index) => (
+                    <div key={index} className={style.postagem}>
+                        <p>{moment(post.date).format('lll')}</p>
+                        {post.title && <h2>{post.title}</h2>}
+                        {post.image && <img src={post.image} alt="" /> }
+                        <p>{post.content}</p>
+                    </div>
+                ))}
+            </section>
         </main>
 
 
