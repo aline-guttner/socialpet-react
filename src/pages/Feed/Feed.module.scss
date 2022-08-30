@@ -1,0 +1,52 @@
+@import 'styles/variaveis';
+@import 'styles/breakpoints';
+
+.inativo{
+    display: none;
+}
+
+.formPostagem{
+    background-color: $cor2;
+    div{
+        label{
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        input, textarea{
+            width: 50%;
+            min-width: 200px;
+            border: $cor1 solid 1px;
+            margin-bottom: 0.5rem;
+            outline: none;
+        }
+
+    }
+
+    button[type=button]{
+        border: $cor1 solid 1px;
+        background-color: transparent;
+        color: $cor1;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+
+        &:hover{
+            background-color: $cor1;
+            color: $cor2;
+        }
+    }
+}
+
+.largeButton{
+    width: 100%;
+    border: $cor1 solid 1px;
+    background-color: $cor1;
+    color: $cor2;
+    padding: 0.5rem;
+
+    &:hover{
+        background-color: $cor2;
+        color: $cor1;
+    }
+}
