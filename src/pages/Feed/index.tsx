@@ -43,7 +43,7 @@ const Feed = () => {
                     <div key={index} className={style.postagem}>
                         <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}
-                        {post.image && <img src={post.image} alt="" /> }
+                        {post.image && <img src={post.image} alt="" className='img-fluid' /> }
                         <p>{post.content}</p>
                     </div>
                 ))}
