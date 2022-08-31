@@ -58,13 +58,14 @@ const Feed = () => {
                         <textarea name='conteudo' id='conteudo' className={style.inputConteudo} rows={10} placeholder="Escreva o conteúdo da postagem"></textarea>
                     </div>
                     <br />
-                    <button type='button' onClick={pegarImagem}>Inserir imagem</button>
+                    <div><button type='button' onClick={pegarImagem}>Inserir imagem</button>
                     <input
                         type="file"
                         accept="image/*"
                         onChange={handleChange}
                         ref={inputFile}
-                    />
+                    /></div>
+                    
                     <br />
                     <button type='submit' className={style.largeButton} onClick={() => setInativo(!inativo)}>Publicar</button>
                 </form>
