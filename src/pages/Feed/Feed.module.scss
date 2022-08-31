@@ -1,20 +1,22 @@
 @import 'styles/variaveis';
 @import 'styles/breakpoints';
 
-.inativo{
+.inativo {
     display: none;
 }
 
-.formPostagem{
+.formPostagem {
     background-color: $cor2;
-    div{
-        label{
+
+    div {
+        label {
             display: block;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        input, textarea{
+        input,
+        textarea {
             width: 50%;
             min-width: 200px;
             border: $cor1 solid 1px;
@@ -24,39 +26,58 @@
 
     }
 
-    button[type=button]{
+    button[type=button] {
         border: $cor1 solid 1px;
         background-color: transparent;
         color: $cor1;
         padding: 0.5rem;
         margin-bottom: 1rem;
 
-        &:hover{
+        &:hover {
             background-color: $cor1;
             color: $cor2;
         }
     }
+
+    input[type=file] {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        &:hover{
+            cursor: pointer;
+        }
+    }
 }
 
-.largeButton{
+.largeButton {
     width: 100%;
     border: $cor1 solid 1px;
     background-color: $cor1;
     color: $cor2;
     padding: 0.5rem;
 
-    &:hover{
+    &:hover {
         background-color: $cor2;
         color: $cor1;
     }
 }
 
-.postagens{
+.postagens {
     background-color: transparent;
     padding: 0;
-    div{
+
+    div {
         margin: 10px 0 10px 0;
         background-color: $cor2;
-        padding: 1.5rem;
+        padding: 1.2rem;
+
+        p,
+        h2,
+        img {
+            margin: 0.5rem 0;
+        }
     }
 }
