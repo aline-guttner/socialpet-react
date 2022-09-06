@@ -3,7 +3,7 @@ import { Col } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import Header from 'components/Header';
 import Menu from 'components/Menu';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from 'components/Sidebar';
 import classNames from 'classnames';

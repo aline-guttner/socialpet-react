@@ -10,8 +10,6 @@ interface Props{
 }
 
 export default function FotoUser({image, setImage, nome}: Props) {
-  
-  const [name, setName] = useState('');
   const params = useParams();
 
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
