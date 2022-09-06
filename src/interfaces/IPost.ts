@@ -3,6 +3,6 @@ export default interface IPost{
     date: Date,
     userId: string,
     title: string,
-    image: string,
+    image: string[],
     content: string
 }

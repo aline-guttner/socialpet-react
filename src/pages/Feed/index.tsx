@@ -7,6 +7,7 @@ import xis from 'assets/imagens/x-mark-16.png';
 import http from 'api';
 import { useParams } from 'react-router-dom';
 import IPost from 'interfaces/IPost';
+import { Carousel } from 'react-bootstrap';
 
 const Feed = () => {
     const params = useParams();
@@ -62,6 +63,7 @@ const Feed = () => {
 
     const publicar = () => {
         if (conteudo !== '' || prevImg.length) {
+
             http.post('posts/', {
                 date: new Date(),
                 userId: params.id,
@@ -139,8 +141,17 @@ const Feed = () => {
                     <div key={index} className={style.postagens__postagem}>
                         <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}
-                        {post.image && <div><img src={post.image} alt="" className='img-fluid' /></div>}
-                        <p>{post.content}</p>
+                        {post.image.length > 1 ?
+                            <Carousel variant="dark" indicators={false} interval={3000000}>
+                                {post.image.map((imagem, index) => (
+                                    <Carousel.Item key={index}>
+                                        <div><img src={imagem} alt="" className='img-fluid' /></div>
+                                    </Carousel.Item>
+                                ))}
+                            </Carousel> :
+                            <div><img src={post.image[0]} alt="" className='img-fluid' /></div>
+                        }
+                        {post.content && <p>{post.content}</p>}
                     </div>
                 ))}
             </section>
