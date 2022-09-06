@@ -61,44 +61,44 @@
     }
 }
 
-.previewList{
+.previewList {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 
-   &__preview{
-    width: 120px;
-    display: flex;
-    flex-direction: row;
-    margin: 0.5rem 0;
-    align-items: center;
-    margin: 0.5rem;
-    justify-content: space-between;
-    
-    button{
-        background-color: transparent;
-        outline: none;
-        border: none;
-    }
+    &__preview {
+        width: 120px;
+        display: flex;
+        flex-direction: row;
+        margin: 0.5rem 0;
+        align-items: center;
+        margin: 0.5rem;
+        justify-content: space-between;
 
-    &__prevImg{
-        width: 100px;
-        height: 25px;
-        object-fit: cover;
-    }
+        button {
+            background-color: transparent;
+            outline: none;
+            border: none;
+        }
 
-    &__xis{
-        height: 12px;
-    }
+        &__prevImg {
+            width: 100px;
+            height: 25px;
+            object-fit: cover;
+        }
 
-   }
+        &__xis {
+            height: 12px;
+        }
+
+    }
 }
 
 
 .postagens {
     background-color: transparent;
     padding: 0;
-   
+
 
     &__postagem {
         margin: 10px 0 10px 0;
@@ -107,25 +107,32 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        
-        
-        div{
+
+
+        div {
             background-color: $cor3;
-            img{
-                object-fit:contain;
+
+            img {
+                object-fit: contain;
                 max-height: 80vh;
             }
         }
 
-       p, h2{
-        padding: 0.5rem 0;
-       }
+        p,
+        h2 {
+            padding: 0.5rem 0;
+        }
+
+        a {
+            background-color: white;
+            width: 22px;
+            display: flex;
+        }
     }
 
-    .singleImg{
+    .singleImg {
         display: flex;
         flex-direction: row;
         justify-content: center;
     }
 }
-

@@ -150,6 +150,13 @@ html {
 
 main {
     margin-top: 70px;
+    
+}
+
+@media (max-width: 768px) {
+    .container{
+            --bs-gutter-x: 0!important; 
+    }
 }
 
 .activeSlide {
@@ -163,7 +170,6 @@ main {
     justify-content: center;
 }
 
-.carousel-control-prev, .carousel-control-next{
-    background-color: white;
-    width: 22px;
+.carousel-control-prev {
+    display: none;
 }
