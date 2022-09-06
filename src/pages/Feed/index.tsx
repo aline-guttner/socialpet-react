@@ -1,9 +1,9 @@
-import react, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import arranhador from "assets/imagens/arranhador.png";
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import style from './Feed.module.scss';
 import classNames from 'classnames';
 import posts from 'data/posts';
 import moment from 'moment';
+import xis from 'assets/imagens/x-mark-16.png';
 
 const Feed = () => {
     const [inativo, setInativo] = useState(false);
@@ -76,9 +76,12 @@ const Feed = () => {
                         multiple
                     />
                     </div>
-                    <div>
+                    <div className={style.previewList}>
                         {prevImg.length !== 0 && prevImg.map((img, index) => (
-                            <div key={index}><img src={img} className={style.prevImg} alt="" /></div>
+                            <div className={style.previewList__preview} key={index}>
+                                <img src={img} className={style.previewList__preview__prevImg} alt="" />
+                                <img src={xis} className={style.previewList__preview__xis} alt="" />
+                            </div>
                         ))}
                     </div>
                     <br />

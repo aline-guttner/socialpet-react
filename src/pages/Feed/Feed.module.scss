@@ -61,11 +61,31 @@
     }
 }
 
-.prevImg{
-    width: 100px;
-    height: 25px;
-    object-fit: cover;
+.previewList{
+    display: flex;
+    flex-direction: row;
+
+   &__preview{
+    width: 120px;
+    display: flex;
+    flex-direction: row;
+    margin: 0.5rem 0;
+    align-items: center;
+    margin: 0 0.5rem;
+    justify-content: space-between;
+
+    &__prevImg{
+        width: 100px;
+        height: 25px;
+        object-fit: cover;
+    }
+
+    &__xis{
+        height: 12px;
+    }
+   }
 }
+
 
 .postagens {
     background-color: transparent;
