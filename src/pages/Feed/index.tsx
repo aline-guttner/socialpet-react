@@ -1,4 +1,4 @@
-import react, { ChangeEvent, useRef, useState } from 'react';
+import react, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import arranhador from "assets/imagens/arranhador.png";
 import style from './Feed.module.scss';
 import classNames from 'classnames';
@@ -7,23 +7,32 @@ import moment from 'moment';
 
 const Feed = () => {
     const [inativo, setInativo] = useState(false);
+    const [prevImg, setPrevImg] = useState<string[]>([]);
 
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
 
     }
+    
+    useEffect(() =>{
+        console.log(prevImg)
+    }, [prevImg])
 
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
-
-        var reader = new FileReader();
-        reader.onload = function () {
-            const dataURL = reader.result;
-            const stringURL = String(dataURL);
-        };
-
         if (input.files) {
-            reader.readAsDataURL(input.files[0]);
+            let inputFiles = input.files;
+            let newArr = Array.from(inputFiles);
+
+            newArr.forEach(img => {
+                var reader = new FileReader();
+                reader.readAsDataURL(img);
+                reader.onload = function () {
+                    const dataURL = reader.result;
+                    const stringURL = String(dataURL);
+                    setPrevImg(prevState => [...prevState, stringURL]);
+                };
+            })
         }
 
         //Resolover esse negócio
@@ -64,8 +73,14 @@ const Feed = () => {
                         accept="image/*"
                         onChange={handleChange}
                         ref={inputFile}
-                    /></div>
-                    
+                        multiple
+                    />
+                    </div>
+                    <div>
+                        {prevImg.length !== 0 && prevImg.map((img, index) => (
+                            <div key={index}><img src={img} className={style.prevImg} alt="" /></div>
+                        ))}
+                    </div>
                     <br />
                     <button type='submit' className={style.largeButton} onClick={() => setInativo(!inativo)}>Publicar</button>
                 </form>
