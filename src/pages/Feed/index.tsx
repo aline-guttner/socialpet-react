@@ -77,6 +77,9 @@ const Feed = () => {
                             setFeed(res.data)
                         })
                         .catch(error => console.log(error))
+                    setTitulo('')
+                    setConteudo('')
+                    setPrevImg([])
                 }
                 )
                 .catch(error => console.log(error))
@@ -97,13 +100,13 @@ const Feed = () => {
                 <form onSubmit={aoSubmeterForm} className={style.formPostagem}>
                     <div>
                         <label htmlFor='titulo'>Título</label>
-                        <input type="text" id='titulo' placeholder='Escreva o título da postagem'
+                        <input type="text" id='titulo' placeholder='Escreva o título da postagem' value={titulo}
                             onChange={evento => setTitulo(evento.target.value)} />
                     </div>
                     <br />
                     <div>
                         <label htmlFor='conteudo'>Conteúdo</label>
-                        <textarea name='conteudo' id='conteudo' className={style.inputConteudo} rows={10} placeholder="Escreva o conteúdo da postagem"
+                        <textarea name='conteudo' id='conteudo' className={style.inputConteudo} rows={10} placeholder="Escreva o conteúdo da postagem" value={conteudo}
                             onChange={evento => setConteudo(evento.target.value)}
                         ></textarea>
                     </div>
@@ -132,7 +135,7 @@ const Feed = () => {
                 </form>
             </section>
             <section className={style.postagens}>
-                {feed.map((post, index) => (
+                {[...feed].reverse().map((post, index) => (
                     <div key={index} className={style.postagem}>
                         <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}
