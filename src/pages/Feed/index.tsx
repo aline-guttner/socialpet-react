@@ -48,9 +48,9 @@ const Feed = () => {
                 };
             })
         }
-
-        //Resolover esse negócio
     };
+
+    const primeirosTrinta = feed.slice(0, 30)
 
     const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -135,7 +135,7 @@ const Feed = () => {
                 </form>
             </section>
             <section className={style.postagens}>
-                {[...feed].reverse().map((post, index) => (
+                {primeirosTrinta.reverse().map((post, index) => (
                     <div key={index} className={style.postagens__postagem}>
                         <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}
