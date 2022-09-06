@@ -4,15 +4,29 @@ import classNames from 'classnames';
 import posts from 'data/posts';
 import moment from 'moment';
 import xis from 'assets/imagens/x-mark-16.png';
+import http from 'api';
+import { useParams } from 'react-router-dom';
+import IPost from 'interfaces/IPost';
 
 const Feed = () => {
+    const params = useParams();
     const [inativo, setInativo] = useState(false);
     const [prevImg, setPrevImg] = useState<string[]>([]);
+    const [titulo, setTitulo] = useState('');
+    const [conteudo, setConteudo] = useState('');
+    const [feed, setFeed] = useState<IPost[]>([]);
 
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
-
     }
+
+    useEffect(() => {
+        http.get('posts/')
+            .then(res => {
+                setFeed(res.data)
+            })
+            .catch(error => console.log(error))
+    }, [])
 
     useEffect(() => {
         console.log(prevImg)
@@ -41,11 +55,35 @@ const Feed = () => {
     const inputFile = useRef<HTMLInputElement | null>(null);
 
     const pegarImagem = () => {
-        // `current` points to the mounted file input element
         if (inputFile.current) {
             inputFile.current.click();
         }
     };
+
+    const publicar = () => {
+        if (conteudo !== '' || prevImg.length) {
+            http.post('posts/', {
+                date: new Date(),
+                userId: params.id,
+                title: titulo,
+                image: prevImg,
+                content: conteudo
+            })
+                .then(() => {
+                    alert('Conteúdo publicado com sucesso!')
+                    setInativo(!inativo)
+                    http.get('posts/')
+                        .then(res => {
+                            setFeed(res.data)
+                        })
+                        .catch(error => console.log(error))
+                }
+                )
+                .catch(error => console.log(error))
+        } else {
+            alert('A publicação precisa ter um texto ou uma imagem.')
+        }
+    }
 
     return (
         <main className='container'>
@@ -59,12 +97,15 @@ const Feed = () => {
                 <form onSubmit={aoSubmeterForm} className={style.formPostagem}>
                     <div>
                         <label htmlFor='titulo'>Título</label>
-                        <input type="text" id='titulo' placeholder='Escreva o título da postagem' />
+                        <input type="text" id='titulo' placeholder='Escreva o título da postagem'
+                            onChange={evento => setTitulo(evento.target.value)} />
                     </div>
                     <br />
                     <div>
                         <label htmlFor='conteudo'>Conteúdo</label>
-                        <textarea name='conteudo' id='conteudo' className={style.inputConteudo} rows={10} placeholder="Escreva o conteúdo da postagem"></textarea>
+                        <textarea name='conteudo' id='conteudo' className={style.inputConteudo} rows={10} placeholder="Escreva o conteúdo da postagem"
+                            onChange={evento => setConteudo(evento.target.value)}
+                        ></textarea>
                     </div>
                     <br />
                     <div><button type='button' onClick={pegarImagem}>Inserir imagem</button>
@@ -87,11 +128,11 @@ const Feed = () => {
                         ))}
                     </div>
                     <br />
-                    <button type='submit' className={style.largeButton} onClick={() => setInativo(!inativo)}>Publicar</button>
+                    <button type='submit' className={style.largeButton} onClick={publicar}>Publicar</button>
                 </form>
             </section>
             <section className={style.postagens}>
-                {posts.map((post, index) => (
+                {feed.map((post, index) => (
                     <div key={index} className={style.postagem}>
                         <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}

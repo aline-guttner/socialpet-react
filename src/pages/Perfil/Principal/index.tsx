@@ -1,13 +1,11 @@
 import style from "./Principal.module.scss";
 import classNames from "classnames";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import FotosPets from "./FotosPets";
 import Carousel from "react-bootstrap/Carousel";
 import FotoUser from "./FotoUser";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import http from "api";
-import IPet from "interfaces/IPet";
-import Pets from "./Pets";
 
 
 
@@ -29,7 +27,7 @@ interface Props{
   nome: string,
 }
 
-export default function Principal({backImg, setBackImg, pets, setPets, petChange, setPetChange, image, setImage, nome}: Props) {
+export default function Principal({backImg, setBackImg, pets, petChange, setPetChange, image, setImage, nome}: Props) {
   const params = useParams();
   const [index, setIndex] = useState(0);
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
