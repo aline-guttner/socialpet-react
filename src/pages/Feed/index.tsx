@@ -13,8 +13,8 @@ const Feed = () => {
         evento.preventDefault();
 
     }
-    
-    useEffect(() =>{
+
+    useEffect(() => {
         console.log(prevImg)
     }, [prevImg])
 
@@ -68,19 +68,21 @@ const Feed = () => {
                     </div>
                     <br />
                     <div><button type='button' onClick={pegarImagem}>Inserir imagem</button>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleChange}
-                        ref={inputFile}
-                        multiple
-                    />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleChange}
+                            ref={inputFile}
+                            multiple
+                        />
                     </div>
                     <div className={style.previewList}>
                         {prevImg.length !== 0 && prevImg.map((img, index) => (
                             <div className={style.previewList__preview} key={index}>
                                 <img src={img} className={style.previewList__preview__prevImg} alt="" />
-                                <img src={xis} className={style.previewList__preview__xis} alt="" />
+                                <button onClick={() => setPrevImg(prevList => [...prevList.slice(0, index), ...prevList.slice(index + 1)])}>
+                                    <img src={xis} className={style.previewList__preview__xis} alt="" />
+                                </button>
                             </div>
                         ))}
                     </div>

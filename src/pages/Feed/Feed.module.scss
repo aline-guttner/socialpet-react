@@ -73,6 +73,12 @@
     align-items: center;
     margin: 0 0.5rem;
     justify-content: space-between;
+    
+    button{
+        background-color: transparent;
+        outline: none;
+        border: none;
+    }
 
     &__prevImg{
         width: 100px;
@@ -83,6 +89,7 @@
     &__xis{
         height: 12px;
     }
+
    }
 }
 
