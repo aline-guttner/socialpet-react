@@ -136,10 +136,10 @@ const Feed = () => {
             </section>
             <section className={style.postagens}>
                 {[...feed].reverse().map((post, index) => (
-                    <div key={index} className={style.postagem}>
+                    <div key={index} className={style.postagens__postagem}>
                         <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}
-                        {post.image && <img src={post.image} alt="" className='img-fluid' />}
+                        {post.image && <div><img src={post.image} alt="" className='img-fluid' /></div>}
                         <p>{post.content}</p>
                     </div>
                 ))}

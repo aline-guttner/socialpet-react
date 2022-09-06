@@ -99,15 +99,28 @@
     background-color: transparent;
     padding: 0;
 
-    div {
+    &__postagem {
         margin: 10px 0 10px 0;
         background-color: $cor2;
         padding: 1.2rem;
-
-        p,
-        h2,
-        img {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        div{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 0;
             margin: 0.5rem 0;
+            background-color: $cor3;
+
+            img{
+                object-fit:contain;
+                max-height: 80vh;
+            }
         }
+
+       
     }
 }
