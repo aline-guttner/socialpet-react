@@ -149,7 +149,7 @@ const Feed = () => {
                                     </Carousel.Item>
                                 ))}
                             </Carousel> :
-                            <div><img src={post.image[0]} alt="" className='img-fluid' /></div>
+                            <div className={style.singleImg}><img src={post.image[0]} alt="" className='img-fluid' /></div>
                         }
                         {post.content && <p>{post.content}</p>}
                     </div>

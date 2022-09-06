@@ -98,6 +98,7 @@
 .postagens {
     background-color: transparent;
     padding: 0;
+   
 
     &__postagem {
         margin: 10px 0 10px 0;
@@ -106,6 +107,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        
         
         div{
             background-color: $cor3;
@@ -119,4 +121,11 @@
         padding: 0.5rem 0;
        }
     }
+
+    .singleImg{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
 }
+
