@@ -10,12 +10,14 @@ export default function AppRouter() {
 
         <Router>
             <Routes>
-                <Route path="/socialpet-react" element={<Login />} />
-                <Route path="/socialpet-react/user" element={<PaginaPadrao />} >
+                <Route path="socialpet-react">
+                <Route path="/" element={<Login />} />
+                <Route path="/user" element={<PaginaPadrao />} >
                     <Route path="feed/:id" index element={<Feed />} />
                     <Route path="perfil/:id" element={<Perfil />} />
                 </Route>
                 <Route path="/cadastro" element={<Cadastro />} />
+                </Route>
             </Routes>
         </Router>
     )
