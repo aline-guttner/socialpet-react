@@ -30,6 +30,7 @@ interface Props{
 export default function Principal({backImg, setBackImg, pets, petChange, setPetChange, image, setImage, nome}: Props) {
   const params = useParams();
   const [index, setIndex] = useState(0);
+
   const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
     let input = file.currentTarget;
 
