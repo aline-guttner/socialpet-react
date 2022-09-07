@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/socialpet-react/static/css/main.07728d45.css",
+    "main.js": "/socialpet-react/static/js/main.8c530725.js",
+    "static/js/787.cfbd5ac4.chunk.js": "/socialpet-react/static/js/787.cfbd5ac4.chunk.js",
+    "static/media/Frame 1.png": "/socialpet-react/static/media/Frame 1.c0617ecd10e4cd8b7192.png",
+    "static/media/Myproject.png": "/socialpet-react/static/media/Myproject.dd8d16abcd44a588c1cb.png",
+    "static/media/cameraCinza.jpg": "/socialpet-react/static/media/cameraCinza.bedf330ed687c8ba1dab.jpg",
+    "index.html": "/socialpet-react/index.html",
+    "main.07728d45.css.map": "/socialpet-react/static/css/main.07728d45.css.map",
+    "main.8c530725.js.map": "/socialpet-react/static/js/main.8c530725.js.map",
+    "787.cfbd5ac4.chunk.js.map": "/socialpet-react/static/js/787.cfbd5ac4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.07728d45.css",
+    "static/js/main.8c530725.js"
+  ]
+}
