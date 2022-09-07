@@ -46,7 +46,10 @@ export default function FotosPets({ pet, petChange, setPetChange }: Props) {
                     setPetChange(!petChange)
                 }
                 )
-                .catch(err => console.log(err))
+                .catch(err => {
+                    console.log(err)
+                    alert('Não foi possível alterar sua foto, tente novamente mais tarde.')
+                })
         };
 
         if (input.files) {

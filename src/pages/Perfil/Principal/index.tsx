@@ -46,7 +46,10 @@ export default function Principal({backImg, setBackImg, pets, petChange, setPetC
       .then(() =>
         alert('Foto alterada com sucesso!')
       )
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        alert('Não foi possível alterar sua foto, tente novamente mais tarde.')
+    })
     };
 
     if (input.files) {

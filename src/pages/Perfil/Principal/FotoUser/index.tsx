@@ -30,9 +30,8 @@ export default function FotoUser({image, setImage, nome}: Props) {
       )
       .catch(err => {
         console.log(err)
-        alert('Tamanho de imagem excede o limite')
-        return
-      })
+        alert('Não foi possível alterar sua foto, tente novamente mais tarde.')
+    })
     };
 
     if (input.files) {

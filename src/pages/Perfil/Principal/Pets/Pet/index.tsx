@@ -60,7 +60,10 @@ export default function Pet({ pet, petChange, setPetChange }: Props) {
                     setPetChange(!petChange)
                     console.log('Pet alterado com sucesso')
             })
-                .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+                alert('Não foi possível salvar seus dados, tente novamente mais tarde.')
+            })
             })      
     }
 

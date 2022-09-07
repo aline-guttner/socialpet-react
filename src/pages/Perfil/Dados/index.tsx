@@ -39,7 +39,10 @@ export default function Dados({nome, setNome, usuario, setUsuario, email, setEma
             phone: telefone
         })
         .then(() => alert('Dados alterados com sucesso!'))
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            alert('Não foi possível salvar seus dados, tente novamente mais tarde.')
+        })
 
     }
 
