@@ -24,6 +24,21 @@ export default function Pet({ pet, petChange, ocultoHerdado, setPetChange, setAd
     const [tipo, setTipo] = useState('--')
     const [oculto, setOculto] = useState(true)
 
+    useEffect(() => {
+        if (pet) {
+            http.get(`pets/${pet}`)
+                .then(res => {
+                    setNome(res.data.petName)
+                    setTipo(res.data.petType)
+                }
+                )
+        }
+        if (ocultoHerdado) {
+            setOculto(false)
+        }
+    }, [])
+
+
     const ocultarBotao = () => {
         setOculto(!oculto)
     }
@@ -52,53 +67,20 @@ export default function Pet({ pet, petChange, ocultoHerdado, setPetChange, setAd
             })
                 .then(res => {
                     let novoPet = res.data.pet._id
-                    console.log(novoPet)
-                    http.get(`user/${params.id}`)
-                        .then(res => {
-                            let petsAntigos = res.data.pets
-                            http.patch(`user/${params.id}`, {
-                                pets: [...petsAntigos, novoPet]
-                            })
-                                .then(() => {
-                                    alert('Pet adicionado com sucesso!')
-                                    setPetChange(!petChange)
-                                    if (setAdicionando) { setAdicionando(false) }
-                                })
-                                .catch(err => {
-                                    alert('Não foi possível adicionar o pet, tente novamente mais tarde')
-                                    console.log(err)
-                                })
-                        })
-                        .catch(err => {
-                            alert('Não foi possível adicionar o pet, tente novamente mais tarde')
-                            console.log(err)
-                        })
+                    alert('Pet criado com sucesso!')
+                    if (setAdicionando){
+                        setAdicionando(false)
+                    }
+                    setPetChange(!petChange)
+                    
                 })
                 .catch(err => {
                     alert('Não foi possível adicionar o pet, tente novamente mais tarde')
                     console.log(err)
                 })
-                .catch(err => {
-                    alert('Não foi possível criar o pet, tente novamente mais tarde.')
-                    console.log(err)
-                })
         }
 
     }
-
-    useEffect(() => {
-        if (pet) {
-            http.get(`pets/${pet}`)
-                .then(res => {
-                    setNome(res.data.petName)
-                    setTipo(res.data.petType)
-                }
-                )
-        }
-        if (ocultoHerdado) {
-            setOculto(false)
-        }
-    }, [])
 
     const excluirPet = () => {
         if (pet) {
