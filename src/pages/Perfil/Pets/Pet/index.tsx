@@ -30,14 +30,12 @@ export default function Pet({ pet, petChange, ocultoHerdado, setPetChange, setAd
                 .then(res => {
                     setNome(res.data.petName)
                     setTipo(res.data.petType)
-                }
-                )
+                })
         }
         if (ocultoHerdado) {
             setOculto(false)
         }
     }, [])
-
 
     const ocultarBotao = () => {
         setOculto(!oculto)
