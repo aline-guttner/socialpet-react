@@ -25,9 +25,7 @@ export default function FotosPets({ pet, petChange, setPetChange }: Props) {
             )
 
 
-    }, []);
-
-
+    }, [petChange]);
 
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
         const input = file.currentTarget;
@@ -60,11 +58,11 @@ export default function FotosPets({ pet, petChange, setPetChange }: Props) {
     const inputFile = useRef<HTMLInputElement | null>(null)
 
     const onButtonClick = () => {
-        // `current` points to the mounted file input element
         if (inputFile.current) {
             inputFile.current.click();
         }
     };
+
     return (
         <span
             className={style.fotosNomes__pets}>

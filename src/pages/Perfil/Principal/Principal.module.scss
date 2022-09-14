@@ -23,7 +23,8 @@
     object-fit: cover;
     width: 100%;
     object-position: 20%;
-
+    cursor: pointer;
+    
     @media (max-width: $mobile) {
       height: 90px;
     }
@@ -80,7 +81,6 @@
     img {
       height: 100px;
       width: 100px;
-      cursor: pointer;
       object-fit: cover;
       border: solid $cor1;
       border-radius: 50%;

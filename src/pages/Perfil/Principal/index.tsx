@@ -61,7 +61,6 @@ export default function Principal({backImg, setBackImg, pets, petChange, setPetC
   const inputFile = useRef<HTMLInputElement | null>(null);
 
   const mudarImagem = () => {
-    // `current` points to the mounted file input element
     if (inputFile.current) {
       inputFile.current.click();
     }

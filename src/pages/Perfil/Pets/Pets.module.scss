@@ -1,0 +1,16 @@
+@import "styles/breakpoints";
+@import "styles/variaveis";
+
+.button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    img{
+        height: 13px;
+        width: 13px;
+    }
+}
+
+.semPets{
+    margin: 1rem 0;
+}

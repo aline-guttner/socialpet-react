@@ -16,29 +16,37 @@ function Cadastro() {
 
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
-        if (senha === confSenha){http.post('auth/register', {
-            name: nome,
-            username: usuario,
-            email: email,
-            password: senha 
-        })
-        .then(() => {
-            setNome('')
-            setUsuario('')
-            setEmail('')
-            setSenha('')
-            setConfSenha('')
-            alert('Conta criada com sucesso!')
+        if (senha === confSenha) {
+            http.get('user/')
+                .then(res => {
+                    res.data.users.find((user: { email: string; }) => user.email === email)
+                    alert('Usuário já cadastrado.')
+                })
+                .catch(() => {
+                    http.post('auth/register', {
+                        name: nome,
+                        username: usuario,
+                        email: email,
+                        password: senha
+                    })
+                        .then(() => {
+                            setNome('')
+                            setUsuario('')
+                            setEmail('')
+                            setSenha('')
+                            setConfSenha('')
+                            alert('Conta criada com sucesso!')
+                        })
+                        .catch(err => console.log(err))
+                    }
+            )
+        } else {
+            alert('Senhas não conferem!')
         }
-            
-        )
-        .catch(() => alert('Já existe uma conta com esse email'))
-        return
-} 
 
-alert('Senhas não conferem!')
-        
-       
+
+
+
     }
 
     return (
@@ -51,33 +59,33 @@ alert('Senhas não conferem!')
             <div>
                 <label htmlFor='nome'>Nome</label>
                 <input type='text' id='nome' required name='nome' placeholder='Fulano de Tal' value={nome}
-                onChange={evento => setNome(evento.target.value)}
+                    onChange={evento => setNome(evento.target.value)}
                 />
             </div>
             <div>
                 <label htmlFor='email'>Email</label>
                 <input type='text' id='email' required name='email' placeholder='fulanodetal@gmail.com' value={email}
-                onChange={evento => setEmail(evento.target.value)}
+                    onChange={evento => setEmail(evento.target.value)}
                 />
             </div>
             <div>
                 <label htmlFor='usuario'>Usuário</label>
                 <input type='text' id='usuario' required name='usuario' placeholder='fulano_detal' value={usuario}
-                onChange={evento => setUsuario(evento.target.value)}
+                    onChange={evento => setUsuario(evento.target.value)}
                 />
             </div>
-           
+
             <div className={style.senhas}>
                 <div className={style.divPassword1}>
                     <label htmlFor="password1" >Senha</label>
                     <input type="password" id="password1" name="up" required placeholder="Exe1mp7l0o" value={senha}
-                    onChange={evento => setSenha(evento.target.value)}
+                        onChange={evento => setSenha(evento.target.value)}
                     />
                 </div>
                 <div className={style.divPassword2}>
                     <label htmlFor="password2">Confirmar senha</label>
-                    <input type="password" id="password2" name="up" required placeholder="Exe1mp7l0o" value={confSenha} 
-                    onChange={evento => setConfSenha(evento.target.value)}
+                    <input type="password" id="password2" name="up" required placeholder="Exe1mp7l0o" value={confSenha}
+                        onChange={evento => setConfSenha(evento.target.value)}
                     />
                 </div>
 

@@ -1,10 +1,8 @@
 import style from './Dados.module.scss';
 import styleSection from 'styles/Section.module.scss';
-import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import http from 'api';
 import { useParams } from 'react-router-dom';
-import Pets from '../Principal/Pets'
 import SalvarEditar from 'components/SalvarEditar';
 
 interface Props{
@@ -83,6 +81,5 @@ export default function Dados({nome, setNome, usuario, setUsuario, email, setEma
             </form>
         </section>
         </>
-        
     )
 }

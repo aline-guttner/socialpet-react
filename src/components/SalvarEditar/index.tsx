@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 interface Props{
     ocultarBotao: () => void
-    salvarDados: (evento: React.FormEvent<HTMLFormElement>) => void,
+    salvarDados: (evento: any) => void,
     oculto: boolean,
     setOculto: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -18,7 +18,7 @@ export default function SalvarEditar({ocultarBotao, salvarDados, oculto, setOcul
         <button type='submit' className={classNames({
             [style.oculto]: oculto ? true : false,
             [style.salvarEditar]: true
-        })} onClick={ocultarBotao}>Salvar</button>
+        })} onClick={evento => {ocultarBotao(); salvarDados(evento);}}>Salvar</button>
         </>
     )
 }
