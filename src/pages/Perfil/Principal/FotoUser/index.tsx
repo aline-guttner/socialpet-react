@@ -1,43 +1,12 @@
-import http from 'api';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { UserContext } from 'contexts/UserContext';
+import { useContext, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import style from '../Principal.module.scss';
 
-interface Props{
-  image: string,
-  setImage: React.Dispatch<React.SetStateAction<string>>,
-  nome: string
-}
-
-export default function FotoUser({image, setImage, nome}: Props) {
+export default function FotoUser() {
   const params = useParams();
 
-  const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
-    const input = file.currentTarget;
-
-    var reader = new FileReader();
-    reader.onload = function () {
-      const dataURL = reader.result;
-      const stringURL = String(dataURL);
-
-      http.patch(`user/${params.id}`, {
-        profileImg: stringURL
-      })
-      .then(() =>{
-        setImage(stringURL);
-        alert('Foto alterada com sucesso!')
-      }
-      )
-      .catch(err => {
-        console.log(err)
-        alert('Não foi possível alterar sua foto, tente novamente mais tarde.')
-    })
-    };
-
-    if (input.files) {
-      reader.readAsDataURL(input.files[0]);
-    }
-  };
+  const { image, user, updateUserImg } = useContext(UserContext)
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -47,6 +16,23 @@ export default function FotoUser({image, setImage, nome}: Props) {
       inputFile.current.click();
     }
   };
+
+  const updateImg = (file: React.ChangeEvent<HTMLInputElement>) => {
+    const input = file.currentTarget;
+    var reader = new FileReader();
+
+    reader.onload = async function () {
+      const dataURL = reader.result;
+      const stringURL = String(dataURL);
+      updateUserImg(params.id, stringURL)
+
+    }
+
+    if (input.files) {
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
   return (
     <span className={style.fotosNomes__user}>
       <button onClick={mudarImagem}>
@@ -56,10 +42,11 @@ export default function FotoUser({image, setImage, nome}: Props) {
         id="inputFile1"
         type="file"
         accept="image/*"
-        onChange={handleChange}
+        onChange={evento => updateImg(evento)}
         ref={inputFile}
       />
-      <p>{nome}</p>
+      <p>{user && user.name}</p>
     </span>
   )
-}
+
+};

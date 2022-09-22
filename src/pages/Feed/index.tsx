@@ -30,7 +30,6 @@ const Feed = () => {
     }, [])
 
     useEffect(() => {
-        console.log(prevImg)
     }, [prevImg])
 
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {

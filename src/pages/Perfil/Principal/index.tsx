@@ -1,13 +1,13 @@
 import style from "./Principal.module.scss";
 import classNames from "classnames";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState, useContext } from "react";
 import FotosPets from "./FotosPets";
 import Carousel from "react-bootstrap/Carousel";
 import FotoUser from "./FotoUser";
 import { useParams } from "react-router-dom";
 import http from "api";
-
-
+import { UserContext } from "contexts/UserContext";
+import IPet from "interfaces/IPet";
 
 declare global {
   interface Array<T> {
@@ -15,48 +15,11 @@ declare global {
   }
 }
 
-interface Props{
-  backImg: string,
-  setBackImg: React.Dispatch<React.SetStateAction<string>>,
-  pets: string[],
-  setPets: React.Dispatch<React.SetStateAction<string[]>>,
-  petChange: boolean,
-  setPetChange: React.Dispatch<React.SetStateAction<boolean>>,
-  image: string,
-  setImage: React.Dispatch<React.SetStateAction<string>>,
-  nome: string,
-}
-
-export default function Principal({backImg, setBackImg, pets, petChange, setPetChange, image, setImage, nome}: Props) {
+export default function Principal() {
   const params = useParams();
   const [index, setIndex] = useState(0);
 
-  const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
-    let input = file.currentTarget;
-
-    var reader = new FileReader();
-    reader.onload = function () {
-      const dataURL = reader.result;
-      const stringURL = String(dataURL);
-      setBackImg(stringURL);
-
-      http.patch(`user/${params.id}`, {
-        backImg: stringURL
-      })
-      .then(() =>
-        alert('Foto alterada com sucesso!')
-      )
-      .catch(err => {
-        console.log(err)
-        alert('Não foi possível alterar sua foto, tente novamente mais tarde.')
-    })
-    };
-
-    if (input.files) {
-      reader.readAsDataURL(input.files[0]);
-    }
-    
-  };
+  const { backImg, pets, handleUserChange, threePets } = useContext(UserContext)
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -65,13 +28,6 @@ export default function Principal({backImg, setBackImg, pets, petChange, setPetC
       inputFile.current.click();
     }
   };
-
-  const newPets = () => {
-    return Array.from(
-      new Array(Math.ceil(pets.length / 3)),
-      (_, i) => pets.slice(i * 3, i * 3 + 3)
-    )
-  }
 
   const handleSelect = (selectedIndex: any, e: any) => {
     setIndex(selectedIndex);
@@ -89,25 +45,25 @@ export default function Principal({backImg, setBackImg, pets, petChange, setPetC
           <img
             src={backImg}
             className="img-fluid"
-          />
+            alt="Foto de capa" />
         </button>
         <input
           id="inputFile2"
           type="file"
           accept="image/*"
-          onChange={handleChange}
+          onChange={evento => handleUserChange(evento, params.id)}
           ref={inputFile}
         /></span>
 
       <div className={style.fotosNomes}>
-        <FotoUser nome={nome} image={image} setImage={setImage}/>
+        <FotoUser />
         {pets.length > 3 ? (
           <Carousel indicators={false} activeIndex={index} interval={3000000} onSelect={handleSelect} className={style.carousel}>
             {pets.length &&
-              newPets().map((newPet, i) => (
+              threePets().map((newPet, i) => (
                 <Carousel.Item key={i} >
-                  {newPet.map((pet, index) => (
-                    <FotosPets petChange={petChange} setPetChange={setPetChange} pet={pet} key={index}/>
+                  {newPet.map((pet: IPet, index: number) => (
+                    <FotosPets pet={pet._id} key={index} />
                   ))}
                 </Carousel.Item>
               ))}
@@ -121,8 +77,8 @@ export default function Principal({backImg, setBackImg, pets, petChange, setPetC
             })}
           >
             <div className={style.fotosPets}>
-              {pets.map((pet, index) => (
-                <FotosPets petChange={petChange} setPetChange={setPetChange} pet={pet} key={index} />
+              {pets.map((pet: IPet, index: number) => (
+                <FotosPets pet={pet._id} key={index} />
               ))}
             </div>
           </span>

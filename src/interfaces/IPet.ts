@@ -1,6 +1,7 @@
-export default interface IPet{
+export default interface IPet {
     petName: string,
     petType: string,
     petImg: string,
-    id: string
+    _id: string,
+    userId: string
 }

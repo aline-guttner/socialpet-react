@@ -1,51 +1,39 @@
 import Principal from './Principal';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
 import Dados from './Dados';
 import { useParams } from 'react-router-dom';
-import http from 'api';
 import Pets from './Pets';
-import camera from 'assets/imagens/cameraCinza.jpg';
+import { UserContext } from 'contexts/UserContext';
+import { useApi } from 'hooks/useApi';
+import http from 'api';
 
-interface Props {
-    auth: boolean
-}
 
-export default function Perfil({ auth }: Props) {
+export default function Perfil() {
     let params = useParams();
-    const [image, setImage] = useState(camera);
-    const [backImg, setBackImg] = useState(camera);
-    const [pets, setPets] = useState<string[]>([]);
-    const [nome, setNome] = useState('');
-    const [usuario, setUsuario] = useState('');
-    const [email, setEmail] = useState('');
-    const [data, setData] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [petChange, setPetChange] = useState(false);
-    useEffect(() => {
-        http.get(`user/${params.id}`)
-            .then(res => {
-                setBackImg(res.data.backImg)
-                setNome(res.data.name)
-                setUsuario(res.data.username)
-                setEmail(res.data.email)
-                setData(res.data.birthDate)
-                setTelefone(res.data.phone)
-                setPets(res.data.pets)
-                console.log(res.data)
-                if (res.data.profileImg !== "") {
-                    setImage(res.data.profileImg)
-                }
-                console.log(pets)
-            })
-            .catch(err => console.log(err)
-            )
-    }, [petChange]);
-    return (
+
+    const { data } = useApi(`user/${params.id}`)
+
+    const { setUser, user, setBackImg, setPets, setImage, setId } = useContext(UserContext)
+
+    setUser(data)
+
+    setId(params.id)
+
+    if (user) {
+        setBackImg(user.backImg)
+        setPets(user.pets)
+        if (data.profileImg !== '') {
+            setImage(user.profileImg)
+        }
+    }
+
+    if (user) return (
         <main className='container'>
-            <Principal nome={nome} image={image} setImage={setImage} backImg={backImg} setBackImg={setBackImg} pets={pets} setPets={setPets} petChange={petChange} setPetChange={setPetChange} />
-            <Dados nome={nome} setNome={setNome} usuario={usuario} setUsuario={setUsuario} email={email} setEmail={setEmail} data={data} setData={setData} telefone={telefone} setTelefone={setTelefone}
-            />
-            <Pets pets={pets} setPets={setPets} petChange={petChange} setPetChange={setPetChange} />
+            <Principal />
+            <Dados />
+            <Pets />
         </main>
     )
+
+    return <h1>Carregando...</h1>
 }
