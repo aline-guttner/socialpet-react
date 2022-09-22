@@ -3,6 +3,7 @@ import styleSection from 'styles/Section.module.scss';
 import { useContext, useRef, useState, useEffect } from 'react';
 import SalvarEditar from 'components/SalvarEditar';
 import { UserContext } from 'contexts/UserContext';
+import moment from 'moment';
 
 export default function Dados() {
     const [oculto, setOculto] = useState(true)
@@ -10,7 +11,7 @@ export default function Dados() {
     const [nome, setNome] = useState('')
     const [usuario, setUsuario] = useState('')
     const [email, setEmail] = useState('')
-    const [data, setData] = useState<Date | null>(null)
+    const [data, setData] = useState<any>()
     const [telefone, setTelefone] = useState('')
 
     const { user } = useContext(UserContext)
@@ -20,7 +21,7 @@ export default function Dados() {
             setNome(user.name)
             setUsuario(user.username)
             setEmail(user.email)
-            setData(user.birthDate)
+            setData(moment(user.birthDate).utc().format('YYYY-MM-DD'))
             setTelefone(user.phone)
         }
 
@@ -34,6 +35,7 @@ export default function Dados() {
 
     const salvarDadosUser = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
+
         salvarUserDados(nome ? nome : undefined, usuario ? usuario : undefined, data ? data : undefined, telefone ? telefone : undefined)
     }
 
@@ -63,7 +65,7 @@ export default function Dados() {
                     <label htmlFor="dataNascimento">Data de Nascimento</label>
                     <br />
                     <input type="date" id="dataNacimento"
-                        name="dataNascimento" onChange={evento => setData(new Date(evento.target.value))} readOnly={oculto ? true : false} value={String(data)} />
+                        name="dataNascimento" onChange={evento => setData(evento.target.value)} readOnly={oculto ? true : false} value={data} />
                     <hr />
                     <br />
                     <label htmlFor="phone" >Telefone</label>

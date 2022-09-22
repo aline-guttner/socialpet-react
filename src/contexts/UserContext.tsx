@@ -29,6 +29,7 @@ type UserContextType = {
     excluirPet: (petId: string | undefined) => void,
     user: IUser | undefined,
     setUser: (user: IUser | undefined) => void,
+    setUserData: () => void;
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -43,6 +44,19 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const [user, setUser] = useState<IUser | undefined>(undefined)
 
     const { mutate } = useApi(`user/${id}`)
+    const { data } = useApi(`user/${id}`)
+
+    const setUserData = () => {
+        if (user) {
+            setBackImg(user.backImg)
+            setPets(user.pets)
+            if (user.profileImg !== '') {
+                setImage(user.profileImg)
+            }
+        }
+        mutate()
+
+    }
 
     const handleUserChange = (file: ChangeEvent<HTMLInputElement>, userId: string | undefined) => {
         let input = file.currentTarget;
@@ -89,6 +103,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     const salvarUserDados = async (name?: string, username?: string, data?: Date | null, telefone?: string) => {
         if (user) {
+
             try {
                 await http.patch(`user/${id}`, {
                     name: name,
@@ -177,7 +192,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     return (
-        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleUserChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, excluirPet, setPets, user, setUser }}>
+        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleUserChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, excluirPet, setPets, user, setUser, setUserData }}>
             {children}
         </UserContext.Provider>
     )

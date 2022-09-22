@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Pets from './Pets';
 import { UserContext } from 'contexts/UserContext';
 import { useApi } from 'hooks/useApi';
-import http from 'api';
+import style from './Perfil.module.scss';
 
 
 export default function Perfil() {
@@ -13,21 +13,20 @@ export default function Perfil() {
 
     const { data } = useApi(`user/${params.id}`)
 
-    const { setUser, user, setBackImg, setPets, setImage, setId } = useContext(UserContext)
+    const { setUser, user, setId, setUserData } = useContext(UserContext)
 
-    setUser(data)
 
-    setId(params.id)
+    setUser(data);
+    setId(params.id);
+    setUserData();
 
-    if (user) {
-        setBackImg(user.backImg)
-        setPets(user.pets)
-        if (data.profileImg !== '') {
-            setImage(user.profileImg)
-        }
-    }
 
-    if (user) return (
+    if (!user) return (
+        <main>
+            <h1 className={style.carregando}>Carregando...</h1>
+        </main>)
+
+    return (
         <main className='container'>
             <Principal />
             <Dados />
@@ -35,5 +34,5 @@ export default function Perfil() {
         </main>
     )
 
-    return <h1>Carregando...</h1>
+
 }
