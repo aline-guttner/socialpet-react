@@ -50,7 +50,7 @@ export default function Principal() {
           id="inputFile2"
           type="file"
           accept="image/*"
-          onChange={evento => handleUserChange(evento, params.id)}
+          onChange={evento => handleUserChange(evento)}
           ref={inputFile}
         /></span>
 

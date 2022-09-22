@@ -17,12 +17,12 @@ type UserContextType = {
     setImage: (newState: string) => void,
     backImg: string,
     setBackImg: (newState: string) => void,
-    handleUserChange: (file: ChangeEvent<HTMLInputElement>, userId: string | undefined) => void,
+    handleUserChange: (file: ChangeEvent<HTMLInputElement>) => void,
     updatePetImg: (petId: string, stringURL: string) => void,
     threePets: () => IPet[][],
-    updateUserImg: (userId: string | undefined, stringURL: string) => void,
+    updateUserImg: (stringURL: string) => void,
     salvarUserDados: (name?: string, username?: string, data?: Date | null, telefone?: string) => void,
-    salvarPetsDados: (evento: React.MouseEvent<HTMLButtonElement, MouseEvent>, userId: string | undefined, petId: string | undefined, petNome: string, tipo: string) => void,
+    salvarPetsDados: (evento: React.MouseEvent<HTMLButtonElement, MouseEvent>, petId: string | undefined, petNome: string, tipo: string) => void,
     adicionando: boolean,
     setAdicionando: (newState: boolean) => void,
     setId: (newState: string | undefined) => void,
@@ -57,7 +57,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         mutate()
     }
 
-    const handleUserChange = (file: ChangeEvent<HTMLInputElement>, userId: string | undefined) => {
+    const handleUserChange = (file: ChangeEvent<HTMLInputElement>) => {
         let input = file.currentTarget;
         var reader = new FileReader();
         reader.onload = async function () {
@@ -65,7 +65,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             const stringURL = String(dataURL);
             setBackImg(stringURL);
             try {
-                await http.patch(`user/${userId}`, {
+                await http.patch(`user/${id}`, {
                     backImg: stringURL
                 });
                 mutate();
@@ -83,8 +83,8 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     };
 
-    const updateUserImg = async (userId: string | undefined, stringURL: string) => {
-        if (userId) {
+    const updateUserImg = async (stringURL: string) => {
+        if (id) {
             try {
                 await http.patch(`user/${id}`, {
                     profileImg: stringURL
@@ -140,7 +140,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         )
     }
 
-    const salvarPetsDados = async (evento: React.MouseEvent<HTMLButtonElement, MouseEvent>, userId: string | undefined, petId: string | undefined, petNome: string, tipo: string) => {
+    const salvarPetsDados = async (evento: React.MouseEvent<HTMLButtonElement, MouseEvent>, petId: string | undefined, petNome: string, tipo: string) => {
         evento.preventDefault()
         if (petId) {
             try {
@@ -160,7 +160,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
                     petName: petNome,
                     petType: tipo,
                     petImg: "",
-                    userId: userId
+                    id: id
                 })
                 mutate();
                 alert('Pet criado com sucesso!')

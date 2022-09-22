@@ -24,7 +24,7 @@ export default function FotoUser() {
     reader.onload = async function () {
       const dataURL = reader.result;
       const stringURL = String(dataURL);
-      updateUserImg(params.id, stringURL)
+      updateUserImg(stringURL)
 
     }
 

@@ -40,7 +40,7 @@ export default function Pet({ pet, ocultoHerdado }: Props) {
 
     const salvarDadosPets = (evento: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         evento.preventDefault()
-        salvarPetsDados(evento, params.id, pet?._id, petNome, tipo)
+        salvarPetsDados(evento, pet?._id, petNome, tipo)
         mutate();
     }
 
