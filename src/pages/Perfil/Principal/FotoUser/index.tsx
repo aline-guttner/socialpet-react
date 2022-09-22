@@ -1,10 +1,8 @@
 import { UserContext } from 'contexts/UserContext';
 import { useContext, useRef } from 'react';
-import { useParams } from 'react-router-dom';
 import style from '../Principal.module.scss';
 
 export default function FotoUser() {
-  const params = useParams();
 
   const { image, user, updateUserImg } = useContext(UserContext)
 

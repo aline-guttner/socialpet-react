@@ -5,6 +5,7 @@ import { ChangeEvent, createContext, ReactNode, useState } from "react";
 import camera from 'assets/imagens/cameraCinza.jpg';
 import IUser from "interfaces/IUser";
 
+
 type UserContextProps = {
     children: ReactNode;
 };
@@ -160,7 +161,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
                     petName: petNome,
                     petType: tipo,
                     petImg: "",
-                    id: id
+                    userId: id
                 })
                 mutate();
                 alert('Pet criado com sucesso!')

@@ -1,12 +1,12 @@
+import style from "./Principal.module.scss";
 import classNames from "classnames";
+import { useEffect, useRef, useState, useContext } from "react";
+import FotosPets from "./FotosPets";
+import Carousel from "react-bootstrap/Carousel";
+import FotoUser from "./FotoUser";
+import { useParams } from "react-router-dom";
 import { UserContext } from "contexts/UserContext";
 import IPet from "interfaces/IPet";
-import { useContext, useRef, useState } from "react";
-import Carousel from "react-bootstrap/Carousel";
-import { useParams } from "react-router-dom";
-import FotosPets from "./FotosPets";
-import FotoUser from "./FotoUser";
-import style from "./Principal.module.scss";
 
 declare global {
   interface Array<T> {
