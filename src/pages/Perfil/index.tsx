@@ -1,5 +1,5 @@
 import Principal from './Principal';
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import Dados from './Dados';
 import { useParams } from 'react-router-dom';
 import Pets from './Pets';

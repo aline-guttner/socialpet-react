@@ -4,7 +4,6 @@ import IPet from "interfaces/IPet";
 import { ChangeEvent, createContext, ReactNode, useState } from "react";
 import camera from 'assets/imagens/cameraCinza.jpg';
 import IUser from "interfaces/IUser";
-import useSWR from "swr";
 
 type UserContextProps = {
     children: ReactNode;
