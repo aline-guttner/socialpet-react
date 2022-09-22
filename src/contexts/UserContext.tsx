@@ -4,6 +4,7 @@ import IPet from "interfaces/IPet";
 import { ChangeEvent, createContext, ReactNode, useState } from "react";
 import camera from 'assets/imagens/cameraCinza.jpg';
 import IUser from "interfaces/IUser";
+import useSWR from "swr";
 
 type UserContextProps = {
     children: ReactNode;
@@ -44,7 +45,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const [user, setUser] = useState<IUser | undefined>(undefined)
 
     const { mutate } = useApi(`user/${id}`)
-    const { data } = useApi(`user/${id}`)
+
 
     const setUserData = () => {
         if (user) {
@@ -55,7 +56,6 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             }
         }
         mutate()
-
     }
 
     const handleUserChange = (file: ChangeEvent<HTMLInputElement>, userId: string | undefined) => {

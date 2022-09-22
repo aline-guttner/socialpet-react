@@ -15,7 +15,7 @@ export default function Perfil() {
 
     const { setUser, user, setId, setUserData } = useContext(UserContext)
 
-
+    // resolver isso daqui
     setUser(data);
     setId(params.id);
     setUserData();

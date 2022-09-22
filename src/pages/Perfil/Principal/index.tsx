@@ -1,11 +1,10 @@
 import style from "./Principal.module.scss";
 import classNames from "classnames";
-import { ChangeEvent, useRef, useState, useContext } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import FotosPets from "./FotosPets";
 import Carousel from "react-bootstrap/Carousel";
 import FotoUser from "./FotoUser";
 import { useParams } from "react-router-dom";
-import http from "api";
 import { UserContext } from "contexts/UserContext";
 import IPet from "interfaces/IPet";
 
