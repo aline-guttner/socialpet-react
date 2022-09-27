@@ -26,6 +26,7 @@ type UserContextType = {
     salvarPetsDados: (evento: React.MouseEvent<HTMLButtonElement, MouseEvent>, petId: string | undefined, petNome: string, tipo: string) => void,
     adicionando: boolean,
     setAdicionando: (newState: boolean) => void,
+    id: string | undefined,
     setId: (newState: string | undefined) => void,
     excluirPet: (petId: string | undefined) => void,
     user: IUser | undefined,
@@ -192,7 +193,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     return (
-        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleUserChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, excluirPet, setPets, user, setUser, setUserData }}>
+        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleUserChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData }}>
             {children}
         </UserContext.Provider>
     )

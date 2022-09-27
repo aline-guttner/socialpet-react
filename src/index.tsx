@@ -4,15 +4,18 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AppRouter from 'router';
 import { UserContextProvider } from 'contexts/UserContext';
+import { PostContextProvider } from 'contexts/PostContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <UserContextProvider>
-      <AppRouter />
-    </UserContextProvider>
+    <PostContextProvider>
+      <UserContextProvider>
+        <AppRouter />
+      </UserContextProvider>
+    </PostContextProvider>
   </React.StrictMode>
 );
 

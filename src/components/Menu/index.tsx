@@ -2,7 +2,7 @@ import style from './Menu.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import logout from 'assets/imagens/logout-16.png';
 import classNames from 'classnames';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 interface Props {
     menu: boolean
@@ -10,6 +10,7 @@ interface Props {
 
 export default function Menu({ menu }: Props) {
     let params = useParams();
+
     return (
         <aside className={style.menu}>
 

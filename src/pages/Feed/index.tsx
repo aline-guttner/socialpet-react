@@ -11,51 +11,20 @@ import { Carousel } from 'react-bootstrap';
 // import style from './DropdownEdit.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { deletePostRequest } from 'api';
+import { useContext } from 'react';
+import { PostContext } from 'contexts/PostContext';
+import { UserContext } from 'contexts/UserContext';
 
 const Feed = () => {
     const params = useParams();
-    const [inativo, setInativo] = useState(false);
-    const [prevImg, setPrevImg] = useState<string[]>([]);
-    const [titulo, setTitulo] = useState('');
-    const [conteudo, setConteudo] = useState('');
-    const [feed, setFeed] = useState<IPost[]>([]);
 
-    const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
-        evento.preventDefault();
+    const { id } = useContext(UserContext)
 
-
-
-    }
+    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicar, setPreviewList } = useContext(PostContext)
 
     useEffect(() => {
-        http.get('posts/')
-            .then(res => {
-                setFeed(res.data)
-            })
-            .catch(error => console.log(error))
+        getPosts()
     }, [])
-
-    useEffect(() => {
-        console.log(prevImg)
-    }, [prevImg])
-
-    const handleChange = (file: ChangeEvent<HTMLInputElement>) => {
-        const input = file.currentTarget;
-        if (input.files) {
-            let inputFiles = input.files;
-            let newArr = Array.from(inputFiles);
-
-            newArr.forEach(img => {
-                var reader = new FileReader();
-                reader.readAsDataURL(img);
-                reader.onload = function () {
-                    const dataURL = reader.result;
-                    const stringURL = String(dataURL);
-                    setPrevImg(prevState => [...prevState, stringURL]);
-                };
-            })
-        }
-    };
 
     const primeirosTrinta = feed.slice(0, 30)
 
@@ -67,40 +36,7 @@ const Feed = () => {
         }
     };
 
-    const publicar = () => {
-        if (conteudo !== '' || prevImg.length) {
-
-            http.post('posts/', {
-                date: new Date(),
-                userId: params.id,
-                title: titulo,
-                image: prevImg,
-                content: conteudo
-            })
-                .then(() => {
-                    alert('Conteúdo publicado com sucesso!')
-                    setInativo(!inativo)
-                    http.get('posts/')
-                        .then(res => {
-                            setFeed(res.data)
-                        })
-                        .catch(error => console.log(error))
-                    setTitulo('')
-                    setConteudo('')
-                    setPrevImg([])
-                }
-                )
-                .catch(error => console.log(error))
-        } else {
-            alert('A publicação precisa ter um texto ou uma imagem.')
-        }
-    }
-
-
-
     const navigate = useNavigate();
-
-
 
     const handleDelete = (_id: string) => {
         try {
@@ -111,8 +47,6 @@ const Feed = () => {
         }
     }
 
-
-
     return (
         <main className='container'>
             <button onClick={() => setInativo(!inativo)} className={classNames({
@@ -122,7 +56,7 @@ const Feed = () => {
                 Poste sobre seu pet
             </button>
             <section className={inativo ? '' : style.inativo}>
-                <form onSubmit={aoSubmeterForm} className={style.formPostagem}>
+                <form className={style.formPostagem}>
                     <div>
                         <label htmlFor='titulo'>Título</label>
                         <input type="text" id='titulo' placeholder='Escreva o título da postagem' value={titulo}
@@ -140,7 +74,7 @@ const Feed = () => {
                         <input
                             type="file"
                             accept="image/*"
-                            onChange={handleChange}
+                            onChange={evento => handlePostChange(evento)}
                             ref={inputFile}
                             multiple
                         />
@@ -149,14 +83,14 @@ const Feed = () => {
                         {prevImg.length !== 0 && prevImg.map((img, index) => (
                             <div className={style.previewList__preview} key={index}>
                                 <img src={img} className={style.previewList__preview__prevImg} alt="" />
-                                <button onClick={() => setPrevImg(prevList => [...prevList.slice(0, index), ...prevList.slice(index + 1)])}>
+                                <button onClick={() => setPreviewList(index)}>
                                     <img src={xis} className={style.previewList__preview__xis} alt="" />
                                 </button>
                             </div>
                         ))}
                     </div>
                     <br />
-                    <button type='submit' className={style.largeButton} onClick={publicar}>Publicar</button>
+                    <button type='submit' className={style.largeButton} onClick={() => publicar(id!)}>Publicar</button>
                 </form>
             </section>
             <section className={style.postagens}>
