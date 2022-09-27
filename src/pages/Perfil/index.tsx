@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Pets from './Pets';
 import { UserContext } from 'contexts/UserContext';
 import { useApi } from 'hooks/useApi';
-import style from './Perfil.module.scss';
+import sectionStyle from 'styles/Section.module.scss';
 
 
 export default function Perfil() {
@@ -23,7 +23,7 @@ export default function Perfil() {
 
     if (!user) return (
         <main>
-            <h1 className={style.carregando}>Carregando...</h1>
+            <h1 className={sectionStyle.carregando}>Carregando...</h1>
         </main>)
 
     return (

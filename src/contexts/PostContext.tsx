@@ -22,8 +22,9 @@ type PostContextType = {
     setFeed: (posts: IPost[]) => void,
     getPosts: () => Promise<void>,
     handlePostChange: (file: ChangeEvent<HTMLInputElement>) => void,
-    publicar: (userId: string) => Promise<void>,
-    setPreviewList: (index: any) => void
+    publicarPost: (userId: string | undefined) => Promise<void>,
+    setPreviewList: (index: any) => void,
+
 }
 
 export const PostContext = createContext<PostContextType>({} as PostContextType);
@@ -64,7 +65,7 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
         }
     };
 
-    const publicar = async (userId: string) => {
+    const publicarPost = async (userId: string | undefined) => {
         if (conteudo !== '' || prevImg.length) {
             try {
                 await http.post('posts/', {
@@ -95,7 +96,7 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
     }
 
     return (
-        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicar, setPreviewList }}>
+        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList }}>
             {children}
         </PostContext.Provider>
     )

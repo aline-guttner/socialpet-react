@@ -13,20 +13,19 @@ import { useNavigate } from 'react-router-dom';
 import { deletePostRequest } from 'api';
 import { useContext } from 'react';
 import { PostContext } from 'contexts/PostContext';
-import { UserContext } from 'contexts/UserContext';
+import { useApi } from 'hooks/useApi';
+import sectionStyle from 'styles/Section.module.scss';
 
 const Feed = () => {
     const params = useParams();
 
-    const { id } = useContext(UserContext)
+    const { data } = useApi('posts/')
 
-    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicar, setPreviewList } = useContext(PostContext)
+    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList } = useContext(PostContext)
 
     useEffect(() => {
         getPosts()
     }, [])
-
-    const primeirosTrinta = feed.slice(0, 30)
 
     const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -46,6 +45,8 @@ const Feed = () => {
             console.log(error);
         }
     }
+
+    if (data == undefined) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
 
     return (
         <main className='container'>
@@ -90,11 +91,11 @@ const Feed = () => {
                         ))}
                     </div>
                     <br />
-                    <button type='submit' className={style.largeButton} onClick={() => publicar(id!)}>Publicar</button>
+                    <button type='submit' className={style.largeButton} onClick={() => publicarPost(params.id)}>Publicar</button>
                 </form>
             </section>
             <section className={style.postagens}>
-                {primeirosTrinta.reverse().map((post, index) => (
+                {data.slice(0, 30).reverse().map((post: IPost, index: number) => (
                     <div key={index} className={style.postagens__postagem}>
                         {/* BOTÃO EDITAR E EXCLUIR  */}
                         <div className='dropdown'>
