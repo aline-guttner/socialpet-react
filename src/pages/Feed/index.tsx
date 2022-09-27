@@ -15,10 +15,11 @@ import { useContext } from 'react';
 import { PostContext } from 'contexts/PostContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
+import lapis from 'assets/imagens/pencil-16.png';
+
 
 const Feed = () => {
     const params = useParams();
-
     const { data } = useApi('posts/')
 
     const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList } = useContext(PostContext)
@@ -98,9 +99,12 @@ const Feed = () => {
                 {data.slice(0, 30).reverse().map((post: IPost, index: number) => (
                     <div key={index} className={style.postagens__postagem}>
                         {/* BOTÃO EDITAR E EXCLUIR  */}
-                        <div className='dropdown'>
-                            <button onClick={() => navigate(`/editarpost/${post._id}`)}>Editar</button>
-                            <button onClick={() => handleDelete(post._id)}>Excluir</button>
+                        <div className={classNames({
+                            [style.editarDeletar]: true,
+                            'dropdown': true
+                        })}>
+                            <button onClick={() => navigate(`/editarpost/${post._id}`)}><img alt='Lápis' src={lapis}></img></button>
+                            <button onClick={() => handleDelete(post._id)}><img alt="Xis" src={xis}></img></button>
                         </div>
                         <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}
