@@ -49,8 +49,11 @@
 
   input[type="file"] {
     opacity: 0;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     cursor: pointer;
   }
 }
@@ -66,7 +69,7 @@
   height: 70%;
 
   &__user {
-
+    position: relative; 
     @media (max-width: $mobile) {
       img{
         height: 90px;
@@ -94,6 +97,7 @@
   }
 
   &__pets {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
