@@ -1,9 +1,10 @@
-import http from "api";
+import http, { baseURL } from "api";
 import { useApi } from "hooks/useApi";
 import IPost from "interfaces/IPost";
 import { ChangeEvent, createContext, ReactNode, useState } from "react";
 import camera from 'assets/imagens/cameraCinza.jpg';
 import IUser from "interfaces/IUser";
+import axios from "axios";
 
 type PostContextProps = {
     children: ReactNode;
@@ -24,7 +25,7 @@ type PostContextType = {
     handlePostChange: (file: ChangeEvent<HTMLInputElement>) => void,
     publicarPost: (userId: string | undefined) => Promise<void>,
     setPreviewList: (index: any) => void,
-
+    deletePostRequest: (_id: string) => void
 }
 
 export const PostContext = createContext<PostContextType>({} as PostContextType);
@@ -95,8 +96,19 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
         setPrevImg(prevList => [...prevList.slice(0, index), ...prevList.slice(index + 1)])
     }
 
+    const deletePostRequest = (_id: string) => {
+
+        axios
+            .delete(`${baseURL}posts/${_id}`)
+            .then(() => {
+                mutate();
+                alert("Publicação deletada com sucesso");
+
+            });
+    }
+
     return (
-        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList }}>
+        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest }}>
             {children}
         </PostContext.Provider>
     )

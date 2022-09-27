@@ -10,19 +10,17 @@ import { Carousel } from 'react-bootstrap';
 // import DropdownEdit from 'components/Dropdown';
 // import style from './DropdownEdit.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { deletePostRequest } from 'api';
 import { useContext } from 'react';
 import { PostContext } from 'contexts/PostContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
 import lapis from 'assets/imagens/pencil-16.png';
 
-
 const Feed = () => {
     const params = useParams();
-    const { data } = useApi('posts/')
+    const { data, mutate } = useApi('posts/')
 
-    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList } = useContext(PostContext)
+    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest } = useContext(PostContext)
 
     useEffect(() => {
         getPosts()
@@ -41,10 +39,16 @@ const Feed = () => {
     const handleDelete = (_id: string) => {
         try {
             const response = deletePostRequest(_id);
+            //eu mudei o lugar da deletePostRequest pra PostContext, porque eu não tava conseguindo usar o mutate(), que faz o feed atualizar automaticamente, no arquivo da api. Tá lá no fim do arquivo.
             console.log(response);
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const publicar = (evento: React.FormEvent<HTMLFormElement>) => {
+        evento.preventDefault()
+        publicarPost(params.id)
     }
 
     if (data == undefined) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
@@ -58,7 +62,7 @@ const Feed = () => {
                 Poste sobre seu pet
             </button>
             <section className={inativo ? '' : style.inativo}>
-                <form className={style.formPostagem}>
+                <form className={style.formPostagem} onSubmit={evento => publicar(evento)}>
                     <div>
                         <label htmlFor='titulo'>Título</label>
                         <input type="text" id='titulo' placeholder='Escreva o título da postagem' value={titulo}
@@ -92,7 +96,7 @@ const Feed = () => {
                         ))}
                     </div>
                     <br />
-                    <button type='submit' className={style.largeButton} onClick={() => publicarPost(params.id)}>Publicar</button>
+                    <button type='submit' className={style.largeButton}>Publicar</button>
                 </form>
             </section>
             <section className={style.postagens}>
@@ -104,7 +108,7 @@ const Feed = () => {
                             'dropdown': true
                         })}>
                             <button onClick={() => navigate(`/editarpost/${post._id}`)}><img alt='Lápis' src={lapis}></img></button>
-                            <button onClick={() => handleDelete(post._id)}><img alt="Xis" src={xis}></img></button>
+                            <button onClick={() => { handleDelete(post._id) }}><img alt="Xis" src={xis}></img></button>
                         </div>
                         <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}

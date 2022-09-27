@@ -2,18 +2,10 @@ import axios from "axios";
 
 export const baseURL = 'https://socialpet-backend.herokuapp.com/'
 
-const http = axios.create({
+export const http = axios.create({
     baseURL: 'https://socialpet-backend.herokuapp.com/'
 });
 
-export const deletePostRequest = (_id: string) => {
-    axios
-        .delete(`${baseURL}posts/${_id}`)
-        .then(() => {
-            alert("Post deleted!");
-        });
-}
-// axios.delete(`http://localhost:8000/posts/${_id}`);
-// alert("Post deletado com sucesso!")
+//eu mudei o lugar da deletePostRequest pra PostContext, porque eu não tava conseguindo usar o mutate(), que faz o feed atualizar automaticamente, no arquivo da api. Tá lá no fim do arquivo.
 
 export default http; 
