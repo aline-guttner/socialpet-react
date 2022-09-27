@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/socialpet-react/static/css/main.5e32825d.css",
-    "main.js": "/socialpet-react/static/js/main.965fd232.js",
+    "main.css": "/socialpet-react/static/css/main.c72c2847.css",
+    "main.js": "/socialpet-react/static/js/main.186b4d5d.js",
     "static/js/787.cfbd5ac4.chunk.js": "/socialpet-react/static/js/787.cfbd5ac4.chunk.js",
     "static/media/Frame 1.png": "/socialpet-react/static/media/Frame 1.c0617ecd10e4cd8b7192.png",
     "static/media/Myproject.png": "/socialpet-react/static/media/Myproject.dd8d16abcd44a588c1cb.png",
     "static/media/cameraCinza.jpg": "/socialpet-react/static/media/cameraCinza.bedf330ed687c8ba1dab.jpg",
     "index.html": "/socialpet-react/index.html",
-    "main.5e32825d.css.map": "/socialpet-react/static/css/main.5e32825d.css.map",
-    "main.965fd232.js.map": "/socialpet-react/static/js/main.965fd232.js.map",
+    "main.c72c2847.css.map": "/socialpet-react/static/css/main.c72c2847.css.map",
+    "main.186b4d5d.js.map": "/socialpet-react/static/js/main.186b4d5d.js.map",
     "787.cfbd5ac4.chunk.js.map": "/socialpet-react/static/js/787.cfbd5ac4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5e32825d.css",
-    "static/js/main.965fd232.js"
+    "static/css/main.c72c2847.css",
+    "static/js/main.186b4d5d.js"
   ]
 }
