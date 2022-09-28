@@ -31,7 +31,7 @@ type UserContextType = {
     excluirPet: (petId: string | undefined) => void,
     user: IUser | undefined,
     setUser: (user: IUser | undefined) => void,
-    setUserData: () => void;
+    setUserData: (data: IUser) => void;
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -48,14 +48,18 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const { mutate } = useApi(`user/${id}`)
 
 
-    const setUserData = () => {
-        if (user) {
-            setBackImg(user.backImg)
-            setPets(user.pets)
-            if (user.profileImg !== '') {
-                setImage(user.profileImg)
-            }
+    const setUserData = (data: IUser) => {
+        if (!data) {
+            return
         }
+        setBackImg(data.backImg)
+        setPets(data.pets)
+        if (data.profileImg !== '') {
+            setImage(data.profileImg)
+        }
+        setUser(data);
+        setId(id);
+
         mutate()
     }
 

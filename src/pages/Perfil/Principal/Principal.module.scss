@@ -14,6 +14,10 @@
   flex-direction: column;
   position: relative;
 
+  p{
+    font-weight: $lightFont;
+}
+
   @media (max-width: $mobile) {
     height: 180px;
   }

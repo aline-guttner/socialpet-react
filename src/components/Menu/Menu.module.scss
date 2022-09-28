@@ -9,7 +9,6 @@
     padding: 2rem;
     color: $cor1;
     font-size: 1.2rem;
-    font-weight: 300;
     box-shadow: $bxshadow;
     margin-left: 10px;
     margin-top: 70px;
@@ -23,6 +22,7 @@
     }
 
     li{
+        font-weight: $lightFont;
         list-style-type: none;
         padding: 0.3rem;
         padding-left: 1.5rem;
@@ -32,7 +32,7 @@
     }
 
     h2{
-        font-weight: 500;
+        font-weight: $boldFont;
         font-size: 1.5rem;
         padding-bottom:0.4rem;
         padding: 0.5rem;

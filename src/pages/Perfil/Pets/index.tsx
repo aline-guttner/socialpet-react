@@ -13,8 +13,8 @@ export default function Pets() {
             {pets.length ? <table>
                 <thead>
                     <tr>
-                        <td>Nome</td>
-                        <td>Tipo</td>
+                        <td><p>Nome</p></td>
+                        <td><p>Tipo</p></td>
                         <td></td>
                         <td></td>
                         <td></td>

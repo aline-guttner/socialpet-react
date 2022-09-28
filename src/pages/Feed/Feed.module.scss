@@ -11,7 +11,7 @@
     div {
         label {
             display: block;
-            font-weight: 700;
+            font-weight: $boldFont;
             margin-bottom: 0.5rem;
         }
 
@@ -121,6 +121,10 @@
         p,
         h2 {
             padding: 0.5rem 0;
+        }
+
+        p{
+            font-weight: $lightFont;
         }
 
         a {

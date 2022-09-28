@@ -1,5 +1,5 @@
 import Principal from './Principal';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Dados from './Dados';
 import { useParams } from 'react-router-dom';
 import Pets from './Pets';
@@ -13,12 +13,14 @@ export default function Perfil() {
 
     const { data } = useApi(`user/${params.id}`)
 
-    const { setUser, user, setId, setUserData } = useContext(UserContext)
+    const { user, setUserData } = useContext(UserContext)
 
     // resolver isso daqui
-    setUser(data);
-    setId(params.id);
-    setUserData();
+    useEffect(() => {
+        console.log(user)
+        setUserData(data);
+    }, [data])
+
 
 
     if (!user) return (
