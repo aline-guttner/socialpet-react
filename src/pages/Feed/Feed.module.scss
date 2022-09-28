@@ -101,7 +101,6 @@
     background-color: transparent;
     padding: 0;
 
-
     &__postagem {
         margin: 10px 0 10px 0;
         background-color: $cor2;
@@ -109,6 +108,30 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        .cabecalho{
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            background-color: $cor2!important;
+
+            .editarDeletar{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                width: 50%;
+                background-color: $cor2!important;
+                button{
+                    background-color: $cor2;
+                    border: none;
+                }
+               
+                img{
+                    height: 12px;
+                    width: 12px;
+                }
+            }
+        }
 
 
         div {
@@ -144,19 +167,3 @@
     }
 }
 
-.editarDeletar{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    background-color: $cor2!important;
-    width: 100%;
-    button{
-        background-color: $cor2;
-        border: none;
-    }
-   
-    img{
-        height: 12px;
-        width: 12px;
-    }
-}

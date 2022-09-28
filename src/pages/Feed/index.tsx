@@ -103,14 +103,16 @@ const Feed = () => {
                 {data.slice(0, 30).reverse().map((post: IPost, index: number) => (
                     <div key={index} className={style.postagens__postagem}>
                         {/* BOTÃO EDITAR E EXCLUIR  */}
-                        <div className={classNames({
-                            [style.editarDeletar]: true,
-                            'dropdown': true
-                        })}>
-                            <button onClick={() => navigate(`/editarpost/${post._id}`)}><img alt='Lápis' src={lapis}></img></button>
-                            <button onClick={() => { handleDelete(post._id) }}><img alt="Xis" src={xis}></img></button>
+                        <div className={style.cabecalho}>
+                            <div className={classNames({
+                                [style.editarDeletar]: true,
+                                'dropdown': true
+                            })}>
+                                <button onClick={() => navigate(`/editarpost/${post._id}`)}><img alt='Lápis' src={lapis}></img></button>
+                                <button onClick={() => { handleDelete(post._id) }}><img alt="Xis" src={xis}></img></button>
+                            </div>
+                            <p>{moment(post.date).format('lll')}</p>
                         </div>
-                        <p>{moment(post.date).format('lll')}</p>
                         {post.title && <h2>{post.title}</h2>}
                         {post.image.length > 1 ?
                             <Carousel variant="dark" indicators={false} interval={3000000}>
