@@ -5,6 +5,7 @@ import PaginaPadrao from 'components/PaginaPadrao';
 import Login from 'pages/Login';
 import Cadastro from 'pages/Cadastro';
 import { UserContextProvider } from 'contexts/UserContext';
+import EditarPost from 'pages/AtualizaFeed';
 
 export default function AppRouter() {
     return (
@@ -17,6 +18,7 @@ export default function AppRouter() {
                     <Route path="perfil/:id" element={<Perfil />} />
                 </Route>
                 <Route path="/cadastro" element={<Cadastro />} />
+                <Route exact path="/editarpost/:_id" element={<EditarPost />} />
 
             </Routes>
         </HashRouter>
