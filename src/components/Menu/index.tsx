@@ -34,7 +34,10 @@ export default function Menu({ menu }: Props) {
                 [style.feed]: true
             })} to={`/user/feed/${params.id}`}>Feed de notícias</Link></h2>
             <hr />
-            <Link className={style.link} to={'/'}><img src={logout} alt="" /> Sair</Link>
+            <Link className={classNames({
+                [style.link]: true,
+                [style.sair]: true
+            })} to={'/'}><img src={logout} alt="" /> Sair</Link>
         </aside >
     )
 }

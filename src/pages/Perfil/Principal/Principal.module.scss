@@ -16,6 +16,8 @@
 
   p{
     font-weight: $lightFont;
+    color: $cor4;
+    text-align: center;
 }
 
   @media (max-width: $mobile) {
@@ -139,11 +141,6 @@
     border: none;
     outline: none;
     background-color: transparent;
-  }
-
-  p {
-    text-align: center;
-    color: $cor1;
   }
 
  a{

@@ -18,7 +18,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.36.1",
+    "react-hook-form-resolvers": "^0.0.1",
     "react-responsive": "^9.0.0-beta.10",
     "react-router": "^6.4.1",
     "react-router-dom": "^6.4.1",
@@ -58,6 +58,7 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/uuid": "^8.3.4",
+    "react-hook-form": "^7.36.1",
     "sass": "^1.54.2",
     "typescript-plugin-css-modules": "^3.4.0",
     "uuid": "^8.3.2"

@@ -15,10 +15,11 @@
     margin: 1rem 0;
 }
 
-td{
-    p, button{
-        font-weight: 500;
-        color: $cor1
-    }
-    
+thead p, button{
+    font-weight: $boldFont;
+    padding-top: $sectionPadding;
+}
+
+tbody input, tbody p{
+    font-weight: $lightFont;
 }

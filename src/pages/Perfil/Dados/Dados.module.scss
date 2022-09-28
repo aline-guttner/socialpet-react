@@ -7,6 +7,7 @@
         border: none;
         width: 50%;
         margin: 1.2rem 0 0 0;
+        font-weight: $lightFont;
     }
 
     hr{
@@ -14,6 +15,6 @@
     }
 
     label{
-        font-weight: 500;
+        font-weight: $boldFont;
     }
 }
