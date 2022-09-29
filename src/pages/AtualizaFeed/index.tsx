@@ -16,7 +16,6 @@ const validationPost = yup.object().shape({
 
 export default function EditarPost() {
     const { _id } = useParams()
-    console.log()
     let navigate = useNavigate()
 
 
