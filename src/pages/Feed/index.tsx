@@ -40,7 +40,6 @@ const Feed = () => {
         try {
             const response = deletePostRequest(_id);
             //eu mudei o lugar da deletePostRequest pra PostContext, porque eu não tava conseguindo usar o mutate(), que faz o feed atualizar automaticamente, no arquivo da api. Tá lá no fim do arquivo.
-            console.log(response);
         } catch (error) {
             console.log(error);
         }

@@ -19,6 +19,10 @@ export default function FotoUser() {
     const input = file.currentTarget;
     var reader = new FileReader();
 
+    if (input.files) {
+      reader.readAsDataURL(input.files[0]);
+    }
+
     reader.onload = async function () {
       const dataURL = reader.result;
       const stringURL = String(dataURL);
@@ -26,9 +30,7 @@ export default function FotoUser() {
 
     }
 
-    if (input.files) {
-      reader.readAsDataURL(input.files[0]);
-    }
+
   }
 
   return (

@@ -17,8 +17,7 @@ export default function Perfil() {
 
     // resolver isso daqui
     useEffect(() => {
-        console.log(user)
-        setUserData(data);
+        setUserData(data, params.id);
     }, [data])
 
 

@@ -23,7 +23,6 @@ export default function EditarPost() {
     // falta colocar o id do usuario no caminho
     const addPost = (data: Object) => axios.put(`https://socialpet-backend.herokuapp.com/user/user.${_id}/post/${_id}`, data)
         .then(() => {
-            console.log("deu certo")
             navigate("/")
         })
         .catch(() => {

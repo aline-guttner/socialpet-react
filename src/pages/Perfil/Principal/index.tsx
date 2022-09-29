@@ -18,7 +18,7 @@ export default function Principal() {
   const params = useParams();
   const [index, setIndex] = useState(0);
 
-  const { backImg, pets, handleUserChange, threePets } = useContext(UserContext)
+  const { backImg, pets, handleBackChange, threePets } = useContext(UserContext)
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -50,7 +50,7 @@ export default function Principal() {
           id="inputFile2"
           type="file"
           accept="image/*"
-          onChange={evento => handleUserChange(evento)}
+          onChange={evento => handleBackChange(evento)}
           ref={inputFile}
         /></span>
 

@@ -18,7 +18,7 @@ type UserContextType = {
     setImage: (newState: string) => void,
     backImg: string,
     setBackImg: (newState: string) => void,
-    handleUserChange: (file: ChangeEvent<HTMLInputElement>) => void,
+    handleBackChange: (file: ChangeEvent<HTMLInputElement>) => void,
     updatePetImg: (petId: string, stringURL: string) => void,
     threePets: () => IPet[][],
     updateUserImg: (stringURL: string) => void,
@@ -31,7 +31,7 @@ type UserContextType = {
     excluirPet: (petId: string | undefined) => void,
     user: IUser | undefined,
     setUser: (user: IUser | undefined) => void,
-    setUserData: (data: IUser) => void;
+    setUserData: (data: IUser, userId: string | undefined) => void;
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -48,7 +48,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const { mutate } = useApi(`user/${id}`)
 
 
-    const setUserData = (data: IUser) => {
+    const setUserData = (data: IUser, userId: string | undefined) => {
         if (!data) {
             return
         }
@@ -58,12 +58,12 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             setImage(data.profileImg)
         }
         setUser(data);
-        setId(id);
+        setId(userId);
 
         mutate()
     }
 
-    const handleUserChange = (file: ChangeEvent<HTMLInputElement>) => {
+    const handleBackChange = (file: ChangeEvent<HTMLInputElement>) => {
         let input = file.currentTarget;
         var reader = new FileReader();
         reader.onload = async function () {
@@ -90,19 +90,19 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     };
 
     const updateUserImg = async (stringURL: string) => {
-        if (id) {
-            try {
-                await http.patch(`user/${id}`, {
-                    profileImg: stringURL
-                })
-                mutate();
-                setImage(stringURL);
-                alert('Foto alterada com sucesso!');
-            } catch (err) {
-                alert('Não foi possível alterar sua foto, tente novamente mais tarde.')
-                console.log(err)
-            }
+
+        try {
+            await http.patch(`user/${id}`, {
+                profileImg: stringURL
+            })
+            mutate();
+            setImage(stringURL);
+            alert('Foto alterada com sucesso!');
+        } catch (err) {
+            alert('Não foi possível alterar sua foto, tente novamente mais tarde.')
+            console.log(err)
         }
+
 
     }
 
@@ -197,7 +197,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     return (
-        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleUserChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData }}>
+        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData }}>
             {children}
         </UserContext.Provider>
     )
