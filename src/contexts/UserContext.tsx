@@ -31,7 +31,8 @@ type UserContextType = {
     excluirPet: (petId: string | undefined) => void,
     user: IUser | undefined,
     setUser: (user: IUser | undefined) => void,
-    setUserData: (data: IUser, userId: string | undefined) => void;
+    setUserData: (data: IUser, userId: string | undefined) => void,
+    // excluirUser: () => Promise<void>
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -46,7 +47,6 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const [user, setUser] = useState<IUser | undefined>(undefined)
 
     const { mutate } = useApi(`user/${id}`)
-
 
     const setUserData = (data: IUser, userId: string | undefined) => {
         if (!data) {
@@ -126,6 +126,15 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         }
 
     }
+
+    // const excluirUser = async () => {
+    //     try {
+    //         await http.delete(`user/${id}`);
+    //         alert("Usuário deletado com sucesso.");
+    //     } catch (err) {
+    //         console.log(err)
+    //     };
+    // };
 
     const updatePetImg = async (petId: string, stringURL: string) => {
         try {

@@ -21,7 +21,7 @@ function Login() {
                 }
 
             })
-            .catch(() => alert('Usuário não encontrado'))
+            .catch(() => alert('Credenciais incorretas.'))
     }
 
     return (
