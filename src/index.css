@@ -157,6 +157,9 @@ main {
     .container{
             --bs-gutter-x: 0!important; 
     }
+    main{
+        margin-top: 60px;
+    }
 }
 
 .activeSlide {
