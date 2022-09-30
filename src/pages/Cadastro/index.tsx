@@ -17,29 +17,21 @@ function Cadastro() {
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
         if (senha === confSenha) {
-            http.get('user/')
-                .then(res => {
-                    res.data.users.find((user: { email: string; }) => user.email === email)
-                    alert('Usuário já cadastrado.')
+            http.post('auth/register', {
+                name: nome,
+                username: usuario,
+                email: email,
+                password: senha
+            })
+                .then(() => {
+                    setNome('')
+                    setUsuario('')
+                    setEmail('')
+                    setSenha('')
+                    setConfSenha('')
+                    alert('Conta criada com sucesso!')
                 })
-                .catch(() => {
-                    http.post('auth/register', {
-                        name: nome,
-                        username: usuario,
-                        email: email,
-                        password: senha
-                    })
-                        .then(() => {
-                            setNome('')
-                            setUsuario('')
-                            setEmail('')
-                            setSenha('')
-                            setConfSenha('')
-                            alert('Conta criada com sucesso!')
-                        })
-                        .catch(err => console.log(err))
-                }
-                )
+                .catch(() => alert('Usuario já cadastrado.'))
         } else {
             alert('Senhas não conferem!')
         }

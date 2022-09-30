@@ -31,7 +31,8 @@ type UserContextType = {
     excluirPet: (petId: string | undefined) => void,
     user: IUser | undefined,
     setUser: (user: IUser | undefined) => void,
-    setUserData: (data: IUser, userId: string | undefined) => void;
+    setUserData: (data: IUser, userId: string | undefined) => void,
+    excluirUser: () => Promise<void>
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -46,7 +47,6 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const [user, setUser] = useState<IUser | undefined>(undefined)
 
     const { mutate } = useApi(`user/${id}`)
-
 
     const setUserData = (data: IUser, userId: string | undefined) => {
         if (!data) {
@@ -127,6 +127,15 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     }
 
+    const excluirUser = async () => {
+        try {
+            await http.delete(`user/${id}`);
+            alert("Usuário deletado com sucesso.");
+        } catch (err) {
+            console.log(err)
+        };
+    };
+
     const updatePetImg = async (petId: string, stringURL: string) => {
         try {
             await http.patch(`pets/${petId}`, {
@@ -197,7 +206,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     return (
-        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData }}>
+        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData, excluirUser }}>
             {children}
         </UserContext.Provider>
     )

@@ -9,21 +9,21 @@ function Login() {
     const [senha, setSenha] = useState('');
     let navigate = useNavigate();
 
-    const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
+    const aoSubmeterForm = async (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
-        http.post('auth/', {
-            email: email,
-            password: senha
-        })
-            .then(user => {
-                if (user.data.token) {
-                    navigate(`../user/perfil/${user.data.user._id}`)
-                }
 
+        try {
+            let res = await http.post('auth/', {
+                email: email,
+                password: senha
             })
-            .catch(() => alert('Usuário não encontrado'))
+            if (res.data.token) {
+                navigate(`../user/perfil/${res.data.user._id}`)
+            }
+        } catch (err) {
+            alert('Usuário não encontrado!')
+        }
     }
-
     return (
         <div className={style.orange}>
             <form className={style.loginForm} onSubmit={aoSubmeterForm}>
