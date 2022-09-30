@@ -1,0 +1,29 @@
+@import 'styles/variaveis';
+@import 'styles/breakpoints';
+
+.excluir{
+    width: 100%;
+    border: none;
+    color: $cor2;
+    background-color: red;
+    height: 2rem;
+    margin-bottom: 10px;
+}
+
+.popup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(218, 218, 218);
+    margin: 0 auto;
+    padding: $sectionPadding;
+    span{
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}

@@ -10,7 +10,7 @@ export default function Pets() {
     return (
         <section>
             <h2>Pets</h2>
-            {pets.length ? <table>
+            {pets.length ? <table className='table-sm'>
                 <thead>
                     <tr>
                         <td><p>Nome</p></td>

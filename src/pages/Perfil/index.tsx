@@ -1,4 +1,5 @@
 import Principal from './Principal';
+import Excluir from './Excluir'
 import { useContext, useEffect } from 'react';
 import Dados from './Dados';
 import { useParams } from 'react-router-dom';
@@ -32,6 +33,7 @@ export default function Perfil() {
             <Principal />
             <Dados />
             <Pets />
+            <Excluir />
         </main>
     )
 
