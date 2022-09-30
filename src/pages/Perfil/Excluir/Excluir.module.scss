@@ -17,13 +17,22 @@
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(218, 218, 218);
+    background-color: $cor2;
     margin: 0 auto;
-    padding: $sectionPadding;
+    padding-top: $sectionPadding;
+    padding-left: $sectionPadding;
+    padding-right: $sectionPadding;
+    border: 1px solid black;
+    font-weight: $lightFont;
     span{
+        padding: $sectionPadding;
         width: 50%;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        button{
+            border: 1px solid;
+            padding: 0.3rem;
+        }
     }
 }
