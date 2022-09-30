@@ -8,7 +8,7 @@ export default function Pets() {
     const { pets, adicionando, setAdicionando } = useContext(UserContext)
 
     return (
-        <section>
+        <section className='table-responsive'>
             <h2>Pets</h2>
             {pets.length ? <table className='table-sm'>
                 <thead>
