@@ -105,6 +105,10 @@
         margin: 10px 0 10px 0;
         background-color: $cor2;
         padding: 1.2rem;
+        @media (max-width: $mobile){
+            padding: 1.2rem 0;
+        }
+
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -144,8 +148,8 @@
         }
 
         p,
-        h2 {
-            padding: 0.5rem 0;
+        h2, .cabecalho {
+            padding: 0.5rem;
         }
 
         p{
