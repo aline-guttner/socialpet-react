@@ -15,15 +15,19 @@ import { PostContext } from 'contexts/PostContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
 import lapis from 'assets/imagens/pencil-16.png';
+import Post from 'components/Post';
+import { UserContext } from 'contexts/UserContext';
 
 const Feed = () => {
     const params = useParams();
     const { data, mutate } = useApi('posts/')
 
-    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest } = useContext(PostContext)
+    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest } = useContext(PostContext)
+
+    const { user } = useContext(UserContext)
 
     useEffect(() => {
-        getPosts()
+        getPosts(params.id)
     }, [])
 
     const inputFile = useRef<HTMLInputElement | null>(null);
@@ -50,7 +54,7 @@ const Feed = () => {
         publicarPost(params.id)
     }
 
-    if (data == undefined) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
+    if (data === undefined) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
 
     return (
         <main className='container'>
@@ -99,32 +103,8 @@ const Feed = () => {
                 </form>
             </section>
             <section className={style.postagens}>
-                {data.slice(0, 30).reverse().map((post: IPost, index: number) => (
-                    <div key={index} className={style.postagens__postagem}>
-                        {/* BOTÃO EDITAR E EXCLUIR  */}
-                        <div className={style.cabecalho}>
-                            <div className={classNames({
-                                [style.editarDeletar]: true,
-                                'dropdown': true
-                            })}>
-                                <button onClick={() => navigate(`/editarpost/${post._id}`)}><img alt='Lápis' src={lapis}></img></button>
-                                <button onClick={() => { handleDelete(post._id) }}><img alt="Xis" src={xis}></img></button>
-                            </div>
-                            <p>{moment(post.date).format('lll')}</p>
-                        </div>
-                        {post.title && <h2>{post.title}</h2>}
-                        {post.image.length > 1 ?
-                            <Carousel variant="dark" indicators={false} interval={3000000}>
-                                {post.image.map((imagem, index) => (
-                                    <Carousel.Item key={index}>
-                                        <div><img src={imagem} alt="" className='img-fluid' /></div>
-                                    </Carousel.Item>
-                                ))}
-                            </Carousel> :
-                            <div className={style.singleImg}><img src={post.image[0]} alt="" className='img-fluid' /></div>
-                        }
-                        {post.content && <p>{post.content}</p>}
-                    </div>
+                {data.slice(0, 30).reverse().map((post: IPost) => (
+                    <Post post={post} key={post._id} />
                 ))}
             </section>
         </main>

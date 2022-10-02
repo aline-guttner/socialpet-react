@@ -21,11 +21,13 @@ type PostContextType = {
     setConteudo: (conteudo: string) => void,
     feed: IPost[],
     setFeed: (posts: IPost[]) => void,
-    getPosts: () => Promise<void>,
+    getPosts: (idUser: string | undefined) => Promise<void>,
     handlePostChange: (file: ChangeEvent<HTMLInputElement>) => void,
     publicarPost: (userId: string | undefined) => Promise<void>,
     setPreviewList: (index: any) => void,
     deletePostRequest: (_id: string) => void
+    userPosts: IPost[],
+    setUserPosts: (posts: IPost[]) => void
 }
 
 export const PostContext = createContext<PostContextType>({} as PostContextType);
@@ -36,13 +38,17 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
     const [titulo, setTitulo] = useState('');
     const [conteudo, setConteudo] = useState('');
     const [feed, setFeed] = useState<IPost[]>([]);
+    const [userPosts, setUserPosts] = useState<IPost[]>([])
+    const [id, setId] = useState<string | undefined>('')
 
     const { mutate } = useApi('posts/')
 
-    const getPosts = async () => {
+    const getPosts = async (idUser: string | undefined) => {
         try {
+            setId(idUser)
             let result = await http.get('posts/')
             setFeed(result.data)
+            setUserPosts(result.data.filter((post: { userId: string | undefined; }) => post.userId === idUser))
         } catch (err) {
             console.log(err)
         }
@@ -108,7 +114,7 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
     }
 
     return (
-        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest }}>
+        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, userPosts, setUserPosts }}>
             {children}
         </PostContext.Provider>
     )

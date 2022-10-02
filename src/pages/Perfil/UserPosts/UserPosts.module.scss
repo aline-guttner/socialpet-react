@@ -1,0 +1,15 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.publicacao{
+    background-color: $cor2;
+    color: $cor1;
+    font-size: larger;
+    font-weight: $boldFont;
+}
+
+.semPub{
+    background-color: $cor2;
+    padding: $sectionPadding;
+    margin-bottom: 10px;
+}

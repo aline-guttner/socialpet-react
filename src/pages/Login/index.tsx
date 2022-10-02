@@ -9,44 +9,46 @@ function Login() {
     const [senha, setSenha] = useState('');
     let navigate = useNavigate();
 
-    const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
+    const aoSubmeterForm = async (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
-        http.post('auth/', {
-            email: email,
-            password: senha
-        })
-            .then(user => {
-                if (user.data.token) {
-                    navigate(`../user/perfil/${user.data.user._id}`)
-                }
 
+        try {
+            let res = await http.post('auth/', {
+                email: email,
+                password: senha
             })
-            .catch(() => alert('Credenciais incorretas.'))
+            if (res.data.token) {
+                navigate(`../user/perfil/${res.data.user._id}`)
+            }
+        } catch (err) {
+            alert('Usuário não encontrado!')
+        }
     }
-
     return (
-        <form className={style.loginForm} onSubmit={aoSubmeterForm}>
-            <img src={SPimg}
-                alt="Logo de gato branco caminhado em um fundo laranja e título 'Social Pet' ao lado" />
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
-                <div className="col-sm-10">
-                    <input type="email" className="form-control" id="inputEmail3" placeholder="Email" onChange={evento => setEmail(evento.target.value)} />
+        <div className={style.orange}>
+            <form className={style.loginForm} onSubmit={aoSubmeterForm}>
+                <img src={SPimg}
+                    alt="Logo de gato branco caminhado em um fundo laranja e título 'Social Pet' ao lado" />
+                <div className="form-group row">
+                    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
+                    <div className="col-sm-10">
+                        <input type="email" className="form-control" id="inputEmail3" placeholder="Email" onChange={evento => setEmail(evento.target.value)} />
+                    </div>
                 </div>
-            </div>
-            <div className="form-group row">
-                <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Senha</label>
-                <div className="col-sm-10">
-                    <input type="password" className="form-control" id="inputPassword3" placeholder="Senha" onChange={evento => setSenha(evento.target.value)} />
+                <div className="form-group row">
+                    <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Senha</label>
+                    <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword3" placeholder="Senha" onChange={evento => setSenha(evento.target.value)} />
+                    </div>
                 </div>
-            </div>
-            <button type="submit" aria-label="Botão para fazer login" className={style.loginButton}
-            >Log in</button>
-            <hr />
-            <span>
-                <p className={style.pinscricao}>Não tem uma conta? <Link className={style.inscricao} to={"/cadastro"}>Cadastre-se</Link></p>
-            </span>
-        </form>
+                <button type="submit" aria-label="Botão para fazer login" className={style.loginButton}
+                >Log in</button>
+                <hr />
+                <span>
+                    <p className={style.pinscricao}>Não tem uma conta? <Link className={style.inscricao} to={"/cadastro"}>Cadastre-se</Link></p>
+                </span>
+            </form>
+        </div>
     )
 }
 

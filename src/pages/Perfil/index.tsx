@@ -1,4 +1,5 @@
 import Principal from './Principal';
+import Excluir from './Excluir'
 import { useContext, useEffect } from 'react';
 import Dados from './Dados';
 import { useParams } from 'react-router-dom';
@@ -6,6 +7,7 @@ import Pets from './Pets';
 import { UserContext } from 'contexts/UserContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
+import UserPosts from './UserPosts';
 
 
 export default function Perfil() {
@@ -32,6 +34,8 @@ export default function Perfil() {
             <Principal />
             <Dados />
             <Pets />
+            <Excluir />
+            <UserPosts />
         </main>
     )
 

@@ -15,14 +15,17 @@ export default function FotosPets({ pet }: Props) {
     const { updatePetImg, pets } = useContext(UserContext)
 
     useEffect(() => {
-        http.get(`pets/${pet}`)
-            .then(res => {
-                setPetImg(res.data.petImg)
-                setPetName(res.data.petName)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        if (pets.length) {
+            http.get(`pets/${pet}`)
+                .then(res => {
+                    setPetImg(res.data.petImg)
+                    setPetName(res.data.petName)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+
     }, [pets])
 
     const handleChange = (file: ChangeEvent<HTMLInputElement>) => {

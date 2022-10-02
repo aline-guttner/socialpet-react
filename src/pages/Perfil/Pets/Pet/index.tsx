@@ -20,7 +20,7 @@ export default function Pet({ pet, ocultoHerdado }: Props) {
     const [tipo, setTipo] = useState('--')
     const [oculto, setOculto] = useState(true)
 
-    const { mutate } = useApi(`pets/${pet?._id}`)
+
 
     const { salvarPetsDados, excluirPet } = useContext(UserContext)
 
@@ -41,7 +41,7 @@ export default function Pet({ pet, ocultoHerdado }: Props) {
     const salvarDadosPets = (evento: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         evento.preventDefault()
         salvarPetsDados(evento, pet?._id, petNome, tipo)
-        mutate();
+
     }
 
     const animais = ['--', 'Gato', 'Cachorro', 'Ave', 'Cavalo', 'Capivara', 'Cobra', 'Hamster', 'Aranha', 'Outro']

@@ -16,9 +16,7 @@ const validationPost = yup.object().shape({
 
 export default function EditarPost() {
     const { _id } = useParams()
-    console.log()
     let navigate = useNavigate()
-
 
     // falta colocar o id do usuario no caminho
     const addPost = (data: Object) => axios.put(`https://socialpet-backend.herokuapp.com/user/user.${_id}/post/${_id}`, data)

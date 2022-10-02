@@ -10,15 +10,7 @@ import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 
 export default function PaginaPadrao() {
-
-    const isMobile = useMediaQuery({ query: `(max-width: 768px)` });
     const [menu, setMenu] = useState(true);
-
-    useEffect(() => {
-        if (isMobile) {
-            setMenu(false)
-        }
-    }, [])
 
     return (
         <div>

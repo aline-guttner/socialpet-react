@@ -7,6 +7,8 @@ export default function Excluir() {
     const [excluindo, setExcluindo] = useState(false)
     const [overflow, setOverflow] = useState('visible')
 
+    const { excluirUser, user } = useContext(UserContext)
+
     const navigate = useNavigate();
 
     document.body.style.overflow = overflow
@@ -17,6 +19,7 @@ export default function Excluir() {
     }
 
     const deletarUsuario = () => {
+        excluirUser(user!.pets);
         navigate('../../');
     }
 

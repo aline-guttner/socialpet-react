@@ -32,7 +32,7 @@ type UserContextType = {
     user: IUser | undefined,
     setUser: (user: IUser | undefined) => void,
     setUserData: (data: IUser, userId: string | undefined) => void,
-    // excluirUser: () => Promise<void>
+    excluirUser: (userPets: IPet[]) => Promise<void>
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -53,7 +53,9 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             return
         }
         setBackImg(data.backImg)
-        setPets(data.pets)
+        if (data.pets.length) {
+            setPets(data.pets)
+        }
         if (data.profileImg !== '') {
             setImage(data.profileImg)
         }
@@ -127,14 +129,15 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     }
 
-    // const excluirUser = async () => {
-    //     try {
-    //         await http.delete(`user/${id}`);
-    //         alert("Usuário deletado com sucesso.");
-    //     } catch (err) {
-    //         console.log(err)
-    //     };
-    // };
+    const excluirUser = async (userPets?: IPet[] | undefined) => {
+        try {
+            await http.delete(`user/${id}`);
+            alert("Usuário deletado com sucesso.");
+            // usar um state pra deletar os pets quando o usuário for deletado
+        } catch (err) {
+            console.log(err)
+        };
+    };
 
     const updatePetImg = async (petId: string, stringURL: string) => {
         try {
@@ -206,7 +209,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     return (
-        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData }}>
+        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData, excluirUser }}>
             {children}
         </UserContext.Provider>
     )
