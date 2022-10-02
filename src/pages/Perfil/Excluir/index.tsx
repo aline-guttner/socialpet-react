@@ -20,7 +20,8 @@ export default function Excluir() {
 
     const deletarUsuario = () => {
         excluirUser();
-        navigate('../../');
+        navigate('/', { replace: true });
+        window.location.reload();
     }
 
     return (

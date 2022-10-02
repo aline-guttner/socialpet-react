@@ -15,8 +15,6 @@ export default function UserPosts() {
         getPosts(params.id)
     }, [])
 
-    if (!userPosts.length) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
-
     return (
         <>
             <section><h2 className={style.publicacao}>Suas publicações</h2></section>
