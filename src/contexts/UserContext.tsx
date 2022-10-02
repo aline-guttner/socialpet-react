@@ -32,7 +32,7 @@ type UserContextType = {
     user: IUser | undefined,
     setUser: (user: IUser | undefined) => void,
     setUserData: (data: IUser, userId: string | undefined) => void,
-    excluirUser: (userPets: IPet[]) => Promise<void>
+    excluirUser: () => Promise<void>
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -129,7 +129,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     }
 
-    const excluirUser = async (userPets?: IPet[] | undefined) => {
+    const excluirUser = async () => {
         try {
             await http.delete(`user/${id}`);
             alert("Usuário deletado com sucesso.");

@@ -19,7 +19,7 @@ export default function Excluir() {
     }
 
     const deletarUsuario = () => {
-        excluirUser(user!.pets);
+        excluirUser();
         navigate('../../');
     }
 
