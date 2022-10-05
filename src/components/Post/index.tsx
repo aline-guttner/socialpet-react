@@ -19,8 +19,14 @@ export default function Post({ post }: Props) {
     const navigate = useNavigate();
     const params = useParams();
     const [liked, setLiked] = useState<boolean>(false)
+    const [curtidas, setCurtidas] = useState<number>(0)
 
-    useEffect(() => { verificarCurtida() }, [])
+    useEffect(() => {
+        verificarCurtida()
+        if (post.usersLiked.length) {
+            setCurtidas(post.usersLiked.length)
+        }
+    }, [])
 
     const { deletePostRequest, curtir, descurtir } = useContext(PostContext)
 
@@ -37,9 +43,11 @@ export default function Post({ post }: Props) {
         if (!liked) {
             curtir(post._id, post.usersLiked)
             setLiked(true)
+            setCurtidas(oldNumber => oldNumber + 1)
         } else {
             descurtir(post._id, post.usersLiked)
             setLiked(false)
+            setCurtidas(oldNumber => oldNumber - 1)
         }
 
     }
@@ -76,7 +84,7 @@ export default function Post({ post }: Props) {
                 <div className={style.singleImg}><img src={post.image[0]} alt="" className='img-fluid' /></div>
             }
             {post.content && <p>{post.content}</p>}
-            <span className={style.likedContainer}><button onClick={alterarCurtida} className='normalButton' id='like' aria-label="curtir" type="button"><img src={liked ? curtido : naoCurtido} alt="Imagem de coração" /></button><p>{post.usersLiked.length ? post.usersLiked.length : 0}</p></span>
+            <span className={style.likedContainer}><button onClick={alterarCurtida} className='normalButton' id='like' aria-label="curtir" type="button"><img src={liked ? curtido : naoCurtido} alt="Imagem de coração" /></button><p>{curtidas}</p></span>
         </div>
     )
 }
