@@ -1,9 +1,10 @@
-export default interface IPost{
+export default interface IPost {
     _id: string,
     id: string,
     date: Date,
     userId: string,
     title: string,
     image: string[],
-    content: string
+    content: string,
+    usersLiked: string[]
 }

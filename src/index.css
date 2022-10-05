@@ -173,3 +173,8 @@ main {
 .carousel-control-prev {
     display: none;
 }
+
+.normalButton{
+    background-color: white;
+    border: none;
+}

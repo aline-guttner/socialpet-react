@@ -28,6 +28,8 @@ type PostContextType = {
     deletePostRequest: (_id: string) => void
     userPosts: IPost[],
     setUserPosts: (posts: IPost[]) => void
+    curtir: (postId: string, usuariosCurtiram: string[]) => Promise<void>,
+    descurtir: (postId: string, usuariosCurtiram: string[]) => Promise<void>
 }
 
 export const PostContext = createContext<PostContextType>({} as PostContextType);
@@ -40,6 +42,7 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
     const [feed, setFeed] = useState<IPost[]>([]);
     const [userPosts, setUserPosts] = useState<IPost[]>([])
     const [id, setId] = useState<string | undefined>('')
+
 
     const { mutate } = useApi('posts/')
 
@@ -113,8 +116,34 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
             });
     }
 
+    const curtir = async (postId: string, usuariosCurtiram: string[]) => {
+        try {
+            await http.patch(`posts/${postId}`, {
+                usersLiked: [...usuariosCurtiram, id]
+            });
+            mutate();
+        } catch (err) {
+            console.log(err);
+        };
+
+    };
+
+    const descurtir = async (postId: string, usuariosCurtiram: string[]) => {
+        try {
+            let curtidaRemovida = usuariosCurtiram.indexOf(id!)
+            let novoArray = usuariosCurtiram
+            novoArray.splice(curtidaRemovida, 1)
+            await http.patch(`posts/${postId}`, {
+                usersLiked: novoArray
+            });
+            mutate();
+        } catch (err) {
+            console.log(err);
+        };
+    };
+
     return (
-        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, userPosts, setUserPosts }}>
+        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, userPosts, setUserPosts, curtir, descurtir }}>
             {children}
         </PostContext.Provider>
     )
