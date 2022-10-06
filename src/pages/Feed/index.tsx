@@ -1,12 +1,8 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import style from './Feed.module.scss';
 import classNames from 'classnames';
-import moment from 'moment';
-import xis from 'assets/imagens/x-mark-16.png';
-import http from 'api'
 import { useParams } from 'react-router-dom';
 import IPost from 'interfaces/IPost';
-import { Carousel } from 'react-bootstrap';
 // import DropdownEdit from 'components/Dropdown';
 // import style from './DropdownEdit.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -14,9 +10,9 @@ import { useContext } from 'react';
 import { PostContext } from 'contexts/PostContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
-import lapis from 'assets/imagens/pencil-16.png';
 import Post from 'components/Post';
 import { UserContext } from 'contexts/UserContext';
+import BotaoExcluir from 'components/BotaoExcluir';
 
 const Feed = () => {
     const params = useParams();
@@ -92,9 +88,8 @@ const Feed = () => {
                         {prevImg.length !== 0 && prevImg.map((img, index) => (
                             <div className={style.previewList__preview} key={index}>
                                 <img src={img} className={style.previewList__preview__prevImg} alt="" />
-                                <button onClick={() => setPreviewList(index)}>
-                                    <img src={xis} className={style.previewList__preview__xis} alt="" />
-                                </button>
+                                <BotaoExcluir onClick={() => setPreviewList(index)} />
+
                             </div>
                         ))}
                     </div>

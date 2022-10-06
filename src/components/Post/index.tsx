@@ -6,10 +6,10 @@ import moment from 'moment';
 import { useContext, useEffect, useState } from "react";
 import { PostContext } from "contexts/PostContext";
 import { Carousel } from "react-bootstrap";
-import lapis from 'assets/imagens/pencil-16.png';
-import xis from 'assets/imagens/x-mark-16.png';
 import curtido from 'assets/imagens/Liked.png';
 import naoCurtido from 'assets/imagens/notLiked.png';
+import BotaoEditar from "components/BotaoEditar";
+import BotaoExcluir from "components/BotaoExcluir";
 
 interface Props {
     post: IPost
@@ -67,8 +67,8 @@ export default function Post({ post }: Props) {
                     [style.editarDeletar]: true,
                     'dropdown': true
                 })}>
-                    <button onClick={() => navigate(`/editarpost/${post._id}`)}><img alt='Lápis' src={lapis}></img></button>
-                    <button onClick={() => { handleDelete(post._id) }}><img alt="Xis" src={xis}></img></button>
+                    <BotaoEditar onClick={() => navigate(`/editarpost/${post._id}`)} />
+                    <BotaoExcluir onClick={() => { handleDelete(post._id) }} />
                 </div>
                 <p>{moment(post.date).format('lll')}</p>
             </div>

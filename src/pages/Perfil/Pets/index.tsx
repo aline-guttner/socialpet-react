@@ -5,12 +5,12 @@ import { useContext } from 'react';
 import { UserContext } from 'contexts/UserContext';
 
 export default function Pets() {
-    const { pets, adicionando, setAdicionando } = useContext(UserContext)
+    const { pets, adicionando, setAdicionando, tabela, setTabela } = useContext(UserContext)
 
     return (
         <section className='table-responsive'>
             <h2>Pets</h2>
-            {pets.length ? <table className='table-sm'>
+            {tabela ? <table className='table-sm'>
                 <thead>
                     <tr>
                         <td><p>Nome</p></td>

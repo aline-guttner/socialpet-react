@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
 import IPet from 'interfaces/IPet';
 import { useApi } from 'hooks/useApi';
+import BotaoExcluir from 'components/BotaoExcluir';
 
 interface Props {
     pet?: IPet,
@@ -19,7 +20,6 @@ export default function Pet({ pet, ocultoHerdado }: Props) {
     const [petNome, setPetNome] = useState('')
     const [tipo, setTipo] = useState('--')
     const [oculto, setOculto] = useState(true)
-
 
 
     const { salvarPetsDados, excluirPet } = useContext(UserContext)
@@ -63,7 +63,7 @@ export default function Pet({ pet, ocultoHerdado }: Props) {
                 </select>
             </td>
             <td><button className={style.oculto}><img src={plus} alt='Símbolo de adição' /></button></td>
-            <td><button onClick={() => excluirPet(pet?._id)}><img src={x} alt='Xis' /></button></td>
+            <td><BotaoExcluir onClick={() => excluirPet(pet?._id)} /></td>
             <td><SalvarEditar salvarDados={salvarDadosPets} ocultarBotao={ocultarBotao} oculto={oculto} setOculto={setOculto} /></td>
         </tr>
     )

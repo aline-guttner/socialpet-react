@@ -33,6 +33,8 @@ type UserContextType = {
     setUser: (user: IUser | undefined) => void,
     setUserData: (data: IUser, userId: string | undefined) => void,
     excluirUser: () => Promise<void>
+    tabela: boolean,
+    setTabela: (smth: boolean) => void
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -45,6 +47,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const [adicionando, setAdicionando] = useState(false);
     const [id, setId] = useState<string | undefined>('');
     const [user, setUser] = useState<IUser | undefined>(undefined)
+    const [tabela, setTabela] = useState(false)
 
     const { mutate } = useApi(`user/${id}`)
 
@@ -55,6 +58,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         setBackImg(data.backImg)
         if (data.pets.length) {
             setPets(data.pets)
+            setTabela(true)
         }
         if (data.profileImg !== '') {
             setImage(data.profileImg)
@@ -196,8 +200,10 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     const excluirPet = async (petId: string | undefined) => {
         try {
+
             await http.delete(`pets/${petId}`)
             mutate();
+            pets.length === 0 && setTabela(false)
             alert('Pet removido com sucesso!')
         } catch (err) {
             console.log(err)
@@ -209,7 +215,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     return (
-        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData, excluirUser }}>
+        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData, excluirUser, tabela, setTabela }}>
             {children}
         </UserContext.Provider>
     )
