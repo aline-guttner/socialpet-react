@@ -1,13 +1,11 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import style from '../Feed/Feed.module.scss';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { useParams, useNavigate} from 'react-router-dom';
-import { appendFile } from 'fs';
-import  { baseURL } from 'api';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import { PostContext } from 'contexts/PostContext';
+import { useApi } from 'hooks/useApi';
+import sectionStyle from 'styles/Section.module.scss';
 
 interface IPost {
     title: string,
@@ -22,80 +20,60 @@ const validationPost = yup.object().shape({
 
 export default function EditarPost() {
     const navigate = useNavigate()
-    const { _id } = useParams()
-    const [ post, setPost] = useState<IPost>({
-        title:"",
-        content: ""
-    })
+    const params = useParams()
+    const { id, updatePost } = useContext(PostContext)
+    const [titulo, setTitulo] = useState('')
+    const [conteudo, setConteudo] = useState('')
+    const { data } = useApi(`posts/${params.id}`)
 
     useEffect(() => {
-        if(_id !== undefined){
-            findPost(_id)
-        }
-    },[_id] )
+        data && setData(data)
+    }, [data])
 
-    function updatePost (e: ChangeEvent<HTMLInputElement>) {
-
-        setPost({
-            ...post,
-            [e.target.name]: e.target.value
-        })
-
-    }
-    
-
-    async function OnSubmit (e: ChangeEvent<HTMLFormElement>) {
+    async function OnSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
-
-        const response = await axios.patch(`${baseURL}posts/${_id}`,post)
-        .then(() => {
-            console.log("foi")
-            navigate("/")
-        })
-        .catch(() => {
-            console.log("deu erro")
-        })
+        updatePost(e, params.id, titulo, conteudo)
+        id ? navigate(`../user/feed/${id}`) : console.log(id)
     }
 
-    async function findPost (_id: string) {
-        const response = await axios.get(`${baseURL}posts/${_id}`)
-        setPost({
-            title: response.data.title,
-            content: response.data.content
-        })
-        console.log(response)
+    const setData = (dados: IPost) => {
+        setTitulo(dados.title)
+        setConteudo(dados.content)
     }
+
+    if (!data) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
 
     return (
         <>
             <main className='container'>
                 <section>
-                    <form  onSubmit={OnSubmit} className={style.formPostagem}>
+                    <form onSubmit={OnSubmit} className={style.formPostagem}>
                         <div>
                             <label htmlFor='titulo'>Título</label>
-                            <input 
-                            type="text" 
-                            id="titulo"  
-                            name="title"
-                            value={post.title}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updatePost(e)}
+                            <input
+                                type="text"
+                                id="titulo"
+                                name="title"
+                                value={titulo}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setTitulo(e.target.value)}
                             />
                         </div>
                         <br />
+
                         <Form.Group>
                             <label htmlFor='content'>Conteúdo</label>
-                            <Form.Control 
-                            as="textarea"
-                            id='conteudo' 
-                            className={style.inputConteudo}
-                            name="content"
-                            rows={10} 
-                            value={post.content}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updatePost(e)}
+                            <Form.Control
+                                as="textarea"
+                                id='conteudo'
+                                className={style.inputConteudo}
+                                name="content"
+                                rows={10}
+                                value={conteudo}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setConteudo(e.target.value)}
                             />
                         </Form.Group>
 
-                        
+
                         <br />
                         <button type='submit' className={style.largeButton} >Atualizar</button>
                     </form>

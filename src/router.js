@@ -18,7 +18,7 @@ export default function AppRouter() {
                     <Route path="perfil/:id" element={<Perfil />} />
                 </Route>
                 <Route path="/cadastro" element={<Cadastro />} />
-                <Route exact path="/editarpost/:_id" element={<EditarPost />} />
+                <Route exact path="/editarpost/:id" element={<EditarPost />} />
 
             </Routes>
         </HashRouter>

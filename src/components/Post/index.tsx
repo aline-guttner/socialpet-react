@@ -83,7 +83,9 @@ export default function Post({ post }: Props) {
                 </Carousel> :
                 <div className={style.singleImg}><img src={post.image[0]} alt="" className='img-fluid' /></div>
             }
-            {post.content && <p>{post.content}</p>}
+            <div className={style.contentContainer}>
+                {post.content && <p>{post.content}</p>}
+            </div>
             <span className={style.likedContainer}><button onClick={alterarCurtida} className='normalButton' id='like' aria-label="curtir" type="button"><img src={liked ? curtido : naoCurtido} alt="Imagem de coração" /></button><p>{curtidas}</p></span>
         </div>
     )

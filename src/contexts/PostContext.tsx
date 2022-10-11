@@ -2,8 +2,6 @@ import http, { baseURL } from "api";
 import { useApi } from "hooks/useApi";
 import IPost from "interfaces/IPost";
 import { ChangeEvent, createContext, ReactNode, useState } from "react";
-import camera from 'assets/imagens/cameraCinza.jpg';
-import IUser from "interfaces/IUser";
 import axios from "axios";
 
 type PostContextProps = {
@@ -29,7 +27,11 @@ type PostContextType = {
     userPosts: IPost[],
     setUserPosts: (posts: IPost[]) => void
     curtir: (postId: string, usuariosCurtiram: string[]) => Promise<void>,
-    descurtir: (postId: string, usuariosCurtiram: string[]) => Promise<void>
+    descurtir: (postId: string, usuariosCurtiram: string[]) => Promise<void>,
+    id: string | undefined,
+    postChange: boolean
+    setPostChange: (smth: boolean) => void,
+    updatePost: (e: ChangeEvent<HTMLFormElement>, postId: string | undefined, title: string, content: string) => Promise<void>
 }
 
 export const PostContext = createContext<PostContextType>({} as PostContextType);
@@ -42,6 +44,7 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
     const [feed, setFeed] = useState<IPost[]>([]);
     const [userPosts, setUserPosts] = useState<IPost[]>([])
     const [id, setId] = useState<string | undefined>('')
+    const [postChange, setPostChange] = useState(false)
 
 
     const { mutate } = useApi('posts/')
@@ -52,6 +55,14 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
             let result = await http.get('posts/')
             setFeed(result.data)
             setUserPosts(result.data.filter((post: { userId: string | undefined; }) => post.userId === idUser))
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const getOnePost = async (postId: string | undefined) => {
+        try {
+            let result = await http.get(`posts/${postId}`)
         } catch (err) {
             console.log(err)
         }
@@ -105,6 +116,17 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
         setPrevImg(prevList => [...prevList.slice(0, index), ...prevList.slice(index + 1)])
     }
 
+    const updatePost = async (e: ChangeEvent<HTMLFormElement>, postId: string | undefined, title: string, content: string) => {
+        try {
+            await http.patch(`posts/${postId}`, {
+                title, content
+            })
+            setPostChange(!postChange)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const deletePostRequest = (_id: string) => {
 
         axios
@@ -143,7 +165,7 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
     };
 
     return (
-        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, userPosts, setUserPosts, curtir, descurtir }}>
+        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, userPosts, setUserPosts, curtir, descurtir, id, setPostChange, postChange, updatePost }}>
             {children}
         </PostContext.Provider>
     )

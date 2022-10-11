@@ -17,14 +17,13 @@ import BotaoExcluir from 'components/BotaoExcluir';
 const Feed = () => {
     const params = useParams();
     const { data, mutate } = useApi('posts/')
-
-    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest } = useContext(PostContext)
+    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, postChange } = useContext(PostContext)
 
     const { user } = useContext(UserContext)
 
     useEffect(() => {
         getPosts(params.id)
-    }, [])
+    }, [postChange])
 
     const inputFile = useRef<HTMLInputElement | null>(null);
 
