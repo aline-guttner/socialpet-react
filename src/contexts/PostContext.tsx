@@ -127,15 +127,14 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
         }
     }
 
-    const deletePostRequest = (_id: string) => {
-
-        axios
-            .delete(`${baseURL}posts/${_id}`)
-            .then(() => {
-                mutate();
-                alert("Publicação deletada com sucesso");
-
-            });
+    const deletePostRequest = async (_id: string) => {
+        try {
+            await http.delete(`posts/${_id}`);
+            alert("Publicação deletada com sucesso");
+            mutate();
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const curtir = async (postId: string, usuariosCurtiram: string[]) => {
