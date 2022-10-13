@@ -10,6 +10,8 @@ import curtido from 'assets/imagens/Liked.png';
 import naoCurtido from 'assets/imagens/notLiked.png';
 import BotaoEditar from "components/BotaoEditar";
 import BotaoExcluir from "components/BotaoExcluir";
+import http from "api";
+import { Link } from "react-router-dom";
 
 interface Props {
     post: IPost
@@ -63,14 +65,23 @@ export default function Post({ post }: Props) {
         <div className={style.postagens__postagem}>
             {/* BOTÃO EDITAR E EXCLUIR  */}
             <div className={style.cabecalho}>
-                <div className={classNames({
-                    [style.editarDeletar]: true,
-                    'dropdown': true
-                })}>
-                    <BotaoEditar onClick={() => navigate(`/editarpost/${post._id}`)} />
-                    <BotaoExcluir onClick={() => { handleDelete(post._id) }} />
-                </div>
-                <p>{moment(post.date).format('lll')}</p>
+                <span className={style.linhaUm}>
+                    <span className={style.infoUsuario}>
+                        <span className={style.nomeUsuario}>
+                            <Link to={`perfil/${post.userId}`}>{post.name}</Link>
+                            <p> fez uma pulicação</p>
+                        </span>
+                        {post.profileImg && <img src={post.profileImg} alt="Foto do usuário" />
+                        }</span>
+                    <div className={classNames({
+                        [style.editarDeletar]: true,
+                        'dropdown': true
+                    })}>
+                        <BotaoEditar onClick={() => navigate(`/editarpost/${post._id}`)} />
+                        <BotaoExcluir onClick={() => { handleDelete(post._id) }} />
+                    </div></span>
+                <p className={style.data}>{moment(post.date).format('lll')}</p>
+
             </div>
             {post.title && <h2>{post.title}</h2>}
             {post.image.length > 1 ?

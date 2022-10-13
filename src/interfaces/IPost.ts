@@ -6,5 +6,7 @@ export default interface IPost {
     title: string,
     image: string[],
     content: string,
-    usersLiked: string[]
+    usersLiked: string[],
+    name: string,
+    profileImg: string
 }

@@ -112,28 +112,67 @@
 
         .cabecalho{
             display: flex;
-            flex-direction: row-reverse;
-            justify-content: space-between;
+            flex-direction: column;
             background-color: $cor2!important;
 
-            .editarDeletar{
+            .linhaUm{
+                background-color: $cor2;
                 display: flex;
                 flex-direction: row;
-                justify-content: flex-end;
-                width: 50%;
-                background-color: $cor2!important;
-                button{
-                    background-color: $cor2;
-                    border: none;
+                justify-content: space-between;
+
+                .infoUsuario{
+                    img{
+                        border-radius: 50%;
+                        height: 45px;
+                        margin-right: 0.5rem;
+                    }
+
+                    .nomeUsuario{
+                        
+                        a, p{
+                            display: inline;
+                        }
+    
+                        a{
+                            font-weight: $boldFont;
+                            color: $cor1;
+                            text-decoration: none;
+
+                            &:hover{
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                    
+                    display: flex;
+                    flex-direction: row-reverse;
+                    justify-content: start;
+                    width: 80%;
+                    margin-bottom: 1rem;
+                    align-items: center;
                 }
                
-                img{
-                    height: 12px;
-                    width: 12px;
-                }
-            }
-        }
+                .editarDeletar{
+                    display: inline-flex;
+                    flex-direction: row;
+                    align-self: flex-start;
+                    justify-content: flex-end;
+                    width: 50%;
+                    background-color: $cor2!important;
+                    button{
+                        background-color: $cor2;
+                        border: none;
+                    }
+                   
+                    img{
+                        height: 12px;
+                        width: 12px;
+                    }}}}
 
+            .data{
+                font-size: 0.9rem;
+            }
 
         div {
             background-color: $cor3;

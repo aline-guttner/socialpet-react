@@ -11,15 +11,14 @@ import { PostContext } from 'contexts/PostContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
 import Post from 'components/Post';
-import { UserContext } from 'contexts/UserContext';
 import BotaoExcluir from 'components/BotaoExcluir';
+import { UserContext } from 'contexts/UserContext';
 
 const Feed = () => {
     const params = useParams();
-    const { data, mutate } = useApi('posts/')
-    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, postChange } = useContext(PostContext)
-
-    const { user } = useContext(UserContext)
+    const { data } = useApi('posts/')
+    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, getPosts, handlePostChange, publicarPost, setPreviewList, postChange } = useContext(PostContext)
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         getPosts(params.id)
@@ -32,17 +31,6 @@ const Feed = () => {
             inputFile.current.click();
         }
     };
-
-    const navigate = useNavigate();
-
-    const handleDelete = (_id: string) => {
-        try {
-            const response = deletePostRequest(_id);
-            //eu mudei o lugar da deletePostRequest pra PostContext, porque eu não tava conseguindo usar o mutate(), que faz o feed atualizar automaticamente, no arquivo da api. Tá lá no fim do arquivo.
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     const publicar = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
