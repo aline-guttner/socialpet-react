@@ -111,12 +111,12 @@ const Feed = () => {
                             <Post post={post} key={post._id} />)) : feed.reverse().map((post: IPost) => (
                                 <Post post={post} key={post._id} />))}
             </section>
-            {feed.length > 30 && feed.length !== postsMostrados.length && <button onClick={increase} className={classNames({
+            {feed.length !== postsMostrados.length ? <button onClick={increase} className={classNames({
                 [style.largeButton]: true,
                 [style.verMais]: true
             })}>
                 Ver mais
-            </button>}
+            </button> : <p className={style.atualizado}>Isso é tudo por agora.</p>}
         </main>
 
 
