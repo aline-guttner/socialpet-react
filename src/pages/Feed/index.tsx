@@ -28,7 +28,6 @@ const Feed = () => {
         } else {
             setPostsMostrados(() => [...feed.reverse()])
         }
-
     }, [numberOfPosts, getPosts])
 
     const inputFile = useRef<HTMLInputElement | null>(null);

@@ -124,8 +124,8 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
             await http.patch(`posts/${postId}`, {
                 title, content
             })
+            mutate()
             alert("Post alterado com sucesso!")
-            setPostChange(!postChange)
         } catch (err) {
             console.log(err)
         }
