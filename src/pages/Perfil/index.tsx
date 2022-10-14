@@ -22,8 +22,6 @@ export default function Perfil() {
         setUserData(data, params.id);
     }, [data])
 
-
-
     if (!user) return (
         <main>
             <h1 className={sectionStyle.carregando}>Carregando...</h1>

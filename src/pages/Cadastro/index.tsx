@@ -1,5 +1,4 @@
 import style from './Cadastro.module.scss';
-import Button from 'components/Button/Button';
 import SPimg from 'assets/imagens/SocialPet.png';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -83,9 +82,9 @@ function Cadastro() {
                     </div>
 
                 </div>
-                <Button type="submit">
+                <button type="submit" className={style.cadastroButton}>
                     Criar conta
-                </Button>
+                </button>
                 <hr />
                 <p className={style.plogin}>Já tem uma conta?<Link className={style.login} to={'/'}> Faça login</Link></p>
             </form >

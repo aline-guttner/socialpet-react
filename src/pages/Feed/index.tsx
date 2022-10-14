@@ -1,28 +1,30 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import style from './Feed.module.scss';
 import classNames from 'classnames';
+import xis from 'assets/imagens/x-mark-16.png';
 import { useParams } from 'react-router-dom';
 import IPost from 'interfaces/IPost';
-// import DropdownEdit from 'components/Dropdown';
-// import style from './DropdownEdit.module.scss';
-import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { PostContext } from 'contexts/PostContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
 import Post from 'components/Post';
-import BotaoExcluir from 'components/BotaoExcluir';
-import { UserContext } from 'contexts/UserContext';
 
 const Feed = () => {
     const params = useParams();
     const { data } = useApi('posts/')
-    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, getPosts, handlePostChange, publicarPost, setPreviewList, postChange } = useContext(PostContext)
-    const { user } = useContext(UserContext);
+    const [numberOfPosts, setNumberOfPosts] = useState(30)
+    const [postsMostrados, setPostsMostrados] = useState<IPost[]>([])
+    const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, getPosts, handlePostChange, publicarPost, setPreviewList } = useContext(PostContext)
+
 
     useEffect(() => {
-        getPosts(params.id)
-    }, [postChange])
+        getPosts(params.id, data)
+    }, [data])
+
+    useEffect(() => {
+        setPostsMostrados(() => [...feed.slice(feed.length - numberOfPosts, feed.length).reverse()])
+    }, [numberOfPosts, getPosts])
 
     const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -37,7 +39,19 @@ const Feed = () => {
         publicarPost(params.id)
     }
 
-    if (data === undefined) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
+    const increase = () => {
+        if (feed.length <= 30) {
+            return
+        } else if (
+            feed.length < numberOfPosts + 30
+        ) {
+            setNumberOfPosts(feed.length)
+        } else {
+            setNumberOfPosts(numberOfPosts + 30)
+        }
+    }
+
+    if (feed === undefined) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
 
     return (
         <main className='container'>
@@ -75,8 +89,9 @@ const Feed = () => {
                         {prevImg.length !== 0 && prevImg.map((img, index) => (
                             <div className={style.previewList__preview} key={index}>
                                 <img src={img} className={style.previewList__preview__prevImg} alt="" />
-                                <BotaoExcluir onClick={() => setPreviewList(index)} />
-
+                                <button onClick={() => setPreviewList(index)}>
+                                    <img src={xis} className={style.previewList__preview__xis} alt="" />
+                                </button>
                             </div>
                         ))}
                     </div>
@@ -85,10 +100,17 @@ const Feed = () => {
                 </form>
             </section>
             <section className={style.postagens}>
-                {data.slice(0, 30).reverse().map((post: IPost) => (
+                {postsMostrados.length ? postsMostrados.map((post: IPost) => (
                     <Post post={post} key={post._id} />
-                ))}
+                )) : feed.slice(feed.length - 30, feed.length).reverse().map((post: IPost) => (
+                    <Post post={post} key={post._id} />))}
             </section>
+            <button onClick={increase} className={classNames({
+                [style.largeButton]: true,
+                [style.verMais]: true
+            })}>
+                Ver mais
+            </button>
         </main>
 
 

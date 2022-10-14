@@ -12,6 +12,7 @@ import BotaoEditar from "components/BotaoEditar";
 import BotaoExcluir from "components/BotaoExcluir";
 import http from "api";
 import { Link } from "react-router-dom";
+import { useApi } from "hooks/useApi";
 
 interface Props {
     post: IPost

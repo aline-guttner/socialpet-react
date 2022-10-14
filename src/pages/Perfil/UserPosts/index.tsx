@@ -5,14 +5,15 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styles from 'pages/Feed/Feed.module.scss';
 import style from './UserPosts.module.scss';
-import sectionStyle from 'styles/Section.module.scss';
+import { useApi } from "hooks/useApi";
 
 export default function UserPosts() {
-    const { feed, getPosts, userPosts } = useContext(PostContext)
+    const { getPosts, userPosts } = useContext(PostContext)
     const params = useParams()
+    const { data } = useApi('posts/')
 
     useEffect(() => {
-        getPosts(params.id)
+        getPosts(params.id, data)
     }, [])
 
     return (

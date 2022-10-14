@@ -19,7 +19,7 @@ type PostContextType = {
     setConteudo: (conteudo: string) => void,
     feed: IPost[],
     setFeed: (posts: IPost[]) => void,
-    getPosts: (idUser: string | undefined) => Promise<void>,
+    getPosts: (idUser: string | undefined, data: IPost[]) => Promise<void>,
     handlePostChange: (file: ChangeEvent<HTMLInputElement>) => void,
     publicarPost: (userId: string | undefined) => Promise<void>,
     setPreviewList: (index: any) => void,
@@ -49,12 +49,15 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
 
     const { mutate } = useApi('posts/')
 
-    const getPosts = async (idUser: string | undefined) => {
+    const getPosts = async (idUser: string | undefined, data: IPost[]) => {
         try {
             setId(idUser)
-            let result = await http.get('posts/')
-            setFeed(result.data)
-            setUserPosts(result.data.filter((post: { userId: string | undefined; }) => post.userId === idUser))
+            if (!data) {
+                return
+            }
+            setFeed(data)
+            setUserPosts(data.filter((post: { userId: string | undefined; }) => post.userId === idUser))
+            mutate();
         } catch (err) {
             console.log(err)
         }
@@ -121,6 +124,7 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
             await http.patch(`posts/${postId}`, {
                 title, content
             })
+            alert("Post alterado com sucesso!")
             setPostChange(!postChange)
         } catch (err) {
             console.log(err)
