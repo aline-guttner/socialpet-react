@@ -23,7 +23,12 @@ const Feed = () => {
     }, [data])
 
     useEffect(() => {
-        setPostsMostrados(() => [...feed.slice(feed.length - numberOfPosts, feed.length).reverse()])
+        if (feed.length > 30) {
+            setPostsMostrados(() => [...feed.slice(feed.length - numberOfPosts, feed.length).reverse()])
+        } else {
+            setPostsMostrados(() => [...feed.reverse()])
+        }
+
     }, [numberOfPosts, getPosts])
 
     const inputFile = useRef<HTMLInputElement | null>(null);
@@ -40,9 +45,7 @@ const Feed = () => {
     }
 
     const increase = () => {
-        if (feed.length <= 30) {
-            return
-        } else if (
+        if (
             feed.length < numberOfPosts + 30
         ) {
             setNumberOfPosts(feed.length)
@@ -102,15 +105,18 @@ const Feed = () => {
             <section className={style.postagens}>
                 {postsMostrados.length ? postsMostrados.map((post: IPost) => (
                     <Post post={post} key={post._id} />
-                )) : feed.slice(feed.length - 30, feed.length).reverse().map((post: IPost) => (
-                    <Post post={post} key={post._id} />))}
+                )) :
+                    feed.length > 30 ?
+                        feed.slice(feed.length - 30, feed.length).reverse().map((post: IPost) => (
+                            <Post post={post} key={post._id} />)) : feed.reverse().map((post: IPost) => (
+                                <Post post={post} key={post._id} />))}
             </section>
-            <button onClick={increase} className={classNames({
+            {feed.length > 30 && feed.length !== postsMostrados.length && <button onClick={increase} className={classNames({
                 [style.largeButton]: true,
                 [style.verMais]: true
             })}>
                 Ver mais
-            </button>
+            </button>}
         </main>
 
 
