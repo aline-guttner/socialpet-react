@@ -18,6 +18,8 @@ function Login() {
                 password: senha
             })
             if (res.data.token) {
+                localStorage.setItem('token', res.data.token)
+                console.log(res.data.token)
                 navigate(`../user/perfil/${res.data.user._id}`)
             }
         } catch (err) {
