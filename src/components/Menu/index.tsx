@@ -11,6 +11,11 @@ interface Props {
 export default function Menu({ menu }: Props) {
     let params = useParams();
 
+    const handleSignOut = () => {
+        localStorage.removeItem('token')
+        window.location.reload()
+      }
+
     return (
         <aside className={style.menu}>
 
@@ -34,10 +39,13 @@ export default function Menu({ menu }: Props) {
                 [style.feed]: true
             })} to={`/user/feed/${params.id}`}>Feed de notícias</Link></h2>
             <hr />
+            <button onClick={handleSignOut} >
             <Link className={classNames({
                 [style.link]: true,
                 [style.sair]: true
             })} to={'/'}><img src={logout} alt="" /> Sair</Link>
+            </button>
+            
         </aside >
     )
 }
