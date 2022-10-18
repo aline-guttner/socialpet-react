@@ -99,6 +99,8 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             }
             if (res.data.profileImg !== '') {
                 setImage(res.data.profileImg)
+            } else {
+                setImage(camera)
             }
             setInfo(res.data);
         } catch (error) {

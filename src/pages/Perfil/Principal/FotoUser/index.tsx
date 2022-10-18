@@ -1,5 +1,5 @@
 import { UserContext } from 'contexts/UserContext';
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useParams } from 'react-router';
 import style from '../Principal.module.scss';
 
@@ -9,6 +9,7 @@ export default function FotoUser() {
   const { image, info, updateUserImg } = useContext(UserContext)
 
   const inputFile = useRef<HTMLInputElement | null>(null);
+
 
   const mudarImagem = () => {
     // `current` points to the mounted file input element

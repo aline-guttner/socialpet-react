@@ -17,8 +17,7 @@ declare global {
 export default function Principal() {
   const params = useParams();
   const [index, setIndex] = useState(0);
-
-  const { backImg, pets, handleBackChange, threePets, idLogado, Protected } = useContext(UserContext)
+  const { backImg, pets, handleBackChange, threePets, idLogado, Protected, setUserData } = useContext(UserContext)
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
