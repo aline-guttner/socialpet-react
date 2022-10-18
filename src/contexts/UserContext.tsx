@@ -26,15 +26,17 @@ type UserContextType = {
     salvarPetsDados: (evento: React.MouseEvent<HTMLButtonElement, MouseEvent>, petId: string | undefined, petNome: string, tipo: string) => void,
     adicionando: boolean,
     setAdicionando: (newState: boolean) => void,
-    id: string | undefined,
-    setId: (newState: string | undefined) => void,
-    excluirPet: (petId: string | undefined) => void,
+    idLogado: string | undefined,
+    setIdLogado: (newState: string | undefined) => void,
+    excluirPet: (pet: IPet | undefined) => void,
     user: IUser | undefined,
     setUser: (user: IUser | undefined) => void,
-    setUserData: (data: IUser, userId: string | undefined) => void,
+    setUserData: (id: string | undefined) => void,
     excluirUser: () => Promise<void>
     tabela: boolean,
-    setTabela: (smth: boolean) => void
+    setTabela: (smth: boolean) => void,
+    info: IUser | undefined,
+    setInfo: (user: IUser | undefined) => void,
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -45,28 +47,36 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const [image, setImage] = useState(camera);
     const [backImg, setBackImg] = useState(camera);
     const [adicionando, setAdicionando] = useState(false);
-    const [id, setId] = useState<string | undefined>('');
+    const [idLogado, setIdLogado] = useState<string | undefined>('');
     const [user, setUser] = useState<IUser | undefined>(undefined)
+    const [info, setInfo] = useState<IUser | undefined>(undefined)
     const [tabela, setTabela] = useState(false)
 
-    const { mutate } = useApi(`user/${id}`)
+    const { mutate } = useApi(`user/${idLogado}`)
 
-    const setUserData = (data: IUser, userId: string | undefined) => {
-        if (!data) {
+    const setUserData = async (id: string | undefined) => {
+
+        if (!id) {
             return
         }
-        setBackImg(data.backImg)
-        if (data.pets.length) {
-            setPets(data.pets)
-            setTabela(true)
-        }
-        if (data.profileImg !== '') {
-            setImage(data.profileImg)
-        }
-        setUser(data);
-        setId(userId);
 
-        mutate()
+        try {
+            let res = await http.get(`user/${id}`)
+            setBackImg(res.data.backImg)
+            setPets(res.data.pets)
+            if (res.data.pets.length) {
+                setTabela(true)
+            } else {
+                setTabela(false)
+            }
+            if (res.data.profileImg !== '') {
+                setImage(res.data.profileImg)
+            }
+            setInfo(res.data);
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     const handleBackChange = (file: ChangeEvent<HTMLInputElement>) => {
@@ -77,10 +87,9 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             const stringURL = String(dataURL);
             setBackImg(stringURL);
             try {
-                await http.patch(`user/${id}`, {
+                await http.patch(`user/${idLogado}`, {
                     backImg: stringURL
                 });
-                mutate();
                 alert('Foto alterada com sucesso!');
             }
             catch (err) {
@@ -98,10 +107,9 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const updateUserImg = async (stringURL: string) => {
 
         try {
-            await http.patch(`user/${id}`, {
+            await http.patch(`user/${idLogado}`, {
                 profileImg: stringURL
             })
-            mutate();
             setImage(stringURL);
             alert('Foto alterada com sucesso!');
         } catch (err) {
@@ -113,16 +121,16 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     const salvarUserDados = async (name?: string, username?: string, data?: Date | null, telefone?: string) => {
-        if (user) {
+        if (info) {
 
             try {
-                await http.patch(`user/${id}`, {
+                await http.patch(`user/${idLogado}`, {
                     name: name,
                     username: username,
                     birthDate: data,
                     phone: telefone
                 })
-                mutate();
+                setUserData(idLogado)
                 alert('Dados alterados com sucesso!')
 
             } catch (err) {
@@ -135,7 +143,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     const excluirUser = async () => {
         try {
-            await http.delete(`user/${id}`);
+            await http.delete(`user/${idLogado}`);
             alert("Usuário deletado com sucesso.");
             // usar um state pra deletar os pets quando o usuário for deletado
         } catch (err) {
@@ -148,7 +156,6 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             await http.patch(`pets/${petId}`, {
                 petImg: stringURL
             })
-            mutate();
             alert('Pet alterado com sucesso!')
         } catch (err) {
             console.log(err)
@@ -166,11 +173,11 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         evento.preventDefault()
         if (petId) {
             try {
-                await http.patch(`pets/${petId}`, {
+                let res = await http.patch(`pets/${petId}`, {
                     petName: petNome,
                     petType: tipo
                 })
-                mutate();
+                setUserData(idLogado)
                 alert('Dados alterados com sucesso!')
             } catch (err) {
                 console.log(err)
@@ -182,7 +189,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
                     petName: petNome,
                     petType: tipo,
                     petImg: "",
-                    userId: id
+                    userId: idLogado
                 })
                 mutate();
                 alert('Pet criado com sucesso!')
@@ -198,13 +205,15 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     }
 
-    const excluirPet = async (petId: string | undefined) => {
+    const excluirPet = async (pet: IPet | undefined) => {
         try {
-
-            await http.delete(`pets/${petId}`)
-            mutate();
-            pets.length === 0 && setTabela(false)
-            alert('Pet removido com sucesso!')
+            if (pet) {
+                let indexPet = pets.indexOf(pet)
+                await http.delete(`pets/${pet._id}`)
+                setUserData(idLogado)
+                pets.length === 0 && setTabela(false)
+                alert('Pet removido com sucesso!')
+            }
         } catch (err) {
             console.log(err)
             alert('Não foi possível remover o pet, tente novamente mais tarde.')
@@ -215,7 +224,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     return (
-        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setId, id, excluirPet, setPets, user, setUser, setUserData, excluirUser, tabela, setTabela }}>
+        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setIdLogado, idLogado, excluirPet, setPets, user, setUser, setUserData, excluirUser, tabela, setTabela, info, setInfo }}>
             {children}
         </UserContext.Provider>
     )

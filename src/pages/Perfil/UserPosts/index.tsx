@@ -10,21 +10,20 @@ import { useApi } from "hooks/useApi";
 export default function UserPosts() {
     const { getPosts, userPosts } = useContext(PostContext)
     const params = useParams()
-    const { data } = useApi('posts/')
 
     useEffect(() => {
-        getPosts(params.id, data)
-    }, [])
+        getPosts(params.id)
+    }, [params])
 
     return (
         <>
-            <section><h2 className={style.publicacao}>Suas publicações</h2></section>
+            <section><h2 className={style.publicacao}>Publicações</h2></section>
             {userPosts.length ?
                 <section className={styles.postagens}>
                     {userPosts.map((post: IPost) => (
                         <Post post={post} key={post._id} />))}
                 </section>
-                : <section>Você ainda não publicou nada.</section>}
+                : <section>Ainda não há publicações deste usuário</section>}
 
         </>
 

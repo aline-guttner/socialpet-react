@@ -13,6 +13,8 @@ import BotaoExcluir from "components/BotaoExcluir";
 import http from "api";
 import { Link } from "react-router-dom";
 import { useApi } from "hooks/useApi";
+import { UserContext } from "contexts/UserContext";
+import { isAuthenticated, Protected } from "hooks/Auth";
 
 interface Props {
     post: IPost
@@ -23,7 +25,8 @@ export default function Post({ post }: Props) {
     const params = useParams();
     const [liked, setLiked] = useState<boolean>(false)
     const [curtidas, setCurtidas] = useState<number>(0)
-
+    const { idLogado } = useContext(UserContext)
+    const user = localStorage.getItem('user');
     useEffect(() => {
         verificarCurtida()
         if (post.usersLiked.length) {
@@ -65,6 +68,8 @@ export default function Post({ post }: Props) {
     return (
         <div className={style.postagens__postagem}>
             {/* BOTÃO EDITAR E EXCLUIR  */}
+            { }
+
             <div className={style.cabecalho}>
                 <span className={style.linhaUm}>
                     <span className={style.infoUsuario}>
@@ -74,13 +79,15 @@ export default function Post({ post }: Props) {
                         </span>
                         {post.profileImg && <img src={post.profileImg} alt="Foto do usuário" />
                         }</span>
-                    <div className={classNames({
-                        [style.editarDeletar]: true,
-                        'dropdown': true
-                    })}>
-                        <BotaoEditar onClick={() => navigate(`/editarpost/${post._id}`)} />
-                        <BotaoExcluir onClick={() => { handleDelete(post._id) }} />
-                    </div></span>
+                    <Protected userId={idLogado} paramsId={params.id}>
+                        {user === post.userId && <div className={classNames({
+                            [style.editarDeletar]: true,
+                            'dropdown': true
+                        })}>
+                            <BotaoEditar onClick={() => navigate(`/editarpost/${post._id}`)} />
+                            <BotaoExcluir onClick={() => { handleDelete(post._id) }} />
+                        </div>}
+                    </Protected></span>
                 <p className={style.data}>{moment(post.date).format('lll')}</p>
 
             </div>

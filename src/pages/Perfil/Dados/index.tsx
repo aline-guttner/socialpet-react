@@ -14,18 +14,18 @@ export default function Dados() {
     const [data, setData] = useState<any>()
     const [telefone, setTelefone] = useState('')
 
-    const { user } = useContext(UserContext)
+    const { info } = useContext(UserContext)
 
     useEffect(() => {
-        if (user) {
-            setNome(user.name)
-            setUsuario(user.username)
-            setEmail(user.email)
-            setData(moment(user.birthDate).utc().format('YYYY-MM-DD'))
-            setTelefone(user.phone)
+        if (info) {
+            setNome(info.name)
+            setUsuario(info.username)
+            setEmail(info.email)
+            setData(moment(info.birthDate).utc().format('YYYY-MM-DD'))
+            setTelefone(info.phone)
         }
 
-    }, [])
+    }, [info])
 
     const inputFile = useRef<HTMLInputElement | null>(null);
 

@@ -21,7 +21,7 @@ const validationPost = yup.object().shape({
 export default function EditarPost() {
     const navigate = useNavigate()
     const params = useParams()
-    const { id, updatePost } = useContext(PostContext)
+    const { idLogado, updatePost } = useContext(PostContext)
     const [titulo, setTitulo] = useState('')
     const [conteudo, setConteudo] = useState('')
     const { data } = useApi(`posts/${params.id}`)
@@ -33,7 +33,7 @@ export default function EditarPost() {
     async function OnSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
         updatePost(e, params.id, titulo, conteudo)
-        id ? navigate(`../user/feed/${id}`) : console.log(id)
+        idLogado ? navigate(`../user/feed/${idLogado}`) : console.log(idLogado)
     }
 
     const setData = (dados: IPost) => {

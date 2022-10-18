@@ -2,25 +2,28 @@ import { useEffect, useRef, useState } from 'react';
 import style from './Feed.module.scss';
 import classNames from 'classnames';
 import xis from 'assets/imagens/x-mark-16.png';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import IPost from 'interfaces/IPost';
 import { useContext } from 'react';
 import { PostContext } from 'contexts/PostContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
 import Post from 'components/Post';
+import { UserContext } from 'contexts/UserContext';
+import { isAuthenticated } from 'hooks/Auth';
 
 const Feed = () => {
     const params = useParams();
+    const navigate = useNavigate();
     const { data } = useApi('posts/')
     const [numberOfPosts, setNumberOfPosts] = useState(30)
     const [postsMostrados, setPostsMostrados] = useState<IPost[]>([])
     const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, getPosts, handlePostChange, publicarPost, setPreviewList } = useContext(PostContext)
-
-
+    const { setIdLogado } = useContext(UserContext)
+    const auth = isAuthenticated();
     useEffect(() => {
-        getPosts(params.id, data)
-    }, [data])
+        getPosts(params.id)
+    }, [navigate])
 
     useEffect(() => {
         if (feed.length > 30) {
@@ -39,8 +42,8 @@ const Feed = () => {
     };
 
     const publicar = (evento: React.FormEvent<HTMLFormElement>) => {
-        evento.preventDefault()
-        publicarPost(params.id)
+        evento.preventDefault();
+        publicarPost();
     }
 
     const increase = () => {
@@ -51,6 +54,13 @@ const Feed = () => {
         } else {
             setNumberOfPosts(numberOfPosts + 30)
         }
+    }
+
+    if (!auth) {
+        navigate("../")
+    } else {
+        let userId = localStorage.getItem('user')
+        userId && setIdLogado(userId)
     }
 
     if (feed === undefined) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>

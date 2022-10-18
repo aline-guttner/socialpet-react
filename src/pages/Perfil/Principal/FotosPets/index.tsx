@@ -12,7 +12,8 @@ interface Props {
 export default function FotosPets({ pet }: Props) {
     const [petImg, setPetImg] = useState(camera);
     const [petName, setPetName] = useState('');
-    const { updatePetImg, pets } = useContext(UserContext)
+    const { updatePetImg, pets, idLogado } = useContext(UserContext)
+
 
     useEffect(() => {
         if (pets.length) {

@@ -1,10 +1,13 @@
 import { UserContext } from 'contexts/UserContext';
+import { Protected } from 'hooks/Auth';
 import { useContext, useRef } from 'react';
+import { useParams } from 'react-router';
 import style from '../Principal.module.scss';
 
 export default function FotoUser() {
-
-  const { image, user, updateUserImg } = useContext(UserContext)
+  const { idLogado } = useContext(UserContext);
+  const params = useParams();
+  const { image, info, updateUserImg } = useContext(UserContext)
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -38,14 +41,16 @@ export default function FotoUser() {
       <button onClick={mudarImagem}>
         <img src={image} alt="Foto do usuário" />
       </button>
-      <input
-        id="inputFile1"
-        type="file"
-        accept="image/*"
-        onChange={evento => updateImg(evento)}
-        ref={inputFile}
-      />
-      <p>{user && user.name}</p>
+      <Protected userId={idLogado} paramsId={params.id}>
+        <input
+          id="inputFile1"
+          type="file"
+          accept="image/*"
+          onChange={evento => updateImg(evento)}
+          ref={inputFile}
+        />
+      </Protected>
+      <p>{info && info.name}</p>
     </span>
   )
 

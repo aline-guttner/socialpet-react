@@ -3,10 +3,12 @@ import plus from 'assets/imagens/plus-16.png';
 import style from './Pets.module.scss';
 import { useContext } from 'react';
 import { UserContext } from 'contexts/UserContext';
+import { Protected } from 'hooks/Auth';
+import { useParams } from 'react-router';
 
 export default function Pets() {
-    const { pets, adicionando, setAdicionando, tabela, setTabela } = useContext(UserContext)
-
+    const { pets, adicionando, setAdicionando, tabela, idLogado } = useContext(UserContext);
+    const params = useParams();
     return (
         <section className='table-responsive'>
             <h2>Pets</h2>
@@ -27,7 +29,7 @@ export default function Pets() {
                     {adicionando && <Pet ocultoHerdado={true} />}
                 </tbody>
             </table>
-                : <div><p className={style.semPets}>Você ainda não adicionou nenhum pet</p>
+                : <div><p className={style.semPets}>Este usuário ainda não adicionou nenhum pet</p>
                     <table>
                         <tbody>
                             {adicionando && <Pet ocultoHerdado={true} />}
@@ -35,7 +37,9 @@ export default function Pets() {
                     </table>
                 </div>
             }
-            <button onClick={() => setAdicionando(true)} className={style.button}><img src={plus} alt="Símbolo de adição" /></button>
+            <Protected userId={idLogado} paramsId={params.id}>
+                <button onClick={() => setAdicionando(true)} className={style.button}><img src={plus} alt="Símbolo de adição" /></button>
+            </Protected>
         </section>
     )
 }

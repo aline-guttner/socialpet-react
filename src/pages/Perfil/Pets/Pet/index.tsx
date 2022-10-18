@@ -62,8 +62,7 @@ export default function Pet({ pet, ocultoHerdado }: Props) {
                     ))}
                 </select>
             </td>
-            <td><button className={style.oculto}><img src={plus} alt='Símbolo de adição' /></button></td>
-            <td><BotaoExcluir onClick={() => excluirPet(pet?._id)} /></td>
+            <td><BotaoExcluir onClick={() => excluirPet(pet!)} /></td>
             <td><SalvarEditar salvarDados={salvarDadosPets} ocultarBotao={ocultarBotao} oculto={oculto} setOculto={setOculto} /></td>
         </tr>
     )

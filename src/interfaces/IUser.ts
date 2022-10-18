@@ -9,6 +9,6 @@ export default interface IUser {
     profileImg: string,
     pets: IPet[],
     phone: string,
-    backImg: string
-
+    backImg: string,
+    _id: string
 }

@@ -3,10 +3,12 @@ import { useState, useContext } from 'react';
 import SPimg from 'assets/imagens/SocialPet.png';
 import { Link, useNavigate } from 'react-router-dom';
 import http from 'api';
+import { UserContext } from 'contexts/UserContext';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const { setUserData, setIdLogado, idLogado } = useContext(UserContext)
     let navigate = useNavigate();
 
     const aoSubmeterForm = async (evento: React.FormEvent<HTMLFormElement>) => {
@@ -22,6 +24,10 @@ function Login() {
                 console.log(res.data.token)
                 navigate(`../user/perfil/${res.data.user._id}`)
             }
+            setIdLogado(res.data.user._id)
+            console.log(res.data.user)
+            setUserData(res.data.user._id)
+            localStorage.setItem('user', res.data.user._id);
         } catch (err) {
             alert('Usuário não encontrado!')
         }

@@ -2,37 +2,39 @@ import Principal from './Principal';
 import Excluir from './Excluir'
 import { useContext, useEffect } from 'react';
 import Dados from './Dados';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Pets from './Pets';
 import { UserContext } from 'contexts/UserContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
 import UserPosts from './UserPosts';
+import { isAuthenticated, Protected } from 'hooks/Auth';
 
 
 export default function Perfil() {
     let params = useParams();
-
-    const { data } = useApi(`user/${params.id}`)
-
-    const { user, setUserData } = useContext(UserContext)
-
-    // resolver isso daqui
+    const auth = isAuthenticated();
+    const navigate = useNavigate();
+    const { info, idLogado, setIdLogado, setUserData } = useContext(UserContext)
     useEffect(() => {
-        setUserData(data, params.id);
-    }, [data])
+        setUserData(params.id)
+    }, [navigate])
 
-    if (!user) return (
-        <main>
-            <h1 className={sectionStyle.carregando}>Carregando...</h1>
-        </main>)
+    if (!auth) {
+        navigate("../")
+    } else {
+        let userId = localStorage.getItem('user')
+        userId && setIdLogado(userId)
+    }
 
     return (
         <main className='container'>
             <Principal />
             <Dados />
             <Pets />
-            <Excluir />
+            <Protected userId={idLogado} paramsId={params.id}>
+                <Excluir />
+            </Protected>
             <UserPosts />
         </main>
     )

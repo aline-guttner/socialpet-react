@@ -19,16 +19,16 @@ type PostContextType = {
     setConteudo: (conteudo: string) => void,
     feed: IPost[],
     setFeed: (posts: IPost[]) => void,
-    getPosts: (idUser: string | undefined, data: IPost[]) => Promise<void>,
+    getPosts: (idUser: string | undefined) => Promise<void>,
     handlePostChange: (file: ChangeEvent<HTMLInputElement>) => void,
-    publicarPost: (userId: string | undefined) => Promise<void>,
+    publicarPost: () => Promise<void>,
     setPreviewList: (index: any) => void,
     deletePostRequest: (_id: string) => void
     userPosts: IPost[],
     setUserPosts: (posts: IPost[]) => void
     curtir: (postId: string, usuariosCurtiram: string[]) => Promise<void>,
     descurtir: (postId: string, usuariosCurtiram: string[]) => Promise<void>,
-    id: string | undefined,
+    idLogado: string | undefined,
     postChange: boolean
     setPostChange: (smth: boolean) => void,
     updatePost: (e: ChangeEvent<HTMLFormElement>, postId: string | undefined, title: string, content: string) => Promise<void>
@@ -43,29 +43,19 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
     const [conteudo, setConteudo] = useState('');
     const [feed, setFeed] = useState<IPost[]>([]);
     const [userPosts, setUserPosts] = useState<IPost[]>([])
-    const [id, setId] = useState<string | undefined>('')
+    const [idLogado, setIdLogado] = useState<string | undefined>('')
     const [postChange, setPostChange] = useState(false)
 
 
     const { mutate } = useApi('posts/')
 
-    const getPosts = async (idUser: string | undefined, data: IPost[]) => {
+    const getPosts = async (idUser: string | undefined) => {
         try {
-            setId(idUser)
-            if (!data) {
-                return
-            }
-            setFeed(data)
-            setUserPosts(data.filter((post: { userId: string | undefined; }) => post.userId === idUser))
-            mutate();
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    const getOnePost = async (postId: string | undefined) => {
-        try {
-            let result = await http.get(`posts/${postId}`)
+            let res = await http.get('posts/')
+            setIdLogado(idUser)
+            setFeed(res.data)
+            setUserPosts(res.data.filter((post: { userId: string | undefined; }) => post.userId === idUser))
+            console.log("loop")
         } catch (err) {
             console.log(err)
         }
@@ -89,17 +79,17 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
         }
     };
 
-    const publicarPost = async (userId: string | undefined) => {
+    const publicarPost = async () => {
         if (conteudo !== '' || prevImg.length) {
             try {
                 await http.post('posts/', {
                     date: new Date(),
-                    userId: userId,
+                    userId: idLogado,
                     title: titulo,
                     image: prevImg,
                     content: conteudo
                 });
-                mutate();
+                getPosts(idLogado);
                 alert('Conteúdo publicado com sucesso!');
                 setInativo(!inativo);
                 mutate();
@@ -124,8 +114,8 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
             await http.patch(`posts/${postId}`, {
                 title, content
             })
-            mutate()
-            alert("Post alterado com sucesso!")
+            getPosts(idLogado);
+            alert("Post alterado com sucesso!");
         } catch (err) {
             console.log(err)
         }
@@ -135,7 +125,7 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
         try {
             await http.delete(`posts/${_id}`);
             alert("Publicação deletada com sucesso");
-            mutate();
+            getPosts(idLogado);
         } catch (err) {
             console.log(err)
         }
@@ -144,9 +134,9 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
     const curtir = async (postId: string, usuariosCurtiram: string[]) => {
         try {
             await http.patch(`posts/${postId}`, {
-                usersLiked: [...usuariosCurtiram, id]
+                usersLiked: [...usuariosCurtiram, idLogado]
             });
-            mutate();
+            getPosts(idLogado);
         } catch (err) {
             console.log(err);
         };
@@ -155,20 +145,20 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
 
     const descurtir = async (postId: string, usuariosCurtiram: string[]) => {
         try {
-            let curtidaRemovida = usuariosCurtiram.indexOf(id!)
+            let curtidaRemovida = usuariosCurtiram.indexOf(idLogado!)
             let novoArray = usuariosCurtiram
             novoArray.splice(curtidaRemovida, 1)
             await http.patch(`posts/${postId}`, {
                 usersLiked: novoArray
             });
-            mutate();
+            getPosts(idLogado);
         } catch (err) {
             console.log(err);
         };
     };
 
     return (
-        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, userPosts, setUserPosts, curtir, descurtir, id, setPostChange, postChange, updatePost }}>
+        <PostContext.Provider value={{ inativo, setInativo, prevImg, setPrevImg, titulo, setTitulo, conteudo, setConteudo, feed, setFeed, getPosts, handlePostChange, publicarPost, setPreviewList, deletePostRequest, userPosts, setUserPosts, curtir, descurtir, idLogado, setPostChange, postChange, updatePost }}>
             {children}
         </PostContext.Provider>
     )
