@@ -230,7 +230,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
                     petImg: "",
                     userId: idLogado
                 })
-                mutate();
+                setUserData(idLogado)
                 alert('Pet criado com sucesso!')
                 if (setAdicionando) {
                     setAdicionando(false)
