@@ -26,7 +26,7 @@ export default function Menu({ menu }: Props) {
         if (!authenticated) {
             navigate("../../")
         }
-    }, [authenticated])
+    }, [authenticated, navigate])
 
     return (
         <aside className={style.menu}>
