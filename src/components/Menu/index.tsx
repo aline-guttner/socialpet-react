@@ -25,9 +25,6 @@ export default function Menu({ menu }: Props) {
 
         if (!authenticated) {
             navigate("../../")
-        } else {
-            let userId = localStorage.getItem('user')
-            userId && setIdLogado(userId)
         }
     }, [authenticated])
 

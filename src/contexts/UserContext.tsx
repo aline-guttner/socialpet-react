@@ -65,16 +65,23 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             setAuthenticated(false)
             return
         }
-        try {
-            await http.get('/auth/verify', {
-                headers: {
-                    'x-access-token': tokenS
-                }
+        http.get('auth/verify', {
+            headers: {
+                'x-access-token': tokenS
+            }
+        })
+            .then(res => {
+                console.log(res.data)
+                setIdLogado(res.data.loggedId)
+                localStorage.setItem('user', res.data.loggedId);
+                setAuthenticated(true)
             })
-            setAuthenticated(true)
-        } catch (err) {
-            setAuthenticated(false)
-        }
+            .catch(err => {
+                console.log(err)
+                setAuthenticated(false)
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+            })
     }
 
     const Protected = ({ children, userId, paramsId }: any) => {
@@ -168,7 +175,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
                 alert('Não foi possível salvar seus dados, tente novamente mais tarde.')
             }
         } else {
-            console.log("sua Bunda")
+            console.log("Sem info")
         }
 
     }

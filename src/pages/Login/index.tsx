@@ -33,10 +33,8 @@ function Login() {
             })
             if (res.data.token) {
                 localStorage.setItem('token', res.data.token)
-                console.log(res.data.token)
                 navigate(`../user/perfil/${res.data.user._id}`)
                 setIdLogado(res.data.user._id)
-                console.log(res.data.user)
                 setUserData(res.data.user._id)
                 setAuthenticated(true)
                 localStorage.setItem('user', res.data.user._id);
