@@ -37,6 +37,10 @@ type UserContextType = {
     setTabela: (smth: boolean) => void,
     info: IUser | undefined,
     setInfo: (user: IUser | undefined) => void,
+    Protected: ({ children, userId, paramsId }: any) => any,
+    isAuthenticated: () => Promise<void>,
+    authenticated: boolean,
+    setAuthenticated: (smth: boolean) => void
 };
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -51,8 +55,32 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     const [user, setUser] = useState<IUser | undefined>(undefined)
     const [info, setInfo] = useState<IUser | undefined>(undefined)
     const [tabela, setTabela] = useState(false)
+    const [authenticated, setAuthenticated] = useState(true)
 
     const { mutate } = useApi(`user/${idLogado}`)
+
+    const isAuthenticated = async () => {
+        const tokenS = localStorage.getItem('token');
+        if (!tokenS) {
+            setAuthenticated(false)
+            return
+        }
+        try {
+            await http.get('/auth/verify', {
+                headers: {
+                    'x-access-token': tokenS
+                }
+            })
+            setAuthenticated(true)
+        } catch (err) {
+            setAuthenticated(false)
+        }
+    }
+
+    const Protected = ({ children, userId, paramsId }: any) => {
+        if (authenticated && userId !== paramsId) return (null)
+        return (children)
+    }
 
     const setUserData = async (id: string | undefined) => {
 
@@ -137,6 +165,8 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
                 console.log(err)
                 alert('Não foi possível salvar seus dados, tente novamente mais tarde.')
             }
+        } else {
+            console.log("sua Bunda")
         }
 
     }
@@ -224,7 +254,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
 
     return (
-        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setIdLogado, idLogado, excluirPet, setPets, user, setUser, setUserData, excluirUser, tabela, setTabela, info, setInfo }}>
+        <UserContext.Provider value={{ pets, petsId, image, setImage, backImg, setBackImg, handleBackChange, updatePetImg, threePets, updateUserImg, salvarUserDados, salvarPetsDados, adicionando, setAdicionando, setIdLogado, idLogado, excluirPet, setPets, user, setUser, setUserData, excluirUser, tabela, setTabela, info, setInfo, Protected, isAuthenticated, authenticated, setAuthenticated }}>
             {children}
         </UserContext.Provider>
     )

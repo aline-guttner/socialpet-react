@@ -1,11 +1,10 @@
 import { UserContext } from 'contexts/UserContext';
-import { Protected } from 'hooks/Auth';
 import { useContext, useRef } from 'react';
 import { useParams } from 'react-router';
 import style from '../Principal.module.scss';
 
 export default function FotoUser() {
-  const { idLogado } = useContext(UserContext);
+  const { idLogado, Protected } = useContext(UserContext);
   const params = useParams();
   const { image, info, updateUserImg } = useContext(UserContext)
 

@@ -1,4 +1,3 @@
-import http from 'api';
 import { useState } from 'react';
 
 export default function useToken() {
@@ -23,23 +22,4 @@ export default function useToken() {
   }
 }
 
-export const isAuthenticated = async () => {
-  const tokenS = localStorage.getItem('token');
-  if (!tokenS) return false
-  try {
-    await http.get('/auth/verify', {
-      headers: {
-        'x-access-token': tokenS
-      }
-    })
-    return true
-  } catch (err) {
-    return false
-  }
-}
 
-export const Protected = ({ children, userId, paramsId }: any) => {
-  const auth = isAuthenticated();
-  if (!auth || userId !== paramsId) return (null)
-  return (children)
-}

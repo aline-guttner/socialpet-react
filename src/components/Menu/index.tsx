@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import logout from 'assets/imagens/logout-16.png';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from 'contexts/UserContext';
 
 interface Props {
@@ -11,12 +11,25 @@ interface Props {
 }
 
 export default function Menu({ menu }: Props) {
-    const { idLogado } = useContext(UserContext);
-
+    const { idLogado, authenticated, isAuthenticated, setAuthenticated, setIdLogado } = useContext(UserContext);
+    const navigate = useNavigate();
     const handleSignOut = () => {
         localStorage.removeItem('token')
-        window.location.reload()
+        localStorage.removeItem('user')
+        setAuthenticated(false)
+        navigate('../../')
     }
+
+    useEffect(() => {
+        isAuthenticated();
+
+        if (!authenticated) {
+            navigate("../../")
+        } else {
+            let userId = localStorage.getItem('user')
+            userId && setIdLogado(userId)
+        }
+    }, [authenticated])
 
     return (
         <aside className={style.menu}>

@@ -8,24 +8,15 @@ import { UserContext } from 'contexts/UserContext';
 import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
 import UserPosts from './UserPosts';
-import { isAuthenticated, Protected } from 'hooks/Auth';
 
 
 export default function Perfil() {
     let params = useParams();
-    const auth = isAuthenticated();
     const navigate = useNavigate();
-    const { info, idLogado, setIdLogado, setUserData } = useContext(UserContext)
+    const { info, idLogado, setIdLogado, setUserData, authenticated, setAuthenticated, Protected, isAuthenticated } = useContext(UserContext)
     useEffect(() => {
         setUserData(params.id)
     }, [navigate])
-
-    if (!auth) {
-        navigate("../")
-    } else {
-        let userId = localStorage.getItem('user')
-        userId && setIdLogado(userId)
-    }
 
     return (
         <main className='container'>

@@ -1,5 +1,5 @@
 import style from './Login.module.scss';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import SPimg from 'assets/imagens/SocialPet.png';
 import { Link, useNavigate } from 'react-router-dom';
 import http from 'api';
@@ -8,8 +8,20 @@ import { UserContext } from 'contexts/UserContext';
 function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const { setUserData, setIdLogado, idLogado } = useContext(UserContext)
+    const { setUserData, setIdLogado, isAuthenticated, authenticated, setAuthenticated } = useContext(UserContext)
     let navigate = useNavigate();
+
+    useEffect(() => {
+        isAuthenticated();
+
+        if (!authenticated) {
+            navigate("../../")
+        } else {
+            let userId = localStorage.getItem('user')
+            navigate(`../user/perfil/${userId}`)
+            userId && setIdLogado(userId)
+        }
+    }, [])
 
     const aoSubmeterForm = async (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
@@ -23,13 +35,16 @@ function Login() {
                 localStorage.setItem('token', res.data.token)
                 console.log(res.data.token)
                 navigate(`../user/perfil/${res.data.user._id}`)
+                setIdLogado(res.data.user._id)
+                console.log(res.data.user)
+                setUserData(res.data.user._id)
+                setAuthenticated(true)
+                localStorage.setItem('user', res.data.user._id);
             }
-            setIdLogado(res.data.user._id)
-            console.log(res.data.user)
-            setUserData(res.data.user._id)
-            localStorage.setItem('user', res.data.user._id);
+
         } catch (err) {
-            alert('Usuário não encontrado!')
+            console.log(err)
+            alert('Credenciais incorretas!')
         }
     }
     return (

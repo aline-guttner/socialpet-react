@@ -55,7 +55,6 @@ export const PostContextProvider = ({ children }: PostContextProps) => {
             setIdLogado(idUser)
             setFeed(res.data)
             setUserPosts(res.data.filter((post: { userId: string | undefined; }) => post.userId === idUser))
-            console.log("loop")
         } catch (err) {
             console.log(err)
         }

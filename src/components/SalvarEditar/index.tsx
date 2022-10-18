@@ -1,6 +1,5 @@
 import style from './SalvarEditar.module.scss';
 import classNames from 'classnames';
-import { Protected } from 'hooks/Auth';
 import { useContext } from 'react';
 import { UserContext } from 'contexts/UserContext';
 import { useParams } from 'react-router';
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export default function SalvarEditar({ ocultarBotao, salvarDados, oculto, setOculto }: Props) {
-    const { idLogado } = useContext(UserContext)
+    const { idLogado, Protected } = useContext(UserContext)
     const params = useParams();
     return (
         <Protected userId={idLogado} paramsId={params.id}>

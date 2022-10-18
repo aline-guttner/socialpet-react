@@ -3,11 +3,10 @@ import plus from 'assets/imagens/plus-16.png';
 import style from './Pets.module.scss';
 import { useContext } from 'react';
 import { UserContext } from 'contexts/UserContext';
-import { Protected } from 'hooks/Auth';
 import { useParams } from 'react-router';
 
 export default function Pets() {
-    const { pets, adicionando, setAdicionando, tabela, idLogado } = useContext(UserContext);
+    const { pets, adicionando, setAdicionando, tabela, idLogado, Protected } = useContext(UserContext);
     const params = useParams();
     return (
         <section className='table-responsive'>

@@ -14,7 +14,6 @@ import http from "api";
 import { Link } from "react-router-dom";
 import { useApi } from "hooks/useApi";
 import { UserContext } from "contexts/UserContext";
-import { isAuthenticated, Protected } from "hooks/Auth";
 
 interface Props {
     post: IPost
@@ -25,7 +24,7 @@ export default function Post({ post }: Props) {
     const params = useParams();
     const [liked, setLiked] = useState<boolean>(false)
     const [curtidas, setCurtidas] = useState<number>(0)
-    const { idLogado } = useContext(UserContext)
+    const { idLogado, Protected } = useContext(UserContext)
     const user = localStorage.getItem('user');
     useEffect(() => {
         verificarCurtida()

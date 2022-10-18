@@ -10,7 +10,7 @@ import { useApi } from 'hooks/useApi';
 import sectionStyle from 'styles/Section.module.scss';
 import Post from 'components/Post';
 import { UserContext } from 'contexts/UserContext';
-import { isAuthenticated } from 'hooks/Auth';
+import BotaoExcluir from 'components/BotaoExcluir';
 
 const Feed = () => {
     const params = useParams();
@@ -19,8 +19,8 @@ const Feed = () => {
     const [numberOfPosts, setNumberOfPosts] = useState(30)
     const [postsMostrados, setPostsMostrados] = useState<IPost[]>([])
     const { inativo, setInativo, prevImg, titulo, setTitulo, conteudo, setConteudo, feed, getPosts, handlePostChange, publicarPost, setPreviewList } = useContext(PostContext)
-    const { setIdLogado } = useContext(UserContext)
-    const auth = isAuthenticated();
+    const { setIdLogado, authenticated, isAuthenticated } = useContext(UserContext)
+
     useEffect(() => {
         getPosts(params.id)
     }, [navigate])
@@ -56,12 +56,7 @@ const Feed = () => {
         }
     }
 
-    if (!auth) {
-        navigate("../")
-    } else {
-        let userId = localStorage.getItem('user')
-        userId && setIdLogado(userId)
-    }
+
 
     if (feed === undefined) return <main><h1 className={sectionStyle.carregando}>Carregando...</h1></main>
 
@@ -74,6 +69,7 @@ const Feed = () => {
                 Poste sobre seu pet
             </button>
             <section className={inativo ? '' : style.inativo}>
+                <BotaoExcluir onClick={() => setInativo(!inativo)} />
                 <form className={style.formPostagem} onSubmit={evento => publicar(evento)}>
                     <div>
                         <label htmlFor='titulo'>Título</label>

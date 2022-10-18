@@ -18,7 +18,7 @@ export default function Principal() {
   const params = useParams();
   const [index, setIndex] = useState(0);
 
-  const { backImg, pets, handleBackChange, threePets } = useContext(UserContext)
+  const { backImg, pets, handleBackChange, threePets, idLogado, Protected } = useContext(UserContext)
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -46,13 +46,15 @@ export default function Principal() {
             className="img-fluid"
             alt="Foto de capa" />
         </button>
-        <input
-          id="inputFile2"
-          type="file"
-          accept="image/*"
-          onChange={evento => handleBackChange(evento)}
-          ref={inputFile}
-        /></span>
+        <Protected userId={idLogado} paramsId={params.id}>
+          <input
+            id="inputFile2"
+            type="file"
+            accept="image/*"
+            onChange={evento => handleBackChange(evento)}
+            ref={inputFile}
+          />
+        </Protected></span>
 
       <div className={style.fotosNomes}>
         <FotoUser />
