@@ -58,7 +58,7 @@ export default function Post({ post }: Props) {
     }
 
     const verificarCurtida = () => {
-        let verificacao = post.usersLiked.find(curtida => curtida === params.id)
+        let verificacao = post.usersLiked.find(curtida => curtida === idLogado)
         if (verificacao !== undefined) {
             setLiked(true)
         }

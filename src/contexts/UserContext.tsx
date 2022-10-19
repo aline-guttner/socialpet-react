@@ -71,7 +71,6 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
             }
         })
             .then(res => {
-                console.log(res.data)
                 setIdLogado(res.data.loggedId)
                 localStorage.setItem('user', res.data.loggedId);
                 setAuthenticated(true)
